@@ -209,7 +209,7 @@ L'AFE est très utilisée en psychologie, mais beaucoup moins dans d'autres disc
 
 <br/>
 
-<p class="center">[<span style="font-size: 230%;" class="glyphicon glyphicon-download-alt"></span> <br/> Télécharger les données](https://rzine.fr/docs/20230425_geomorphon/data.zip)</p>
+<p class="center">[<span style="font-size: 230%;" class="glyphicon glyphicon-download-alt"></span> <br/> Télécharger les données](https://github.com/LeCampionG/Article_Rzine-AFE/raw/main/data/data.zip)</p>
 
 <br/>
 
