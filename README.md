@@ -3,6 +3,6 @@
 
 
 
-Pour la consulter, cliquez [**ici**](https://lecampiong.github.io/Article_Rzine-AFE/AFE-AFC14.html)
+Pour la consulter, cliquez [**ici**](https://lecampiong.github.io/Article_Rzine-AFE/index.html)
 
 <br/>  
