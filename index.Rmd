@@ -83,7 +83,7 @@ Pour mieux comprendre, un rapide retour historique sur ces méthodes est utile.
 
 ## Petite histoire des analyses factorielles
 
-Les premiers à théoriser les méthodes d'analyses factorielles sont le mathématicien britannique Karl Pearson (1901) et le psychologue anglais Charles Spearman (1904).
+Les premiers à théoriser les méthodes d'analyses factorielles sont le mathématicien anglais Karl Pearson (1901) et le psychologue anglais Charles Spearman (1904).
 
 Pearson développera sa réflexion sur les analyses en compostantes principales (ACP) (Pearson F.R.S., K., 1901). Alors que Spearman se concentrera sur l'analyse factorielle, afin de rendre compte de la variance commune partagée par les items d'un même outil psychométrique (Spearman, C., 1904).
 Ces pionniers des analyses factorielles travaillaient déjà sur les corrélations, et ce sont ces mêmes personnes qui ont donné leurs noms aux coefficients de corrélation  de Pearson et de Spearman.
@@ -98,12 +98,12 @@ Si les méthodes popularisées par Benzecri ont su rester à la postérité et s
 
 L'AFE vise à explorer la structure sous-jacente d'une base de donnée en identifiant des facteurs latents qui vont expliquer les relations entre les variables de notre base de données.
 
-Qu'est ce qu'un facteur latent ? C'est une variable qui est sous-jacente, car non observée ou non mesurée directement. Ce facteur sous-jacent est postulé pour expliquer les covariances (ou corrélations) entre l'ensemble des variables observées et mesurées (celles de notre base de données). Les variables observées, sont mesurées directement, tandis que les facteurs latents ne le sont pas.
+**Qu'est ce qu'un facteur latent ?** C'est une variable qui est sous-jacente, car non observée ou non mesurée directement. Ce facteur sous-jacent est postulé pour expliquer les covariances (ou corrélations) entre l'ensemble des variables observées et mesurées (celles de notre base de données). Les variables observées, sont mesurées directement, tandis que les facteurs latents ne le sont pas.
 
 Cette notion de facteur latent est au coeur de l'analyse factorielle exploratoire. En effet l'idée centrale de cette méthode est que nos variables mesurées sont influencées par ces facteurs latents, et que ces facteurs vont expliquer la structure des relations des variables entre elles. Chaque facteur latent est associé à un groupe de variables qui partagent une variance commune. En d'autres termes, le facteur latent "capture" l'information partagée par un ensemble de variables.
 Supposons que nous avons une base de données constituée de variables mesurant un ensemble de critères observables. Par exemple, lors d'un match de rugby nous avons collecté le nombre de mètres parcourus, de points marqués, du nombre de passes, de plaquages... On pourrait postuler l'existence de facteurs latents qu'on pourrait appeler "performance" et "vision de jeu". Ces deux facteurs latents ne peuvent pas être mesurés directement, mais peuvent être postulés pour tenter d'expliquer la variation commune de nos variables observées/mesurées.
 
-Notre objectif lorsque l'on réalise une AFE sera d'identifier le nombre et la nature de ces facteurs latents et de comprendre comment ils sont associés et reliés aux variables mesurées. Cette méthode va donc permettre de faire émerger un pattern de relations entre ces variables. La structuration des facteurs obtenus ne sera peut-être pas exactement celle envisagée au départ, mais l'AFE, bien que mentionnée comme exploratoire, nécessite d'avoir des hypothèses concernant l'existance des facteurs latents précisément testés. 
+Notre objectif lorsque l'on réalise une AFE sera d'identifier le nombre et la nature de ces facteurs latents et de comprendre comment ils sont associés et reliés aux variables mesurées. Cette méthode va donc permettre de faire émerger un pattern de relations entre ces variables. La structuration des facteurs obtenus ne sera peut-être pas exactement celle envisagée au départ, mais l'AFE, bien que mentionnée comme exploratoire, nécessite d'avoir des hypothèses concernant l’existence des facteurs latents précisément testés. 
 
 Ainsi, si on cherche à explorer et à identifier des dimensions explicatives sous-jacentes, qui influencent nos variables, comme c'est souvent le cas en SHS, l'AFE s'avérera être un bon choix.
 Autre avantage important de l'analyse factorielle exploratoire, c'est qu'elle peut être associée à une analyse factorielle confirmatoire afin d'étayer les résultats obtenus. Nous reviendrons plus tard dans cet article sur l'analyse factorielle confirmatoire.
@@ -204,13 +204,13 @@ A quoi servent ces différents packages ? :
 
 - Le package *[effectsize](https://cran.r-project.org/web/packages/effectsize/index.html)* pour interpréter les coefficients de l'analyse factorielle confirmatoire
 
-- Les packages *[semPlot](https://cran.r-project.org/web/packages/semPlot/index.html)* et *[semTools](https://cran.r-project.org/web/packages/semTools/index.html)* pour réaliser des equations structurelles méthode à laquelle appartient l'analyse factorielle confirmatoire
+- Les packages *[semPlot](https://cran.r-project.org/web/packages/semPlot/index.html)* et *[semTools](https://cran.r-project.org/web/packages/semTools/index.html)* pour réaliser des équations structurelles méthode à laquelle appartient l'analyse factorielle confirmatoire
 
 
 # Les données
 
 L'idée de cet article est de présenter l'analyse factorielle exploratoire et de voir comment elle peut constituer une alternative à l'analyse en composante principale.
-Pour illustrer l'intérêt de ces méthodes en dehors de la psychologie, nous utiliserons des données issues de travaux en géographie. Ces dernières portent sur le prix de l'immobilier. La dimension spatiale de ces données ne sera pas exploitée, ce n'est pas l'objectif des analyses factorielles. 
+Pour illustrer l'intérêt de ces méthodes en dehors de la psychologie, nous utiliserons des données issues de travaux en géographie. Ces dernières portent sur le prix de l'immobilier. La dimension spatiale de ces données ne sera pas exploitée, ce n'est pas l'objectif des analyses factorielles. En revanche, il pourrait être tout à fait possible et pertinent de cartographier les résultats obtenus ou de les intégrer à des modèles de statistiques spatiales. 
 
 
 <br/>
@@ -304,13 +304,7 @@ Pour cet article nous faisons le choix de le supprimer de notre analyse. Nous ch
 Attention, la suppression des outliers entraîne des considérations théoriques. Supprimer une observation telle que le Grand Paris n'est pas anodin sur l'analyse des résultats concernant le prix de l'immobilier en France hexagonale. Toutefois, laisser une telle observation empêche sa lecture selon nos hypothèses, car le focus serait fait sur la distance entre le Grand Paris et le reste de nos données, alors que ce n'est pas notre question. S'il ne paraît pas justifiable théoriquement de supprimer cette observation, alors le choix de la méthode statistique doit être questionnée. Elle n'est peut-être pas la plus adaptée pour traiter les données et répondre aux hypothèses alors formulées.
 </div>
 
-Vous pouvez charger les données propres dans le dossier `data`, le fichier s'apelle `dfzp.csv`. Voici à nouveau le lien de téléchargement ci-dessous.
-
-<br/>
-
-<p class="center">[<span style="font-size: 230%;" class="glyphicon glyphicon-download-alt"></span> <br/> Télécharger les données](https://github.com/LeCampionG/Article_Rzine-AFE/raw/main/data/data.zip)</p>
-
-<br/>
+Les données sans outliers sont dans le dossier `data`, le fichier s’appelle `dfzp.csv`. Nous chargeons cette nouvelle base de données.
 
 
 ```{r, echo = TRUE}
@@ -369,10 +363,10 @@ cor %>%
 
 ```
 
-La matrice obtenue indique que l'ensemble de nos variables sont corrélées. Nous ne sommes pas en présence d'une hétérogénéité d'informations. Nous pouvons donc rechercher une structure sous-jacente à cet ensemble de variables qui partagent une part de variance commune entre-elles et donc réaliser uen analyse factorielle.
+La matrice obtenue indique que l'ensemble de nos variables sont corrélées. Nous ne sommes pas en présence d'une hétérogénéité d'informations. Nous pouvons donc rechercher une structure sous-jacente à cet ensemble de variables qui partagent une part de variance commune entre-elles et donc réaliser une analyse factorielle.
 
 Toutefois, on observe entre certaines variables des corrélations fortes, notamment entre la part de logement sur-occupés (`part_log_suroccup`) et le pourcentage de maisons (`perc_maison`) avec un coefficient de -0.75. Ou encore entre le pourcentage de logements sur-occupés et le pourcentage de petits logements (`perc_tiny_log`) avec un coefficient de corrélation de 0.80.
-La question à se poser est de savoir s'il est absolument nécessaire de conserserver toutes ces variables. Apportent-elles toutes une part d'information singulière ou est-on en présence de redondance d'information entre nos variables ? Bref leur co-présence dasn notre modèle n'est-elle pas source de biais?
+La question à se poser est de savoir s'il est absolument nécessaire de conserver toutes ces variables. Apportent-elles toutes une part d'information singulière ou est-on en présence de redondance d'information entre nos variables ? Bref leur co-présence dans notre modèle n'est-elle pas source de biais?
 
 Pour faire ce choix il faut appliquer le principe de parcimonie. Ce principe indique qu'entre deux choix qui expliquent de manière adéquate les observations, il faut tendre vers le modèle le plus simple et le moins complexe.
 
@@ -442,7 +436,7 @@ Dans notre cas nous avons donc un KMO global méritoire (0.81) et des KMO par va
 
 ## Combien de facteurs retenir ?
 
-Lorsque l'on procède à une analyse factorielle il est très souvent nécessaire de définir le nombre de composantes que l'on souhaite (pour l'ACP) ou de facteurs latents (AFE) en amont. Cette décision repose sur l'étude des valeures propres et il existe un grand nombre d'indices et de méthodes (comme par exemple *le coude* de Katell, la règle de Kaiser-Guttman...). Cependant, il n'existe pas de consensus sur quelle méthode choisir et laquelle serait la plus appropriée selon les cas.
+Lorsque l'on procède à une analyse factorielle il est très souvent nécessaire de définir le nombre de composantes que l'on souhaite (pour l'ACP) ou de facteurs latents (AFE) en amont. Cette décision repose sur l'étude des valeurs propres et il existe un grand nombre d'indices et de méthodes (comme par exemple *le coude* de Katell, la règle de Kaiser-Guttman...). Cependant, il n'existe pas de consensus sur quelle méthode choisir et laquelle serait la plus appropriée selon les cas.
 
 Makowski en 2018, propose de se reposer sur un consensus parmi les méthodes plutôt que sur une méthode en particulier (Makowski, 2018). Il implémente sa solution dans le packge `psycho` puis dans la fonction`n_factors()` dans le package `parameters`. C'est ce que nous utiliserons ici pour définir le nombre adéquat de facteurs à retenir pour notre analyse.
 
@@ -469,13 +463,13 @@ SCREE_PLOT(dfzpp, corkind="spearman", verbose=T)
 
 ```
 
-Ici les résultats bruts renvoient 2 facteurs latents. Mais 5 méthodes, ce qui est important, font également consensus autour d'un seul facteur, ce qui peut être tout à fait logique vu le petit nombre de variables que nous avons. C'est aussi une des forces de l'AFE de pouvoir faire émerger un seul facteur latent global au sein duquel se projeteraient toutes nos variables. C'est un résultat qui peut être très intéressant.
+Ici les résultats bruts renvoient 2 facteurs latents. Mais 5 méthodes, ce qui est important, font également consensus autour d'un seul facteur, ce qui peut être tout à fait logique vu le petit nombre de variables que nous avons. C'est aussi une des forces de l'AFE de pouvoir faire émerger un seul facteur latent global au sein duquel se projetteraient toutes nos variables. C'est un résultat qui peut aussi être très intéressant.
 
-Il pourrait être très intéressant de creuser un peu plus loin. Mais cela pose une question fondamentale : **quel est le meilleur modèle ?**
+Ainsi, deux possibilités s'offrent à nous chacune pertinente pour des raisons différentes, cela pose une question fondamentale : **quel est le meilleur modèle ?**
 
-L'analyse factorielle confirmatoire que nous allons vous présenter par la suite va nous permettre de décider. En attendant, nous pouvons lancer les deux analyses !
+L'AFE va nous permettre de lancer et d'étudier les deux modèles et c'est l'analyse factorielle confirmatoire, que nous allons vous présenter par la suite, qui va nous permettre de décider quel modèle est statistiquement le plus performant. En attendant, nous pouvons lancer les deux analyses !
 
-Pour réaliser ces analyses il va falloir déterminer la méthode de factorisation. C'est-à-dire définir sur quelle mesure on se base pour extraire les facteurs de notre set de variables. Les méthodes les plus courament utilisées sont celles qui se basent soit sur le maximum de vraisemblance (maximum likelihood), soit sur les méthodes des moindres carrés (pondérés ou non) (weighted or unweighted least square) (Tabachnick, B. G., & Fidell, L. S., 2014). Dans notre exemple, après observation des distributions de nos données, nous avons choisi de réaliser nos analyses avec la méthode de factorisation du maximum de vraisemblance robuste (mlr). Cette méthode permet d'optimiser le calcul des distances et la version robuste est adaptée à des données non normales (Kyriazos & Poga, 2023). 
+Pour réaliser ces analyses il va falloir déterminer la méthode de factorisation. C'est-à-dire définir sur quelle mesure on se base pour extraire les facteurs de notre set de variables. Les méthodes les plus couramment utilisées sont celles qui se basent soit sur le maximum de vraisemblance (maximum likelihood), soit sur les méthodes des moindres carrés (pondérés ou non) (weighted or unweighted least square) (Tabachnick, B. G., & Fidell, L. S., 2014). Dans notre exemple, après observation des distributions de nos données, nous avons choisi de réaliser nos analyses avec la méthode de factorisation du maximum de vraisemblance robuste (mlr). Cette méthode permet d'optimiser le calcul des distances et la version robuste est adaptée à des données non normales (Kyriazos & Poga, 2023). 
 
 <div class="alert alert-warning" role="alert">
 Aparte sur les rotations :
@@ -505,7 +499,7 @@ print(efa1immo)
 Avec un seul facteur toutes nos variables corrèlent donc avec un facteur latent. 
 Dans notre cas on a toute une partie qui corrèle positivement et l'autre négativement. Ainsi, le pourcentage de petit logements, la part des cadres dans l'emploi, le prix median du m², la densité de population et le niveau de vie médian corrèlent positivement et à l'inverse, le pourcentage de maison, la part d'agriculteurs dans l'emploi et le pourcentage de logements vacant corrèlent négativement. Cela laisse à penser à une dichotomie qui serait ville / campagne. Ainsi le facteur latent exprimé par nos huit variables qui caractérisent nos EPCI, serait une dimension sur le niveau d'urbanité ou de ruralité.
 
-L'avantage de l'AFE c'est qu'une fois le facteur latent identifié, nous pouvons, pour chaque individu obenir un score sur ce facteur latent. Dans notre exemple, vu la dimension spatiale des données il faudrait ensuite les cartographier pour visualiser spatialement l'information. L'intérêt des scores factoriels étant d'être ré-utilisés soit dans des analyses complémentaires, soit directement pour comprendre la structure de nos données. Dans notre cas, on pourrait s'en servir pour définir un score d'urbanité et de ruralité puis le représenter
+L'avantage de l'AFE c'est qu'une fois le facteur latent identifié, nous pouvons, pour chaque individu obtenir un score sur ce facteur latent. Dans notre exemple, vu la dimension spatiale des données il faudrait ensuite les cartographier pour visualiser spatialement l'information. L'intérêt des scores factoriels étant d'être ré-utilisés soit dans des analyses complémentaires, soit directement pour comprendre la structure de nos données. Dans notre cas, on pourrait s'en servir pour définir un score d'urbanité et de ruralité puis le représenter
 
 ```{r, echo = TRUE}
 # Extraction des scores factoriels par observation
@@ -533,7 +527,7 @@ loads2immo<-print(efa2immo)
 loads2immo
 ```
 
-Cette structure à deux facteurs est également très intéressante, et a permis de faire émerger en plus du facteur latent, qui serait urbanité/ruralité, un autre facteur représentant le côut de la vie. Au niveau de ce facteur on observe une corrélation positive avec le prix médian de l'immobilier au m² et le niveau de vie médian, et négative avec le pourcentage de logement vacant. Ainsi, les EPCI ayant un score élevé sur ce facteur latent seraient les EPCI où le niveau de vie médian et le prix de l'immobilier seraient le plus élévés.
+Cette structure à deux facteurs est également très intéressante, et a permis de faire émerger en plus du facteur latent, qui serait urbanité/ruralité, un autre facteur représentant le coût de la vie. Au niveau de ce facteur on observe une corrélation positive avec le prix médian de l'immobilier au m² et le niveau de vie médian, et négative avec le pourcentage de logement vacant. Ainsi, les EPCI ayant un score élevé sur ce facteur latent seraient les EPCI où le niveau de vie médian et le prix de l'immobilier seraient le plus élevés.
 
 Extraction des charges factorielles par variable :
 ```{r, echo = TRUE}
@@ -690,7 +684,7 @@ resfact2immo <- summary(fact_2immo, standardized=T, modindices = T, fit.measures
 - *mi: si modindices=TRUE*, il s'agit des suggestions proposées par la fonction pour améliorer notre modèle. 
 
 <div class="alert alert-danger" role="warning">
-ATTENTION cette option est à utiliser avec grandes précautions. L'idée ici est bien de tester un modèle théorique pré-établi et donc chaque modifications proposées qui seraient ajoutées au modèle final doit pouvoir se justifier théoriquement. La corrélation de l'ensemble des erreurs de mesure ensemble, comme c'est souvent proposé par cette option, est difficile à justifier dans un modèle théorique pré-établi. </div>
+ATTENTION cette option (`modindices=TRUE`)est à utiliser avec grandes précautions. L'idée ici est bien de tester un modèle théorique pré-établi et donc chaque modifications proposées qui seraient ajoutées au modèle final doit pouvoir se justifier théoriquement. La corrélation de l'ensemble des erreurs de mesure ensemble, comme c'est souvent proposé par cette option, est difficile à justifier dans un modèle théorique pré-établi. </div>
 
 Voici donc la sortie brute de summary, on retrouve également les R2
 
@@ -750,7 +744,7 @@ Concrètement, le deuxième modèle testé, avec 2 facteurs latents permettrait 
 La fonction `interpret()` donne des résultats pour 10 indices d'ajustement du modèle testé aux données de l'échantillon présenté. Toutefois, ces différents indices ont été proposé au fur et à mesure du développement des modèles en équations structurelles et, s'ils ne testent pas exactement la même chose, ils permettent de rendre compte de l'ajustement d'un modèle aux données présentées. Il n'est pas nécessaire que l'ensemble des indices présentés soient satisfaisant pour envisager un bon ajustement. Dans la littérature, certains indices sont sélectionnés et tous ne sont pas présentés. De plus, une utilisation trop contrainte des seuils augmente la probabilité de faux négatifs, c'est-à-dire de considérer qu'un modèle ne s'ajusterait pas aux données alors que si (Hooper et al., 2008). Prenons l'exemple d'un indice très cité et présenté dans la littérature tel que le CFI **Comparative Fit Indice**. Que fait-il exactement ? Il compare le modèle d’intérêt avec un modèle restreint qui sert de base. Itération de modèles entre le pire (modèle nul – à 0) et le parfait (voir modèle saturé - 1) et le CFI indique où se situe le modèle d’intérêt (le notre) sur ce continuum. Le seuil communément accepté de .95 indique une réduction de l’erreur, par rapport au modèle nul, de 95%. Le modèle nul étant un modèle où toutes les relations entre les variables sont rapportées à 0. Donc en gros notre modèle s’ajuste à nos données avec un risque de 5% que ce soit du au hasard. Quel que soit le contexte on est satisfait d’avoir une réduction de l’erreur de 95%. Donc plus le seuil est inférieur à .95, plus le risque que l’ajustement soit du au hasard augmente. (Van Laar, S., & Braeken, J., 2021).
 </div>
 
-Le package Lavaan, fait également quelques propositions pour améliorer notre modèle. Théoriquement, en tenant compte de toutes ces propositions, le modèle s'ajusterait parfaitment, mais on serait dans un cas évident de sur-ajustement aux données. En revanche, cela peut être intéressant d'en prendre connaissance afin de vérifier qu'aucune relation n'ait été oubliée et qui permettrait d'améliorer significativement le modèle. Cette relation doit bien évidemment faire sens théoriquement. La syntaxe utilisée est celle du package lavaan, on peut en trouver une traduction [ici](https://lavaan.ugent.be/tutorial/syntax1.html)
+Le package Lavaan, fait également quelques propositions pour améliorer notre modèle. Théoriquement, en tenant compte de toutes ces propositions, le modèle s'ajusterait parfaitement, mais on serait dans un cas évident de sur-ajustement aux données. En revanche, cela peut être intéressant d'en prendre connaissance afin de vérifier qu'aucune relation n'ait été oubliée et qui permettrait d'améliorer significativement le modèle. Cette relation doit bien évidemment faire sens théoriquement. La syntaxe utilisée est celle du package lavaan, on peut en trouver une traduction [ici](https://lavaan.ugent.be/tutorial/syntax1.html)
 
 ```{r, echo = TRUE}
 modindices(fact_1immo) %>% arrange(-mi) %>% head(20)
