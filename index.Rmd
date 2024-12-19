@@ -763,7 +763,7 @@ modindices(fact_2immo) %>% arrange(-mi) %>% head(20)
 # Conclusion {-}
 Nous avons ainsi présenté pas à pas un exemple d'utilisation de l'AFE et en suivant de la CFA. L'idée était de présenter une méthode ancienne mais peu utilisée en dehors de la Psychologie. Il ne s'agit pas de remplacer l'ACP mais de proposer une alternative, et surtout de proposer aux usagers de faire un choix conscient sur la méthode plutôt que de répondre à une habitude disciplinaire.
 
-Ainsi, si vous souhaitez explorer vos données et identifier des facteurs latents corrélés (ou non) afin de faire émerger une structure synthétique, voir si la structure observée est cohérente avec un modèle théorique, ou encore si cette structure observée est stable dans le temps, alors l'utilisation du couple entre AFE/CFA est tout-à-fait pertinente. On peut en effet tester si un modèle éprouvé sur des données récoltées en 2011, serait bien le même en 2023 où s'il aurait subi des modifications, liées au contexte du sujet étudié.
+Ainsi, si vous souhaitez explorer vos données et identifier des facteurs latents corrélés (ou non) afin de faire émerger une structure synthétique, voir si la structure observée est cohérente avec un modèle théorique, ou encore si cette structure observée est stable dans le temps ou au contraire évolue, alors l'utilisation du couple entre AFE/CFA est tout-à-fait pertinente.
 
 # Bibliographie {-}
 
