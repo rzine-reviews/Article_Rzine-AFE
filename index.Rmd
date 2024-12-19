@@ -1,6 +1,6 @@
 ---
 title: "Identier les facteurs latents en SHS avec R"
-subtitle: "Exemples d'application sur des données en Géographie et en Psychologie en utilisant le couple analyse factorielle exploratoire (AFE) / analyse factorielle confirmatoire (CFA)"
+subtitle: "Exemples d'application du couple analyse factorielle exploratoire (AFE) / analyse factorielle confirmatoire (CFA)"
 date: "`r Sys.Date()`"
 author: 
  - name: Grégoire Le Campion
