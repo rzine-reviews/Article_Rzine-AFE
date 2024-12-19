@@ -469,7 +469,7 @@ SCREE_PLOT(dfzpp, corkind="spearman", verbose=T)
 
 ```
 
-Ici les résultats bruts renvoient 2 facteurs latents. Mais 5 méthodes, ce qui est important, font également consensus autour d'un seul facteur, ce qui peut être tout à fait logique vu le petit nombre de variables que nous avons. C'est aussi une des forces de l'AFE de pouvoir faire émerger un seul facteur latent global au sein duquel se projeterait toutes nos variables. C'est un résultat qui peut être très intéressant.
+Ici les résultats bruts renvoient 2 facteurs latents. Mais 5 méthodes, ce qui est important, font également consensus autour d'un seul facteur, ce qui peut être tout à fait logique vu le petit nombre de variables que nous avons. C'est aussi une des forces de l'AFE de pouvoir faire émerger un seul facteur latent global au sein duquel se projeteraient toutes nos variables. C'est un résultat qui peut être très intéressant.
 
 Il pourrait être très intéressant de creuser un peu plus loin. Mais cela pose une question fondamentale : **quel est le meilleur modèle ?**
 
