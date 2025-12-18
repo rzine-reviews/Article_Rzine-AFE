@@ -1,0 +1,48 @@
+project:
+  title: "rzine-template"
+  render: 
+    - index.qmd
+
+
+title: "Identier des facteurs latents en SHS avec R"
+subtitle: "Exemples d'application sur des données en Géographie en utilisant le couple analyse factorielle exploratoire (EFA) / analyse factorielle confirmatoire (CFA)"
+date: today
+# date-modified: last-modified
+author:
+  - name: "Grégoire Le Campion"
+    url: "https://rzine.fr"
+    affiliations:
+      - name: "Passages, CNRS"
+        url: "https://www.passages.cnrs.fr/"
+    orcid: 0000-0000-0000-0000
+  - name: "Solenne Roux"
+    url: "https://cv.hal.science/solenne-roux"
+    affiliations:
+      - name: "LabPsy, Université de Bordeaux"
+        url: "https://labpsy.u-bordeaux.fr/"
+    orcid: 0000-0002-5044-0608
+    
+keywords: [Analyses Factorielles, Analyses en Composantes Principales, Facteurs latents]
+abstract: |
+     Cette fiche présente deux méthodes d'analyse factorielle et leurs applications sous R. Ces méthodes cousines de l'analyse en  composante principale, s'en distinguent notamment car elles permettent de mettre en évidence des facteurs latents plutôt que des composantes principales. Cette approche par les facteurs latents est surtout utilisée en Psychologie. Moins répandue dans les autres disciplines des sciences humaines et sociales, elle pourrait néanmoins s'avérer particulièrement utile pour répondre à des hypothèses ou besoins particuliers dans toutes les disciplines des SHS. 
+     **Pré-requis** : Connaissances de base en traitement et analyse de données. Être familier des risques induits par les outliers, la multicolinéarité, etc. dans la modélisation statistique.
+
+draft: false
+published: false 
+doi: "10.xxxx/xxx-xxx"
+
+other-links:
+  - text: Code source
+    icon: github
+    href: "https://github.com/rzine-reviews/rzine-article-template"
+
+embed-resources: true
+lang: fr-FR 
+repo: "template"
+
+format:
+  rzine-html: default
+  rzine-pdf: default
+
+
+

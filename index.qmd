@@ -1,0 +1,1188 @@
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup, include=FALSE}
+
+## Global options
+knitr::opts_chunk$set(echo=TRUE,
+        	            cache=FALSE,
+                      prompt=FALSE,
+                      comment=NA,
+                      message=FALSE,
+                      warning=FALSE,
+                      class.source="bg-info",
+                      class.output="bg-warning")
+
+
+```
+
+
+# Introduction {-}
+
+
+# L'analyse factorielle
+
+*Comment rendre compte, de manière simple, de la complexité des différents types de relations qui existent entre plusieurs variables d'une base de données ?*
+
+C'est à cette question que permet, entre autre, de répondre l'analyse multivariée, et par extension les méthodes d'analyse factorielle qui appartiennent à ce champs de méthodes.
+
+
+## L'Objectif de l'analyse factorielle ?
+
+L'objectif général de l'analyse factorielle est de réduire un nombre important d'informations (c'est-à-dire les valeurs contenues dans différentes variables) à quelques grandes dimensions. Il s'agit de synthétiser l'information.
+Par exemple, imaginons des chercheurs souhaitant étudier le comportement de préservation de l'environnement des français. Pour cela, ils récoltent différentes données concernant le statut socioprofessionnel des participants, leur état de santé, leur zone géographique d'habitation, leur implication dans des associations, etc. Ils recueillent donc beaucoup de données dans chacun des différents thèmes susceptibles d'expliquer leurs hypothèses. Afin de synthétiser l'information alors recueillie, et éventuellement par la suite de pouvoir dégager des profils de comportement ou des liens de causalités, ils feront d'abord appel à l'une des méthodes de factorisation existante.
+
+Comme dans toute analyse statistique, on va chercher à expliquer la plus forte proportion de la variance (de la covariance dans le cas de l'analyse factorielle) par un nombre aussi restreint que possible de variables (appelées dans l'analyse factorielle composantes ou facteurs).
+
+
+## Les différents types d'analyses factorielles
+
+Ce que nous appelons communément *Analyses Factorielles* rassemble différentes méthodes qui se répartissent en deux grandes familles (cf. Tabachnick & Fidell - 6ème ed 2014). 
+
+Les premiers à théoriser les méthodes d'analyses factorielles sont le mathématicien britannique Karl Pearson (1901) et le psychologue anglais Charles Spearman (1904). Pearson développera sa réflexion sur les *Analyses en Compostantes Principales (ACP)* (Pearson F.R.S., K., 1901). Alors que Spearman se concentrera sur l'*Analyse Factorielle*, afin de rendre compte de la variance commune partagée par les items d'un même outil psychométrique (Spearman, C., 1904).
+
+Ces pionniers des analyses factorielles travaillaient déjà sur les corrélations, et ce sont ces mêmes personnes qui ont donné leurs noms aux coefficients de corrélation  de Pearson et de Spearman.
+
+- Les *Analyses Factorielles - FA* dans le sens anglo-saxon du terme et qui se traduit par *Factorial Analysis*. Ces méthodes développées au début du XXème siècle par Charles Spearman (Psychologue anglais) permettent de structurer des variables observées (aussi appelées variables manifestes) par l'hypothèse de l'influence de variables latentes orientant cette structuration. C'est pourquoi seule la variance partagée entre les différentes variables observées est retenue dans ce type d'analyse. C'est sur cette famille de méthodes que va porter ce présent article.
+
+- Les *Analyses en Composantes Principales - ACP*, souvent également appelées "analyses factorielles" en français, ont été développées au milieu du XXème siècle par Jean-Paul Benzécri (Mathématicien français), (Benzecri J.-P., 1973). Ces méthodes vont connaître leur essor en France dans les années 70 (Pages, J-P., et al., 1979). Il s'agit de méthodes exploratoires, permettant d'observer la structuration des données observées sans hypothèses que celles-ci soient influencées par des variables latentes (non mesurables directement). Les dimensions obtenues ne pré-existent pas à l'analyse. Dans ce cadre exploratoire, ces analyses portent sur l'ensemble de la variance présente dans un ensemble de données sélectionné pour l'analyse. 
+Les ACP font partie de la famille des analyses géométriques. Ces méthodes intègrent une place prépondérante à la répartition géométrique des valeurs observées et recherchent la meilleure représentation des observations dans un espace de sous-dimension. La structure d'un tableau de données est représentée via les coordonnées obtenues par les valeurs des colonnes et des lignes. 
+Différentes méthodes ont été développées au fil du temps. Par exemple, certaines méthodes portent uniquement sur l'analyse de variables quantitatives telles que l'ACP, alors que d'autres méthodes ont été développées spécifiquement pour l'analyse de variables qualitatives, par Jean-Paul Benzécri, telles que l'Analyse Factorielle des Correspondances (AFC) ou l'Analyse des Correspondances Multiples (ACM), (Pages, J-P., et al., 1979). 
+
+Le schéma ci-dessous permet d'avoir une vue synthétique des méthodes d'analyse factorielle couramment employées en SHS. La représentation n'est pas exhaustive mais permet au lecteur de s'y retrouver parmi les différentes méthodes d'analyses existantes.
+
+Les différents acronymes sont détaillés au fur et à mesure de la lecture du texte, ainsi que dans la partie *lexique* en fin d'article. Afin d'éviter toute confusion, les acronymes des méthodes d'analyses factorielles anglo-saxonnes sont repris dans leurs versions anglaises.
+
+
+```{dot}
+
+digraph af_acp {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica]
+  "Analyses Factorielles"; "Analyses en Composantes Principales"; EFA; CFA; ACP; AFC; ACM; AFM; AFDM; AFMH
+
+  # several 'edge' statements
+  "Analyses Factorielles"->EFA "Analyses Factorielles"->CFA
+  "Analyses en Composantes Principales"->ACP "Analyses en Composantes Principales"->AFC AFC->ACM ACP->AFDM AFC->AFDM
+  "Analyses en Composantes Principales"->AFM AFM->AFMH
+}
+
+```
+
+Si les méthodes popularisées par Benzécri ont su rester à la postérité et servir dans toutes les SHS, notamment grâce à la mise en oeuvre des méthodes pour travailler sur des données qualitatives, il peut être utile de se rappeler qu'il en existe d'autres qui les ont précédées. Les méthodes relevant de l'école anglo-saxonne, si elles sont très utilisées en psychologie - discipline de Spearman, restent plus rare dans les autres sciences humaines et sociales.
+
+Dans cet article nous centrerons notre présentation sur les méthodes d'analyses factorielles développées dans le contexte anglo-saxon. Contrairement aux analyses factorielles de l'école française qui sont employées dans un objectif exploratoire, ces méthodes de l'école anglaise ont une approche modélisante. 
+
+Nous présenterons deux types d'analyses qui peuvent être réalisées indépendemment mais qui sont souvent présentées successivement. Dans un premier temps nous présenterons l'analyse factorielle exploratoire (EFA), qui comme son nom ne l'indique pas n'est pas réalisée dans une approche totalement exploratoire, car sa mise en oeuvre implique des hypothèses précises que l'analyse testera. Puis dans un second temps nous présenterons l'analyse factorielle confirmatoire (CFA), qui permet de tester la persistance d'une structuration des données en éprouvant un modèle pré-défini soit par une analyse exploratoire réalisée dans une étape préalable, soit par ces deux types d'analyses factorielles exploratoires et confirmatoires réalisées par d'autres auteurs. En effet, la particularité de ce type d'analyse est la recherche de la persistance d'une structuration de données alors modélisée. Très utilisées en Psychologie pour le développement et l'utilisation d'outils psychométriques (sous forme de questionnaire), les professionnels de santé vont pouvoir reprendre des outils développés par d'autres sans courir le risque qu'ils fonctionnent différemment. Il est donc essentiel pour les chercheurs de s'assurer de la stabilité de ces outils avant de les diffuser. Par exemple, afin de déterminer si un patient est déprimé ou non, les professionnels de santé vont utiliser un outil psychométrique dédié. Il n'est pas envisageable que cet outil détermine à tord qu'une personne n'ait pas besoin de suivi psychologique parce que l'outil aurait été mal conçu. 
+
+# Les méthodes anglaises d'Analyses Factorielles pour quoi faire ?
+
+Ces méthodes visent à explorer (dans le cadre d'une EFA) ou à valider (dans le cadre d'une CFA) la structure sous-jacente d'une base de donnée en identifiant des facteurs latents qui vont expliquer les relations entre les variables de cette base de données.
+
+Qu'est ce qu'un facteur latent ? C'est une variable qui est sous-jacente, car non observée ou mesurée directement. Ce facteur sous-jacent est postulé pour expliquer les covariances (ou corrélations) entre l'ensemble des variables observées, sélectionnées au préalable dans le cadre d'hypothèses théoriques. Les variables observées, sont mesurées directement, tandis que les facteurs latents ne le sont pas.
+
+Cette notion de facteur latent est au coeur de ces méthodes d'analyses factorielles. En effet l'idée centrale de ces méthodes est que les variables mesurées sont influencées par ces facteurs latents, et que ces facteurs vont expliquer la structure des relations des variables entre elles. Chaque facteur latent est associé à un groupe de variables qui partagent une variance commune. En d'autres termes, le facteur latent exprime l'information partagée par un ensemble de variables.
+
+Supposons que nous avons une base de données constituée de variables mesurant un ensemble de critères observables. Par exemple, lors d'un match de rugby nous avons collecté le nombre de mètres parcourus, de points marqués, du nombre de passes, de plaquages... On pourrait postuler l'existence de facteurs latents qu'on pourrait appeler *performance* et *vision de jeu*. Ces deux facteurs latents ne peuvent pas être mesurés directement, mais peuvent être postulés pour tenter d'expliquer la variation commune des variables observées/mesurées qui rendent compte de ces deux facteurs latents.
+
+Notre objectif lors de la réalisation d'une EFA sera d'identifier le nombre et la nature de ces facteurs latents et de comprendre comment ils sont associés et reliés aux variables mesurées. Cette méthode va donc permettre de faire émerger un pattern de relations entre ces variables. La structuration des facteurs obtenus ne sera peut-être pas exactement celle envisagée au départ, mais l'EFA, bien que mentionnée comme exploratoire, nécessite d'avoir des hypothèses concernant l'existance des facteurs latents précisément testés. Par la suite une CFA pourra être envisagée afin de vérifier si la structure obtenue avec l'EFA est retrouvée auprès d'un autre échantillon d'une même population. 
+
+Ainsi, si l'objectif est d'explorer et d'identifier des dimensions explicatives sous-jacentes, qui influencent des variables observées, comme c'est souvent le cas en SHS, les analyses factorielles de l'école anglo-saxonne s'avéreront être un bon choix.
+
+## ACP et FA, quelles différences ?
+
+En réalité, les différences entre ces deux familles de méthodes sont importantes, bien que pas si simples à appréhender intuitivement. Ces méthodes vont différer tant dans leur objectif que dans leur approche. Ainsi, voici trois points principaux de divergence, qu'il est nécessaire de prendre en compte pour faire un choix éclairé entre **Analyse en Composantes Principales** et **Analyse Factorielle** : l'objectif principal, la nature des variables et l'interprétation des résultats.
+
+
+1- L'objectif principal :
+
+ACP et FA ont comme objectif commun la réduction de l'information, mais elles ne vont pas du tout opérer de la même manière.
+
+  - Les ACP : l'objectif est de réduire la dimensionnalité des données en utilisant les composantes principales. L'ACP va transformer les variables observées en un ensemble de variables non corrélées, que l'on appelle composantes principales, qui ne pré-existaient pas à l'analyse contrairement aux facteurs latents.
+  La composante principale est une combinaison linéaire des variables originales qui prend en compte la part de variance la plus élevée présente dans les données. Ces composantes principales sont classées par ordre décroissant de l'importance de la variance qu'elles capturent. Tout l'enjeu de l'ACP est de définir des composantes principales qui permettent de réduire la dimensionnalité des données tout en conservant l'information essentielle contenue dans les variables d'origine. Les composantes principales étant des variables non corrélées entre elles, cela simplifie l'interprétation des relations entre les observations. 
+  *Pour résumer, l'objectif principal de l'ACP est de synthétiser les données en composantes principales en tentant de conserver le maximum de variance des variables de la base de données.*
+  - Les FA : visent à explorer la structure sous-jacente des données en identifiant des facteurs latents qui expliquent les relations entre les variables observées. L'objectif est de réduire la dimensionnalité des données en se centrant sur la variance partagée entre les variables et non sur l'ensemble des données. Dans le cadre de l'EFA, une partie de la variance des données ne sera pas retenue dans le modèle. L'objectif n'étant pas de conserver le maximum de variance de l'ensemble de données, mais bien de se centrer sur la variance partagée entre les différentes variables. Ces analyses sont généralement réalisées sur les variables d'un ensemble de données, contrairement aux analyses en composantes principales qui peuvent être effectuées aussi bien sur des variables que sur des observations.
+  
+2- La nature des variables :
+
+  - Les ACP : Les variables de la base de données sont considérées comme des mesures directes. On cherche à réduire la dimensionnalité sans nécessairement interpréter les composantes principales en tant que telles.
+  - Les FA : Les variables sont considérées comme des indicateurs de facteurs latents. On souhaite comprendre la structure sous-jacente de la base de données.
+
+3- Interprétabilité :
+
+- Les ACP : Les composantes principales sont des combinaisons linéaires des variables originales et peuvent être peu interprétables du point de vue conceptuel.
+On va considérer le poids ou la contribution d'une variable pour chaque composante principale, ce qui va permettre de mesurer l'importance relative des variables dans la variance totale des données.
+- Les FA : Les facteurs latents identifiés s'interprètent comme des concepts sous-jacents aux données, mais qu'il est nécessaire d'identifier et de théoriser. Ce travail doit être fait en amont de la réalisation des analyses.
+L'interprétation, repose sur l'étude des charges factorielles associées à chaque facteur latent. Il s'agit tout simplement des corrélations de chaque variable avec chaque facteur latent. Ces corrélations permettent d'étudier la relation entre les variables et les facteurs latents, et donc de donner du sens à ces facteurs alors identifiés.
+
+
+Le choix entre ces deux famille de méthodes repose globalement sur ce que l'on veut étudier et de ce que l'on veut faire de la variance. Si on considère qu'il n'y a pas de facteur latent et que l'on souhaite conserver le maximum de la variance des données alors les méthodes de la famille des ACP est un choix tout à fait pertinent. En revanche, si on envisage une structure sous-jacente à nos données, et donc la présence de facteurs latents, et que l'on estime qu'il n'est pas forcément nécessaire de conserver toute la variance de nos données, mais uniquement celle qui est partagée entre nos variables, alors les FA seront le bon choix.
+
+## Limites des FA
+
+Comme toutes les méthodes d'analyse de données les FA comportent des limites.
+
+**Le type de variable**
+
+La limite majeure des FA, repose sur le fait que cette méthode est plus efficiente avec des variables continues. Toutefois, il est tout-à-fait possible de l'utiliser avec des variables ordonnées  : catégories qui suivent un ordre, (par ex. de *1. "Pas du tout d'accord"* à *5. "Tout-à-fait d'accord"*) en traduisant chaque catégorie par un score. On peut également réaliser ce type d'analyse avec des variables catégorielles (catégories sans échelle de valeur entre elles par ex. : profession), mais il faudra alors être beaucoup plus prudent sur l'interprétation. Et selon les cas, il peut être plus pertinent d'utiliser une autre méthode de factorisation comme l'analyse factorielle des correspondances (AFC) ou une analyse des correspondances multiples (ACM).
+
+**La taille de l'échantillon**
+
+La taille de l'échantillon est également un élément contraignant pour ce type d'analyse. Si l'échantillon est trop faible au regard de la taille des informations à synthétiser, les résultats obtenus risquent de surreprésenter les spécifictés de la population alors testée. La structure de l'analyse ne sera pas généralisable, mais influencée par les spécificités de l'échantillon. Il est donc important d'avoir une taille d'échantillon suffisamment importante afin de pallier ce type de biais (Young and Pearce 2013). L'échantillon devra être sélectionné selon le nombre de variables contenues dans l'analyse et la force du lien entre les variables mesurées et les facteurs latents (Watkins, M. W., 2018). Plus ce lien sera fort, moins il sera nécessaire d'avoir un échantillon conséquent. Certains auteurs indiquent que si les corrélations entre les variables manifestes et les facteurs latents sont plutôt fortes (aux alentours de 0.80), 150 observations peuvent suffire à réaliser une méthode qui relève des FA. En revanche, si ces mêmes corrélations sont plutôt faibles (inférieures à 0.40) il serait alors nécessaire d'avoir un échantillon d'au-moins 300 observations pour retrouver une structure factorielle stable (Schreiber, J., 2021).
+
+**La force des liens**
+
+Des corrélations trop fortes ou trop faibles entre les variables peuvent mettre en péril la mise en facteur des informations, mais pas pour les mêmes raisons. 
+Si l'ensemble de variables soumis à la factorisation n'est pas du tout corrélé, alors les éléments présentés ne partagent pas d'éléments communs et ne peuvent pas être résumés sous un même facteur. L'hétérogénéité des informations peut tout-à-fait empêcher son résumé statistique via l'utilisation des analyses factorielles. Il n'est pas possible de réaliser des analyses factorielles sur des ensembles de variables non-corrélées.
+A l'inverse, si les variables retenues pour l'analyse sont trop fortement corrélées alors ceci sous-tend qu'elles contiennent des informations tellement similaires qu'elles en sont redondantes. Cette redondance peut tout-à-fait biaiser la factorisation des informations, car certains éléments seront surreprésentés - sans que cela ne reflète une quelconque réalité - par rapport à d'autres. Ce problème peut être résolu en sélectionnant uniquement l'une des deux variables représentatives d'un même phénomène. Par exemple, la catégorie socio-professionnelle et le niveau de diplôme sont généralement très corrélés, il faudra sélectionner l'une de ces deux variables dans le modèle d'analyse factorielle pour que celui-ci soit optimal (Tabachnick, B., & Fidell, L., 2014).
+
+**L'interprétation**
+
+La subjectivité de l'interprétation peut aussi être une limite, notamment sur l'identification et l'interprétation des facteurs latents, qui dépendra beaucoup du chercheur et de son positionnement théorique.
+
+## Les FA aujourd'hui en sciences humaines
+
+En SHS aujourd'hui les FA sont surtout utilisées en psychologie, et ce depuis de nombreuses années.
+La validation des tests psychométriques constitue un exemple classique de l’utilisation de l'EFA et de son utilisation conjointe avec l'Analyse factorielle confirmatoire (CFA), à l'image de l'association régulièrement employée entre ACP et CAH (Classification Ascendante Hiérarchique) pour classer des observations. 
+L'analyse factorielle exploratoire et confirmatoire se complètent également très bien. Il est d'ailleurs très fréquent que ces deux méthodes soient utilisées ensemble. C'est même plutôt recommandé, tels que l'argumentent Flora & Flake dans un article paru en 2017 (Flora & Flake, 2017).
+Afin de réaliser des tests standardisés pour évaluer des processus psychologiques, les psychologues ont recours à ce couple d’analyses factorielles, en réalisant une analyse factorielle exploratoire sur un premier échantillon et une analyse factorielle confirmatoire sur un second échantillon (ayant tous 2 les mêmes caractéristiques). Il est donc nécessaire d'avoir une base de données avec un grand nombre d'observations afin de permettre la création d'un échantillon d'entrainement et de test suffisamment grands. Réaliser ces analyses exploratoires et confirmatoires sur deux échantillons différents permet d'éliminer toute spécificité liée à l'échantillonnage.
+
+Les psychologues se sont tournés vers ces techniques de réduction des dimensions car, pour la plupart de leurs études, ils souhaitent se centrer sur la variance partagée entre chaque item, plutôt que de chercher à conserver la variance totale d'un ensemble de variables. Le processus méthodologique alors suivi permet de faire émerger une structure factorielle sans nécessairement la totalité des variables présentes. Cette structure factorielle permet d'observer comment les variables du jeu de données rendent compte des facteurs latents qui les sous-tendent. L'objectif finalement est de savoir *"Est-ce que je mesure bien ce que je pense mesurer ?"*. En d'autres termes, est-ce que les questions posées aux répondants sont adaptées pour accéder à une dimension latente non appréhendable directement. 
+
+<div class="alert alert-danger" role="warning">
+Un point important nous semble à présent à souligner, sur l'utilisation des analyses factorielles exploratoires et confirmatoires. A partir du moment où un test psychométrique (en Psychologie) ou un questionnaire est validé, c'est-à-dire qu'il a déjà été éprouvé par le couple EFA/CFA sur un jeu de données assez conséquent, avec une population ayant les mêmes caractéristiques, il n'est pas nécessaire de remettre en cause la structure du test. Nous pouvons directement procéder à une analyse factorielle confirmatoire (CFA), afin de vérifier si le modèle, alors pré-établi par d'autres, s'ajuste à nos données. Ceci est conseillé afin de ne pas multiplier les tests statistiques et entraîner une inflation des résultats faussements positifs (encore appelés erreur de type I). Dit plus simplement cela permet d'avoir un étalonnage et de pouvoir comparer les populations vis-à-vis d'un même outil. Les psychologues ont des outils étalonnés pour mesurer les croyances dans les phénomènes paranormaux par exemple. On pourrait très bien imaginer que les sciences sociales procèdent de la même manière sur d'autres thématiques afin de soumettre le même questionnaire à différents échantillons d'une même population. 
+</div>
+
+Cette approche statistique, très courante en psychologie, peut tout-à-fait être appliquée aux autres disciplines des SHS, à la fois sur l'exploration des bases de données (EFA), ou sur une comparaison dans le temps (couple EFA/CFA). Nous verrons dans cet article comment adapter ce processus statistique à des données non psychologiques.
+
+# Les packages
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(correlation, corrplot, dplyr, EFA.dimensions, effectsize, ggraph, ggplot2, here, lavaan, nFactors, parallel, parameters, psych, RColorBrewer, see, SemPlot, SemTools, table1, usdm)
+
+```
+
+A quoi servent ces différents packages ?
+
+Les packges spécifiques aux méthodes d'Analyse Factorielle présentées : 
+
+- Les packages *[EFA.dimensions](https://cran.r-project.org/web/packages/EFA.dimensions/index.html)*, *[nfactors](https://cran.r-project.org/web/packages/nFactors/index.html)*, *[psych](https://cran.r-project.org/web/packages/psych/index.html)* et *[parallel](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf)* sont des packages utilisés pour vérifier si les données sont factorisables grâce à différents indices statistiques (KMO, etc.). Ils permettent également de déterminer le nombre de facteurs optimal à retenir selon l'ensemble de données soumis à l'analyse.
+
+- Le package *[lavaan](https://lavaan.ugent.be/)* permet de réaliser des modèles statistiques impliquant des variables latentes, telles qu'elles existent dans les Analyses factorielles exploratoires et confirmatoires.
+
+- Le package *[effectsize](https://cran.r-project.org/web/packages/effectsize/index.html)* pour interpréter les coefficients de l'analyse factorielle confirmatoire
+
+- Les packages *[semPlot](https://cran.r-project.org/web/packages/semPlot/index.html)* et *[semTools](https://cran.r-project.org/web/packages/semTools/index.html)* pour réaliser des equations structurelles méthode à laquelle appartient l'analyse factorielle confirmatoire
+
+Les packages non-spécifiques aux méthodes présentées : 
+
+- *[pacman](https://cran.r-project.org/web/packages/pacman/index.html)* : est un package de management de packages.
+
+- *[here](https://cran.r-project.org/web/packages/here/index.html)* : permet de gérer les chemin d'accès au sein de notre projet
+
+- *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* est un package de manipulation de données.
+
+- Les packages *[parameters](https://cran.r-project.org/web/packages/parameters/index.html)*, et *[table1](https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html)* sont utilisés dans cette fiche pour réaliser des statistiques descriptives et des mises en forme de sortie exploitables directement.
+
+- les packages *[correlation](https://cran.r-project.org/web/packages/correlation/index.html)* et *[corrplot](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html)* permettent de réaliser des corrélations et des graphiques tels que des corrélogrammes.
+
+- Le package *[usdm](https://cran.r-project.org/web/packages/usdm/usdm.pdf)* comprend différentes fonction permettant d'explorer l'impact de différentes sources d'incertitudes dans des mesures d'association. Nous utiliserons surtout les fonctions permettant de mesurer la multicolinéarité entre des variables.
+
+- *[ggraph](https://cran.r-project.org/web/packages/ggraph/index.html)*,  *[ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html)*,  *[RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html)* et *[see](https://cran.r-project.org/web/packages/see/index.html)* sont des packages dédiés à la production de représentations graphiques.
+
+# Les données
+
+L'idée de cet article est de présenter des méthodes d'analyse factorielle issues de l'école anglo-saxonne et de voir comment elles peuvent constituer une alternative aux analyses en composantes principales.
+
+Pour illustrer l'intérêt de ces méthodes en dehors de la psychologie, nous utiliserons des données issues de travaux en géographie. Ces dernières portent sur le prix de l'immobilier. La dimension spatiale de ces données ne sera pas exploitée, ce n'est pas l'objectif des analyses factorielles. 
+
+Les données du prix de l’immobilier par EPCI (prix médian au m²) sont issues des ventes observées sur l’année 2018, extraites depuis la base de données des notaires de France par Frédéric Audard et Alice Ferrari. Ce fichier a été simplifié pour ne conserver que les variables d’intérêts parmi une cinquantaine
+Les données statistiques proviennent de l’INSEE (année 2019) : 9 variables ont été choisies pour leur potentialité à expliquer les variations des prix de l’immobilier, concernant la population, le logement et les revenus et niveaux de vie.
+
+Ce fichier est composé des 9 variables suivantes :
+
+- *prix_med* : prix médian par EPCI à la vente au m²
+- *perc_log_vac* : % logements vacants
+- *perc_maison* : % maisons
+- *perc_tiny_log* : % petits logements
+- *dens_pop* : densité de population
+- *med_niveau_vis* : médiane du niveau de vie
+- *part_log_suroccup* : % logements suroccupés
+- *part_agri_nb_emploi* : % agriculteurs
+- *part_cadre_profintellec_nbemploi* : % cadres et professions intellectuelles
+
+Afin de réaliser le couple d'analyse EFA/CFA, comme expliqué précédemment, nous devons partionner les données en 2 ensembles distincts. Cette partition est réalisée de façon aléatoire entre les observations. Nous obtiendrons deux ensembles de données, l'un pour réaliser l'EFA et l'autre pour effectuer la CFA.
+
+<br/>
+
+<p class="center">[<span style="font-size: 230%;" class="glyphicon glyphicon-download-alt"></span> <br/> Télécharger les données](https://github.com/LeCampionG/Article_Rzine-AFE/raw/main/data/data.zip)</p>
+
+<br/>
+
+
+```{r, echo = TRUE}
+
+# Chargement des données de base
+
+library(here)
+csv_path <- here("data", "immo_afe.csv")
+
+dfz<- read.csv2(csv_path, row.names=1)
+
+```
+
+
+**Partitionnement des données :**
+```{r, echo = TRUE}
+## Indiquer une graine pour conserver la même répartition lors des partitionnements à chaque exécution du script
+set.seed(345)
+## En premier lien le partitionnement des data
+partitions <- datawizard::data_partition(dfz, proportion = 0.5) # ici division du corpus eavec 50% des individus dasn l'échantillon d'entrainement
+training <- partitions$p_0.5
+test <- partitions$test
+
+training$.row_id <- NULL
+test$.row_id <- NULL
+```
+
+Nous obtenons deux ensembles de données, l'un comprenant 612 observations, sur lequel nous réaliserons l'EFA, et le second comptant 611 observations sur lequel nous réaliserons la CFA.
+
+# Mise en pratique : exemple du prix de l'immobilier en France hexagonale
+
+Il est extrêmement recommandé de centrer-réduire ses données pour réaliser une analyse statistique multivariée telle qu'une analyse factorielle, ou plus généralement lorsque l'on travaille avec des variables n'étant pas sur les mêmes échelles, sur les mêmes ordres de grandeurs. Cela implique de faire subir aux données une transformation statistique visant à ce qu’elles aient une moyenne de 0 et un écart-type de 1. On parle aussi en statistique de standardisation. Cette transformation permet de conserver la variabilité des données (la distance entre chaque valeur reste inchangée), tout en les rendant comparables (elles sont placées sur une même échelle). Dans le cadre de modélisations statistiques, il est nécessaire de réaliser cette opération sur les variables explicatives du modèle. Sur R, cette opération peut se réaliser facilement avec la fonction `scale()` - que nous utilisons dans l'exemple présenté - ou à “la main”. L’opération est simple : il s'agit de soustraire chaque valeur par la moyenne puis de divise chaque valeur par l’écart-type. Dans notre exemple cette opération a déjà été effectuée précédemment. Les données chargées sont donc déjà centrées et réduites.
+
+
+La première étape étant toujours la description des données, voici le code pour réaliser un tableau récapitulatif des variables, ici sur le prix de l'immobilier. 
+Dans cette partie, nous ne présentons les statistiques descriptives que sur l'une des deux bases de données (*training*) pour plus de lisibilité. Néanmoins, nous avons bien vérifié les statistiques descriptives sur les deux ensembles de données.
+
+```{r, results= FALSE}
+
+table1(~ prix_med + perc_log_vac + perc_maison + perc_tiny_log + dens_pop + med_niveau_vis + part_log_suroccup + part_agri_nb_emploi + part_cadre_profintellec_nbemploi , data=training) 
+
+```
+
+La réalisation des représentations graphiques permet d'appréhender les distributions des variables et leurs éventuelles spécificités. Voici une façon de réaliser un diagramme des distributions des variables.
+
+```{r, results= 'hide'}
+dfgraph<-subset(training, select = c(prix_med, perc_log_vac, perc_maison, perc_tiny_log, dens_pop, med_niveau_vis, part_log_suroccup, part_agri_nb_emploi, part_cadre_profintellec_nbemploi))
+
+par( mfrow= c(3,3) )
+
+h1 <- hist(dfgraph$prix_med, main=NULL)
+h2 <- hist(dfgraph$perc_log_vac, main=NULL)
+h3 <- hist(dfgraph$perc_maison, main=NULL)
+h4 <- hist(dfgraph$perc_tiny_log, main=NULL)
+h5 <- hist(dfgraph$dens_pop, main=NULL)
+h6 <- hist(dfgraph$med_niveau_vis, main=NULL)
+h7 <- hist(dfgraph$part_log_suroccup, main=NULL)
+h8 <- hist(dfgraph$part_agri_nb_emploi, main=NULL)
+h9 <- hist(dfgraph$part_cadre_profintellec_nbemploi, main=NULL)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
+dev.off()
+
+```
+
+## Les pré-requis de l'analyse factorielle
+
+Comme toutes les méthodes statistiques les analyses factorielles ont un certain nombre de pré-requis à vérifier. Ne pas en tenir compte nous expose à des résultats biaisés voire complètement erronés.
+
+### Les Outliers : comment les gérer ?
+
+<div class="alert alert-danger" role="warning">
+La question du traitement de ces individus extrêmes est loin d'être simple. Elle doit faire l'objet d'une réflexion et de choix importants qu'il faut pouvoir assumer tant statistiquement que théoriquement.</div>
+
+Les outliers sont les individus extrêmes. Il est toujours nécessaire de pouvoir les identifier afin de savoir comment les gérer. L'enjeu autour de ces individus c'est qu'ils vont nécessairement influencer (voire fausser) les résultats des analyses. Les résultats obtenus pourront être différents s'ils sont conservés ou retirés de l'analyse (Zijlstra et al. 2011). Si les résultats difèrent il sera nécessaire de les présenter avec et sans les individus extrêmes, ainsi que d'expliciter la conclusion retenue pour plus de transparence.
+
+Il existe un grand nombre d'indicateurs et de distances qui permettent d'identifier des outliers. Nous ne les présenterons pas dans le cadre de cet article. Il existe différents travaux sur le sujet pouvant vous éclairer, dont voici un aperçu (Aguinis et al. 2013 ; Bakker, M., & Wicherts, J. M., 2014 ; Leys et al. 2018 ; Leys et al. 2019, etc.). 
+
+Nous testons donc la présence d'individus extrêmes sur les deux bases de données *training* et *test*.
+
+Pour la base de données *training*, voici le code. Nous utilisons la distance de MCD robuste, qui est conseillé par la littérature dans un contexte d'analyse multivariée. 
+
+```{r}
+#| echo: false
+#| output: false
+
+# #MCD avec le package rrcov
+library(rrcov)
+training2 <- training %>% select(-nom_epci)
+# # 1- calcul de la distance MCD
+mcd_t1 <- CovMcd(training2, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_t1, which="all")
+
+# Des valeurs s'éloignent de la droite, identification des outliers
+# fusion de la base initiale et des distances de mahalanobis robustes
+tp<-na.omit(training2)
+t1mah<-cbind(tp, mcd_t1$raw.mah)
+plot(t1mah$`mcd_t1$raw.mah`)
+
+# 3- suppression de ces outliers
+t1pp<-subset(t1mah, t1mah$`mcd_t1$raw.mah`< 2000)
+out1 <- subset(t1mah, t1mah$`mcd_t1$raw.mah`> 2000)
+
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t1p_B<-subset(t1pp, select = -c(`mcd_t1$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp11 <- CovMcd(t1p_B, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp11, which="all")
+
+tp11<-na.omit(t1p_B)
+t111mah<-cbind(tp11, mcd_tp11$raw.mah)
+plot(t111mah$`mcd_tp11$raw.mah`)
+
+# 3- suppression de ces outliers
+t11pp<-subset(t111mah, t111mah$`mcd_tp11$raw.mah`< 200)
+out2<-subset(t111mah, t111mah$`mcd_tp11$raw.mah`> 200)
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t11p_B<-subset(t11pp, select = -c(`mcd_tp11$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp11p <- CovMcd(t11p_B, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp11p, which="all")
+
+t1111mah<-cbind(t11p_B, mcd_tp11p$raw.mah)
+plot(t1111mah$`mcd_tp11p$raw.mah`)
+
+trainingp<-t11p_B
+
+# A la lecture graphique, il n'y a plus d'outliers
+```
+
+D'après nos connaissances il n'existe pas de seuils précis afin de déterminer si une observation extrême doit être supprimée ou non avec la méthode MCD robuste. En effet, il n'existe pas de règles pré-établies en la matière. Nous choisissons donc de supprimer les observations que nous considérons très éloignées du reste de l'échantillon à la lecture graphique. Nous avons supprimé 25 observations pour cette première base de données *training*. Après cette suppression, nous avons vérifié à nouveau la présence d'observations extrêmes. Cette nouvelle lecture graphique ne témoignant pas d'un éloignement visible important, nous avons décidé de ne pas supprimer davantage d'observations. 
+
+```{r}
+#| echo: false
+#| output: false
+
+# #MCD avec le package rrcov
+library(rrcov)
+test2 <- test %>% select(-nom_epci)
+# # 1- calcul de la distance MCD
+mcd_t2 <- CovMcd(test2, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_t2, which="all")
+
+# Des valeurs s'éloignent de la droite, identification des outliers
+# fusion de la base initiale et des distances de mahalanobis robustes
+tp2<-na.omit(test2)
+t2mah<-cbind(tp2, mcd_t2$raw.mah)
+plot(t2mah$`mcd_t2$raw.mah`)
+
+# 3- suppression de ces outliers
+t2pp<-subset(t2mah, t2mah$`mcd_t2$raw.mah`< 10000)
+out3<-subset(t2mah, t2mah$`mcd_t2$raw.mah`> 10000)
+
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t2p_B<-subset(t2pp, select = -c(`mcd_t2$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp2 <- CovMcd(t2p_B, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp2, which="all")
+
+# Des valeurs s'éloignent de la droite, identification des outliers
+# fusion de la base initiale et des distances de mahalanobis robustes
+tp22<-na.omit(t2p_B)
+t22mah<-cbind(tp22, mcd_tp2$raw.mah)
+plot(t22mah$`mcd_tp2$raw.mah`)
+
+# 3- suppression de ces outliers
+t2pp2<-subset(t22mah, t22mah$`mcd_tp2$raw.mah`< 400)
+out4<-subset(t22mah, t22mah$`mcd_tp2$raw.mah`> 400)
+
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t2p_B2<-subset(t2pp2, select = -c(`mcd_tp2$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp22 <- CovMcd(t2p_B2, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp22, which="all")
+
+t222mah<-cbind(t2p_B2, mcd_tp22$raw.mah)
+plot(t222mah$`mcd_tp22$raw.mah`)
+
+testp<-t2p_B2
+
+# A la lecture graphique, il n'y a plus d'outliers
+```
+
+Nous avons supprimé 18 observations pour cette seconde base de données, *test*. Après cette suppression, nous avons vérifié à nouveau la présence d'observations extrêmes. Cette nouvelle lecture graphique ne témoignant pas d'un éloignement visible important, nous avons décidé de ne pas supprimer davantage d'observations.
+
+Nous avons retiré 43 outliers des bases de données sur le prix de l'immobilier. C'est-à-dire que nous avons supprimé 43 EPCI ayant des valeurs très éloignées des autres sur cet aspect. Parmi les EPCI concernées, il y a notamment le grand Paris, mais également d'autres localités où le prix de l'immobilier est particulièrement élevé, telle que la communauté de commune d'Annemasse les Voirons, frontalière avec la Suisse. Mais le prix de l'immobilier n'est pas le seul élément qui caractérise les valeurs extrêmes identifiées, car notre analyse est multivariée et tient en compte d'autres indicateurs tels que la part de logements vacants ou encore le niveau de vie médian. 
+Pour cet article nous avons fait le choix de supprimer ces EPCI de notre analyse. En effet, nous cherchons à mettre en évidence des facteurs latents, s'exprimant au travers des variables mesurées, qui caractérisent les EPCI de la France Hexagonale. Or malheureusement si nous conservons ces valeurs extrêmes nous nous exposons à ne pas observer la variabilité des différentes EPCI de l'hexagone, mais uniquement de la distance entre ces EPCI où le prix de l'immobilier est particulièrement élevé et les autres EPCI de la base de données. Ces EPCI étant tellement éloignées des autres EPCI sur l'ensemble des variables de la base de données que celles-ci écrasent les variabilités entre les autres communes. Afin de pouvoir faire émerger une structure factorielle qui ait du sens entre les EPCI, nous faisons le choix de sortir ces EPCI éloignées des autres de nos analyses. 
+
+Les scripts des traitements des valeurs extrêmes sur les bases de données *training* et *test* sont disponibles en annexe.
+
+Les données sans valeurs extrêmes sont dans les bases *trainingp* et *testp*.
+
+### Analyse de la matrice de corrélation
+
+L'analyse des corrélations est une étape toujours essentielle dans l'analyse de données, et notamment dans le cadre de la modélisation statistique.
+
+Cette étape est fondamentale pour plusieurs raisons. D'abord car elle permet d'étudier les relations entre les variables, ce qui va donner des indications sur le meilleur modèle pour les données sélectionnées.
+En effet, des corrélations trop fortes ou à l'inverse une absence totale de corrélation peut poser de nombreux problèmes comme nous l'avons évoqué précédemment. Par exemple:
+
+- *La multi-colinéarité* : Lorsque des variables sont trop fortement corrélées (positivement ou négativement) cela pose un problème de multi-colinéarité. Les  variables sont tellement liées qu'il devient difficile de distinguer leur impact individuel, cela va rendre les résultats peu fiables. Il deviendra compliqué d'interpréter les coefficients et de comprendre de quoi rend-il vraiment compte.
+- *Des risques de surajustement* : Un modèle avec des prédicteurs trop fortement corrélés va être surajusté et donc ne sera pas pertinent dans son rôle prédictif.
+- *Une instabilité du modèle* : Les modèles avec des variables trop fortement corrélées sont instables. La moindre variation dans les données pourra provoquer de très grandes variations dans les résultats.
+- *Un modèle non optimisé* : Un modèle doit respecter le principe de parcimonie. Il ne faut pas qu'il contienne de variables redondantes (corrélations trop fortes) ou inutiles (absence de corrélations).
+- *Un modèle nul* : Une absence totale de corrélations remet en question la pertinence de tester, dans un même modèle, des variables qui n'auraient donc aucun rapport entre elles.
+
+Comme nous avons pu l'observer précédemment avec les histogrammes des distributions des variables, celles-ci ne suivent pas une loi normale. Le coefficient de corrélation de Pearson n'étant pas stable sur des données non-normales, nous lui préfererons celui de Spearman pour calculer la matrice de corrélation. 
+
+Pour plus de lisibilité nous ne présentons la matrice de corrélation que sur la base *trainingp*, mais celle-ci a également été réalisée sur la base *testp*.
+
+```{r, echo = TRUE}
+
+# Matrice de corrélation
+cor <- correlation(trainingp, method = "spearman")
+cor %>%
+  summary(redundant = FALSE)
+
+```
+
+```{r}
+#| output: false
+#| echo: false
+
+# Matrice de corrélation
+cor2 <- correlation(testp, method = "spearman")
+cor2 %>%
+  summary(redundant = FALSE)
+
+```
+
+Les résultats sont similaires pour les deux matrices réalisées respectivement sur les deux bases de données *trainingp* et *testp*. La matrice présentée ici, obtenue à partir des données de la base *trainingp*, indique que les variables sont corrélées. Nous ne sommes pas en présence d'une hétérogénéité d'informations. Toutefois, on observe entre certaines variables des corrélations fortes, notamment entre la part de logement sur-occupés (*`part_log_suroccup`*) et le pourcentage de maisons (*`perc_maison`*) avec un coefficient de -0.68. Ou encore entre le pourcentage de logements sur-occupés et le pourcentage de petits logements (*`perc_tiny_log`*) avec un coefficient de corrélation de 0.76.
+
+La question à se poser est de savoir s'il est absolument nécessaire de conserver toutes ces variables. Apportent-elles toutes une part d'information singulière ou sommes-nous en présence de redondance d'information entre ces variables ? Leur co-présence dans le modèle à tester est-elle source de biais?
+
+Pour faire ce choix il faut appliquer le principe de parcimonie. Ce principe indique qu'entre deux choix qui expliquent de manière adéquate les observations, il faut tendre vers le modèle le plus simple et le moins complexe.
+
+Ici nous faisons le choix de conserver toutes les variables, bien que très corrélées, nous estimons qu'elles ne renvoient pas à la même information et souhaitons les conserver dans notre modèle. 
+
+Vérifions tout de même si nous ne sommes pas en présence d'une multicolinéarité. C'est-à-dire que plusieurs variables partagent une part de variance importante, ce qui peut amener à sur-représenter un phénomène et biaiser les résultats lors d'une analyse multivariée. Afin de vérifier la multicolinéarité entre les variables nous utiliserons le VIF *Variance Inflation Factor*. Cet indice est habituellement utilisé pour des modèles de régressions, toutefois Kyriazos & Poga ont démontré son utilité dans le cadre des analyses factorielles (Kyriazos & Poga, 2023). 
+
+Comme précédemment, le test du VIF a été réalisé sur les deux bases de données, mais pour ne pas alourdir la lecture, seul l'exemple portant sur la base de données *trainngp* est présenté.
+
+```{r, echo = TRUE}
+vifstep(trainingp, method = "spearman")
+```
+
+```{r}
+#| output: false
+#| echo: false
+#| 
+vifstep(testp, method = "spearman")
+```
+
+Bien que la fonction ne nous signale aucun problème de multicolinéarité, nous observons toutefois 2 VIF supérieurs à 5. Celui sur la variable représentant la part des *logements sur-occupés* et celui sur le *pourcentage de petits logements*. Le seuil à retenir pour considérer la présence de multicolinéarité ou non à l'aide du VIF ne fait pas l'unanimité parmi les statisticiens. Dans notre exemple, nous nous basons sur la démonstration de Farrar & Glauber qui préconise un seuil de 5 (Farrar & Glauber, 1967).
+Nous choisissons donc de sortir la variable renseignant la part de logements sur-occupés. 
+
+```{r, echo = TRUE}
+trainingpp<-subset(trainingp, select = -c(part_log_suroccup))
+vifstep(trainingpp, method = "spearman")
+```
+
+```{r}
+#| output: false
+#| echo: false
+#| 
+testpp<-subset(testp, select = -c(part_log_suroccup))
+vifstep(testpp, method = "spearman")
+```
+
+Après vérification sur ce nouvel ensemble de variables, les VIF obtenus sont tous inférieurs à 5. Nous pouvons conclure en faveur d'une absence de multicolinéarité entre les 8 variables restantes. 
+
+La démarche réalisée sur la base de donnée présentée *trainingp* a également été effectuée sur la base *testp*, car les résultats étaient identiques. La suite des analyses porte bien désormais sur 8 variables.
+
+Les analyses de la matrice de corrélation et du test de multicolinéarité indiquent une présence de corrélations entre les variables (celles-ci sont donc bien liées) mais ces corrélations n'impliquent désormais plus de redondances d'information. D'après ces critères nous pouvons rechercher une structure sous-jacente à cet ensemble de variables qui partagent une part de variance commune entre-elles et donc réaliser une analyse factorielle. Néanmoins, avant de rechercher cette structure sous-jacente d'autres éléments nécessitent d'être vérifiés.
+
+### Spécificité des corrélations : KMO et Bartlett
+
+Deux tests sont à réaliser avant d'effectuer une analyse factorielle (aussi bien de la famille des FA que des ACP) afin de compléter les observations réalisées précédemment sur la matrice de corrélation et le test de multicolinéarité. Il s'agit du test K-M-O et du test de Bartlett. Ces tests sont nécessaires lorsque le modèle théorique à tester n'est pas figé. Ils sont donc très utiles avant de réaliser des EFA et peu pertinents avant des CFA. Les matrices de corrélations et les tests de multicolinéarité renseignent sur la pertinence du modèle à tester dans le cadre des CFA, mais les tests de KMO et de Bartlett n'apporteraient pas de nouvelles informations sur ce point, contrairement aux EFA où la structure est ajustable. Les CFA ayant pour objectif de valider un modèle, il n'est plus le temps de vérifier sa structure.
+
+#### Indice Kaiser-Meyer-Olkin (KMO)
+
+Le KMO donne un aperçu global de la qualité des corrélations inter-items (inter-variables)(Kaiser, H., F., 1974). L’indice KMO varie entre 0 et 1 et donne une information complémentaire à l’examen de la matrice de corrélation. 
+Cet indice est calculé pour l'ensemble des variables, mais aussi pour chaque variable.
+Un KMO élevé indique que les variables sont suffisamment corrélées pour justifier l'utilisation de l'EFA. En revanche, un KMO bas suggère que l'analyse factorielle pourrait ne pas être appropriée avec les données fournies.
+
+<div class="alert alert-success" role="warning">
+L'interprétation du KMO a été décrite par Kaiser en 1974 et se décline ainsi (Kaiser, H., F., 1974) : 
+
+- 0.90 et plus : Merveilleux
+- 0.80 et plus : Méritoire
+- 0.70 et plus : Bien
+- 0.60 et plus : Médiocre
+- 0.50 et plus : Misérable
+- Moins de 0.50 : Inacceptable</div>
+
+On peut tout-à-fait avoir le cas d'un KMO global élevé indiquant une bonne adéquation générale, mais un KMO d'une variable en particulier très mauvais. Dans ce cas de figure il faut examiner la variable pour essayer de comprendre pourquoi son KMO est faible. Cela peut venir de valeurs manquantes, d'une faible variance, ou encore d'une mauvaise corrélation avec les autres variables. Cette variable peut empêcher au modèle d'être mis en lumière correctement et provoquer du bruit. Il faudrait donc envisager de la retirer du modèle. 
+
+#### Test de Bartlett
+
+Le test de Bartlett permet de vérifier que la matice de corrélation ne soit pas une matrice d'identité. C'est-à-dire une matrice de corrélation où toutes les variables sont parfaitement indépendantes, c'est-à-dire où toutes les corrélations sont égales à 0. Pour celà nous utilisons le test de sphéricité de Bartlett (Bartlett, M.S., 1937).
+Pour valider ce pré-requis il est nécessaire que le test soit significatif (p < 0,05) pour accepter l'idée que la matrice de corrélation soit significativement différente d'une matrice d'identité.
+
+Pour réaliser un KMO et le test de Bartlett on peut utiliser la librairie `psych` avec les fonctions `KMO()` et `cortest.bartlett()`.
+Une alternative intéressante est la fonction `check_factostructure()` du package `performance`, cette fonction réalise les deux tests et nous indique si les données sont appropriées pour réaliser une EFA.
+
+```{r, echo = TRUE}
+
+#Avec psych
+## KMO
+KMO(trainingpp)
+## Test de sphéricité
+cortest.bartlett(trainingpp, n=587)
+
+
+# Avec performance
+performance::check_factorstructure(trainingpp)
+
+```
+
+Dans notre cas nous avons donc un KMO global méritoire (0.81) et des KMO par variable satisfaisants (de 0.71 à 0.91). Le test de sphéricité nous indique que la matrice de corrélation n'est pas une matrice d'identité. Nous pouvons donc nous lancer dans l'EFA.
+
+## Combien de facteurs retenir ?
+
+Avant de procéder à une analyse factorielle il est nécessaire de définir le nombre de facteurs latents (pour une EFA). Cette décision repose sur des hypothèses théoriques et sur l'étude des valeures propres. Sur ce point il existe un grand nombre d'indices et de méthodes (comme par exemple *le coude* de Katell, la règle de Kaiser-Guttman...). Cependant, il n'existe pas de consensus sur quelle méthode choisir et laquelle serait la plus appropriée selon les cas.
+
+Makowski en 2018, propose de se reposer sur un consensus parmi les méthodes plutôt que sur une méthode en particulier (Makowski, 2018). Il implémente sa solution dans le package `psycho` puis dans la fonction`n_factors()` dans le package `parameters`. C'est ce que nous utiliserons ici pour définir le nombre adéquat de facteurs à retenir pour l'analyse factorielle des prix de l'immobilier en France.
+
+```{r, echo = TRUE}
+# Identification du nombre de facteurs
+library(parameters)
+n <- n_factors(trainingpp)
+n
+
+# Plus de détail peuvent être obtenu en pasant au format data frame et en utilisant summary()
+
+nb_factor <- as.data.frame(n)
+
+head(nb_factor)
+
+summary(n)
+
+# On peut également représenter le nombre de facteurs.
+library(see)
+plot(n, type="line") + theme_modern()
+
+# et visualiser le graphique des valeures propres
+SCREE_PLOT(trainingpp, corkind="spearman", verbose=T)
+
+```
+
+Ici nous observons très clairement grâce au graphique intitulé : *"How many factors to retain"* que la majorité des méthodes font consensus sur trois facteurs latents (ligne rouge). Le tableau avec la colonne *n_Methods* indique que 6 méthodes s'accordent sur une structuration optimale des données en 2 facteurs latents. Toutefois, dans ce même tableau, nous observons que 5 méthodes suggèrent une structuration optimale des données en 1 facteur latent. 
+En regard du faible nombre de variables testées, ces solutions en 2 ou 1 facteurs latents semblent pertinentes.
+C'est aussi une des forces de l'EFA de pouvoir faire émerger un seul facteur latent global qui s'exprime au travers de l'ensemble des variables observées testées. Ce peut être intéressant de réaliser un comparatif afin de savoir comment se structurent les données, si c'est plutôt en un ou en deux facteurs latents.
+
+**Ainsi quel est le meilleur modèle ?**
+
+L'analyse factorielle confirmatoire (CFA) que nous allons présenter par la suite permettra d'en décider. En attendant, nous pouvons lancer les deux analyses !
+
+Pour réaliser ces analyses il va falloir déterminer la méthode de factorisation. C'est-à-dire définir sur quelle mesure nous nous basons pour extraire les facteurs de notre ensemble de variables. Les méthodes les plus courament utilisées sont celles qui se basent soit sur le maximum de vraisemblance (maximum likelihood), soit sur les méthodes des moindres carrés (pondérés ou non) (weighted or unweighted least square) (Tabachnick, B. G., & Fidell, L. S., 2014). Dans notre exemple, après observation des distributions des données, nous avons choisi de réaliser les analyses avec la méthode de factorisation du maximum de vraisemblance robuste (mlr). Cette méthode permet d'optimiser le calcul des distances et la version robuste est adaptée à des données qui ne se distribuent pas selon une loi normale (Kyriazos & Poga, 2023). En effet, les méthodes de maximum de vraisemblance reposent sur des *paramètres* tels que la moyenne. Si celle-ci est peu représentative de la distribution des données étudiées, alors les méthodes de maximum de vraisemblance sont à proscrire, car elles produiront des résultats inadaptés et impertinents. C'est pour cela que d'autres méthodes de factorisation existent, avec des méthodes de calcul, soit qui ne sont pas basées sur des paramètres, soit pour lesquelles une correction est appliquée afin de tenir compte de la spécificité des données alors observées précédemment lors de statistiques descriptives. 
+
+<div class="alert alert-warning" role="alert">
+Aparte sur les rotations :
+
+Afin de pouvoir interpréter plus facilement les résultats des analyses factorielles, il est nécessaire de faire appel à une méthode de rotation (au-delà de 2 facteurs). Le principe de la rotation n'est pas de modifier les relations obtenues entre les variables observées et les facteurs, mais d'améliorer la lisibilité des résultats.
+
+Il existe deux familles de rotation. Les rotations orthogonales et les rotations obliques. Les rotations orthogonales doivent être privilégiées lorsque l'on émet l'hypothèse que les facteurs obtenus ne sont pas corrélés entre eux. Pour cette famille de rotation l'interprétation va se centrer sur la relation de chaque variable observée avec chaque facteur. Au contraire, les rotations obliques devront être employées s'il est supposé que les facteurs obtenus sont corrélés entre eux.
+Dans ce dernier cas, en plus de la matrice de corrélation calculée pour les rotations orthogonales, une matrice supplémentaire incluant les corrélations entre les facteurs va être produite. Il est à noter qu'en SHS la plupart des factorisations impliquent une corrélation entre les facteurs. Il est assez rare d'obtenir des facteurs qui ne soient pas du tout corrélés dans ces disciplines. C'est pourquoi dans notre exemple nous avons sélectionné une méthode de rotation oblique : *promax*.
+</div>
+
+## Réalisation des EFA
+
+**1er modèle à un 1 facteur :**
+
+```{r, echo = TRUE}
+
+# Utilisation de mlr méthode considérée comme plus robuste même pour des données non-normales
+
+# Pour avoir mlr il faut utiliser la syntaxe ci-dessous :
+# Nous n'utilisons pas de méthode de rotation car nous testons la solution à 1 seul facteur
+efa1immo <- lavaan::efa(trainingpp, nfactors = 1, estimator = "MLR")
+
+print(efa1immo)
+
+```
+
+Avec un seul facteur toutes les variables observées corrèlent donc avec un facteur latent. Dans notre cas on a toute une partie qui corrèle positivement et l'autre négativement. Ainsi, le *pourcentage de petit logements*, la *part des cadres dans l'emploi*, le *prix median du m²*, la *densité de population* et le *niveau de vie médian* corrèlent positivement et à l'inverse, le *pourcentage de maison*, la *part d'agriculteurs dans l'emploi* et le *pourcentage de logements vacants* corrèlent négativement. Cela laisse à penser à une dichotomie qui pourrait être ville / campagne. Ainsi le facteur latent exprimé par les huit variables observées qui caractérisent les EPCI, serait une dimension sur le niveau d'urbanité ou de ruralité. Toutefois nous ne pouvons l'affirmer à la lecture de ces seuls résultats, des analyses complémentaires permettraient d'éclairer ce point.
+
+L'avantage de l'EFA c'est qu'une fois le facteur latent identifié, nous pouvons, pour chaque individu obenir un score sur ce facteur latent. Dans notre exemple, vu la dimension spatiale des données il faudrait ensuite les cartographier pour visualiser spatialement l'information. L'intérêt des scores factoriels étant d'être ré-utilisés soit dans des analyses complémentaires, soit directement pour comprendre la structure des données. Dans notre cas, on pourrait s'en servir pour définir un score d'urbanité et de ruralité puis le représenter.
+
+```{r, echo = TRUE}
+# Extraction des scores factoriels par observation
+factor_scores_immo<-predict(efa1immo)
+
+# Regardons  les 5 premières lignes
+head(factor_scores_immo, 5)
+
+# Extraction des charges factorielles par variable
+factor_loadings_immo <- efa1immo$loadings
+
+# Afficher les charges factorielles
+print(factor_loadings_immo)
+```
+
+**Testons le modèle à deux facteurs !** 
+
+```{r, echo = TRUE}
+
+# Utilisation de mlr méthode considérée comme plus robuste même pour données non-normales
+# Utilisation d'une méthode de rotation promax car nous testons un modèle à2 facteurs
+
+efa2immo <- lavaan::efa(trainingpp, nfactors = 2, estimator = "MLR", rotation = "promax")
+print(efa2immo)
+
+```
+
+Cette structure à deux facteurs permet de faire émerger en plus du facteur latent, qui serait urbanité/ruralité (*f2*), un autre facteur représentant le côut de la vie (*f1*). Au niveau de ce facteur on observe une corrélation positive avec le prix *médian de l'immobilier au m²* et le *niveau de vie médian*, et négative avec le *pourcentage de logements vacants*. Ainsi, les EPCI ayant un score élevé sur ce facteur latent seraient les EPCI où le niveau de vie médian et le prix de l'immobilier seraient le plus élévé.
+
+Extraction des charges factorielles par variable :
+```{r, echo = TRUE}
+
+factor_loadings_immo2 <- efa2immo$loadings
+
+# Afficher les charges factorielles
+print(factor_loadings_immo2)
+```
+
+Une fois de plus nous pouvons extraire les scores de ces deux facteurs latents de ce second modèle.
+```{r, echo = TRUE}
+# Extraction des scores factoriels par observation
+factor_scores_immo2<-predict(efa2immo)
+
+# Regardons  les 5 premières lignes
+head(factor_scores_immo2, 5)
+
+```
+
+Il est tout à fait possible dans le cadre de l'EFA d'emprunter une représentation classique de l'ACP (le scatter plot) pour représenter les variables et leurs charges factorielles. Cette représentation peut s'avérer également utile pour mieux comprendre les facteurs latents. Voici un exemple de représentation avec la structuration en 2 facteurs latents.
+
+```{r, echo = TRUE}
+# Graphique
+
+
+# Extraire les charges factorielles
+factor_loadings_immo2 <- efa2immo$loadings
+
+# transformer les charges factorielles dans un data frame
+factor_loadings_dfimmo2 <- as.data.frame(factor_loadings_immo2)
+
+# Renommer les colonnes
+colnames(factor_loadings_dfimmo2) <- c("Factor", "Loading")
+
+#  Ajouter une variables pour identifier nos charges factorielles
+factor_loadings_dfimmo2$Item <- rownames(factor_loadings_dfimmo2)
+
+# charger ggplot2
+library(ggplot2)
+
+# Réaliser un graphique des charges factorielles
+ggplot(factor_loadings_dfimmo2, aes(x = Factor, y = Loading, label = Item)) +
+  geom_point() +
+  geom_text(size = 3, hjust = -0.1) +
+  labs(x = "Factor", y = "Loading", title = "Factor Loadings Plot") +
+  theme_minimal()
+
+```
+Cette représentation graphique permet bien d'observer la proximité entre les variables observées précédemment, comme par exemple entre la *part d'agriculteurs* et le *pourcentage de maison* ou encore entre la *densité de population* et la *part de cadre*.
+
+## Conclusion sur les EFA
+
+Ces EFA réalisées sur la moitié de l'échantillon de données indiquent la possibilité d'envisager un modèle en un facteur latent (rural/urbain) ou un modèle en deux facteurs latents (rural/urbain ; coût de la vie). 
+
+<div class="alert alert-danger" role="alert">
+Les structures obtenues, suite aux analyses factorielles exploratoires menées, s'ajustent-elles aux données d'un autre échantillon (tel que la base *testp*) ? Quel est le meilleur modèle celui à 1 ou 2 facteurs ? Afin de répondre à cette question et d'éprouver le modèle théorique envisagé, il est nécessaire de réaliser des analyses factorielles confirmatoires.</div>
+
+# L'Analyse factorielle confirmatoire
+
+L'analyse factorielle confirmatoire est une technique statistique utilisée pour tester un modèle factoriel.
+
+Si dans le cas de l'EFA les facteurs latents sont identifiés dans une démarche exploratoire à partir des données, dans le cadre de l'analyse factorielle confirmatoire il s'agira au contraire de tester un modèle avec des hypothèses pré-établies sur la structuration des données par des facteurs latents pré-supposés. L'idée dans une analyse factorielle confirmatoire est d'imposer une structure aux données et d'étudier dans quelle mesure les données vont correspondre à cette structure prédéfinie. L'objectif de la CFA est de mesurer l'ajustement d'un modèle aux données présentées. C'est en ce sens que cette analyse est confirmatoire. 
+
+## Les étapes de la CFA
+
+Nous étudions comment un modèle pré-établi dans le cadre d'une théorie, ou suite à une première analyse statistique sur des données, est confirmée par les données observées. La réalisation d'une CFA nécessite le suivi des étapes successives, suivantes :
+
+- 1- **Définir un modèle Préalable** : Spécifier un modèle factoriel a priori, indiquant la relation entre les variables observées et les facteurs latents que nous supposons. Le modèle peut également inclure des relations entre les facteurs latents.
+
+- 2- **Lire les critères d'ajustement** :  La qualité et l'ajustement du modèle sont évalués en utilisant divers critères statistiques évaluant la position du modèle entre un modèle nul (sans aucun lien - le modèle ne s'ajuste pas aux données) et un modèle saturé (avec des liens très maximum partout - le modèle correspond parfaitement aux données). Les indices les plus couramment utilisés sont notamment : le chi², le RMSEA, le CFI, etc.
+
+- 3- **Obtenir les estimations des paramètres** : Après avoir évalué une bonne qualité d'ajustement du modèle testé aux données présentées, il est nécessaire de vérifier l'importance et le sens des relations entre les variables observées et la ou les facteur(s) latent(s). Les différents paramètres de l'analyse factorielle confirmatoire (charges factorielles, covariances entre les facteurs latents...) sont estimés à l'aide des données observées. L'objectif de l'analyse étant d'obtenir des estimations qui maximisent l'ajustement entre les données observées et le modèle.
+
+- 4- **Interpréter les résultats** : Les charges factorielles indiquent la force et la direction de la relation entre chaque variable observée et son facteur latent correspondant. A partir de ces indications, nous pouvons interpréter les résultats et vérifier si la structure obtenue est bien dans le même sens que celle envisagée.
+
+- 5- **Modifier le modèle** : Si le modèle ne s'ajuste pas bien (que les indices d'ajustement ne sont pas satisfaisants), des modifications peuvent être apportées, comme la suppression ou l'ajout de liens entre les facteurs et les variables observées, pour améliorer l'ajustement. Attention toutefois à rester dans un cadre théorique cohérent et ne pas tester des liens qui n'ont pas de sens.
+
+<div class="alert alert-warning" role="alert">
+Tout l'enjeu en cas de non ajustement du modèle va être de comprendre et d'analyser pourquoi le modèle ne s'ajuste pas. Cela peut venir d'un modèle théorique qui n'est pas adapté aux données observées ou à des variations entre la première analyse, qui permet d'établir un premier modèle, et sa confirmation via l'analyse factorielle confirmatoire.
+</div>
+
+## L'analyse factorielle confirmatoire en pratique : Exemple sur le prix de l'immobilier - Quel modèle choisir ?
+
+L'analyse factorielle confirmatoire fait partie du champ des équations structurelles, sa mise en oeuvre se fait très bien sur R. L'avantage des équations structurelles c'est qu'à la manière de l'ACP nous pourrons représenter graphiquement les modèles obtenus.
+
+### Définir un modèle Préalable
+
+Cette étape a été réalisée précédemment lors de l'EFA et deux structures possibles ont été mises en évidence. La première structure comporte un seul facteur latent répartissant les éléments relatifs au prix de l'immobilier selon un critère opposant ruralité/urbanité. Le second modèle structurant les données en deux facteurs latents dont l'un toujours sur l'opposition ruralité/urbanité et l'autre portant sur le coût de la vie.
+
+Nous allons à présent réaliser deux analyses factorielles confirmatoires afin de sélectionner le modèle qui structure le mieux les données entre celui en 1 facteur latent et celui en 2 facteurs latents.
+
+### Réalisation des CFA
+
+Les CFA sont réalisées sur la base de données *testpp*, afin de tester la structure factorielle sur un autre échantillon que celui qui a été utilisé lors des EFA, comme préconnisé dans la littérature scientifique.
+
+
+```{r}
+#| echo: false
+
+# Définition des étiquettes
+labels <- c(prix_med = "Prix médian au m²",
+            perc_log_vac = "% logements vacants",
+            perc_maison = "% maison",
+            perc_tiny_log = "% petits logements",
+            dens_pop = "Densité de la population",
+            med_niveau_vis = "Niveau de vie médian",
+            part_agri_nb_emploi = "Part d'agriculteurs dans l'emploi",
+            part_cadre_profintellec_nbemploi = "Part de cadres dans l'emploi")
+
+# Ajout des étiquettes
+label(testpp) <- labels
+```
+
+
+```{r, echo = TRUE}
+
+library(lavaan)
+
+attach(testpp) # nécessaire à cause du package lavaan
+
+# modèle à 1 facteur
+model1F<- 'F1 =~ prix_med + perc_log_vac + perc_maison + perc_tiny_log + dens_pop + med_niveau_vis + part_agri_nb_emploi + part_cadre_profintellec_nbemploi'
+
+fact_1immo <- cfa(model1F, std.lv=T, estimator="MLR", data=testpp)
+
+# modèle à 2 facteurs
+model2F<- 'F1 =~ prix_med + perc_log_vac + med_niveau_vis
+           F2 =~ perc_maison + perc_tiny_log + dens_pop + part_agri_nb_emploi + part_cadre_profintellec_nbemploi'
+
+fact_2immo <- cfa(model2F, std.lv=T, estimator="MLR", data=testpp)
+
+```
+
+### Lire les critères d'ajustement (du modèle aux données)
+
+Attention les sorties d'un modèle d'analyse factorielle confirmatoire sont nombreuses, nous les détaillons ici pour en avoir une première lecture mais leurs analyses se feront véritablement à l'aide d'autres fonctions. Il faut retenir que deux grandes étapes seront à évaluer dans cet ordre : 
+
+- l'adéquation du modèle proposé aux données (avec la vérification des indices d'ajustement au modèle) - *on parle de modèle de mesure* 
+- et si le modèle s'ajuste correctement nous pourrons alors étudier la structure de celui-ci par la force et le signe des saturations obtenues à l'aide de l'estimation des paramètres - *on parle alors de modèle de structure*. 
+
+Vérifions à présent la première étape, qui correspond à cette partie, à savoir l'ajustement du modèle aux données.
+Tout notre enjeu ici va être de comparer les deux modèles et de choisir celui qui s'ajuste le mieux aux données. Pour ce faire nous pouvons comparer les deux modèles sur différents indices d'ajustement. La fonction `interpret()` permet d'évaluer dix indices d'ajustement les plus couramment employés dans la littérature scientifique.
+
+```{r, echo = TRUE}
+# Pour comparer les modèles à l'aide des indices tel que l'AIC, le RMSEA, R2...
+performance::compare_performance(fact_1immo, fact_2immo, verbose = FALSE)
+
+
+# Une autre manière de visualiser très utile.
+effectsize::interpret(fact_1immo)
+
+effectsize::interpret(fact_2immo)
+
+```
+
+Dans les deux configurations testées, l'analyse factorielle confirmatoire présente un ajustement des modèles aux données *"testpp"* plutôt mauvais. Pour le deuxième modèle toutefois, 2 indices sont considérés comme satisfaisants et 3 indices ont des valeurs très proches des seuils (NFI : 0.8838; CFI : 0.8896 ; IFI : 0.8899). Ces indices indiquent l'écart entre un modèle nul (rien n'est lié) et un modèle saturé (tout est lié avec des coefficients à 1). Le fait que ces indices aient des valeurs de 0.88 ou 0.89 et non de 0.90 n'est pas particulièrement problématique. 
+
+Concrètement, le deuxième modèle testé, avec 2 facteurs latents permettrait de mieux rendre compte de la complexité des données. Celui-ci s'ajustant le mieux aux données.
+
+<div class="alert alert-warning" role="alert">
+La fonction `interpret()` donne des résultats pour 10 indices d'ajustement du modèle testé aux données de l'échantillon présenté. Toutefois, ces différents indices ont été proposé au fur et à mesure du développement des modèles en équations structurelles et, s'ils ne testent pas exactement la même chose, ils permettent de rendre compte de l'ajustement d'un modèle aux données présentées. Il n'est pas nécessaire que l'ensemble des indices présentés soient satisfaisant pour envisager un bon ajustement. Dans la littérature, certains indices sont sélectionnés et tous ne sont pas présentés. De plus, une utilisation trop contrainte des seuils augmente la probabilité de faux négatifs, c'est-à-dire de considérer qu'un modèle ne s'ajusterait pas aux données alors que si (Hooper et al., 2008). Prenons l'exemple d'un indice très cité et présenté dans la littérature tel que le CFI **Comparative Fit Indice**. Que fait-il exactement ? Il compare le modèle d’intérêt avec un modèle restreint qui sert de base. Itération de modèles entre le pire (modèle nul – à 0) et le parfait (voir modèle saturé - 1) et le CFI indique où se situe le modèle d’intérêt (le notre) sur ce continuum. Le seuil communément accepté de .95 indique une réduction de l’erreur, par rapport au modèle nul, de 95%. Le modèle nul étant un modèle où toutes les relations entre les variables sont rapportées à 0. Donc en gros notre modèle s’ajuste à nos données avec un risque de 5% que ce soit du au hasard. Quel que soit le contexte on est satisfait d’avoir une réduction de l’erreur de 95%. Donc plus le seuil est inférieur à .95, plus le risque que l’ajustement soit du au hasard augmente. (Van Laar, S., & Braeken, J., 2021).
+</div>
+
+### Obtenir les estimations des paramètres
+
+Après avoir vérifié l'ajustement du modèle aux données, il est à présent nécessaire de comprendre si le modèle envisagé a bien des relations de l'intensité et du sens prévues initialement. Ceci est possible grâce à la lecture des paramètres telles que les charges factorielles.
+
+La qualité des ajustements, évaluée précédemment, invite à ne s'intéresser qu'au modèle à deux facteurs latents, toutefois, dans un but pédagogique nous présenterons la composition des structures des deux modèles testés.
+
+La composition des modèles testés s'obtient en faisant appel à la fonction `summary()` qu'on applique aux objets contenant les données des CFA alors réalisées précédemment, à savoir *fact_1immo* et *fact_2immo*.
+
+```{r, echo = TRUE}
+res_fact1immo <- summary(fact_1immo, standardized=T, modindices = T, fit.measures=T, rsquare=T)
+
+res_fact2immo <- summary(fact_2immo, standardized=T, modindices = T, fit.measures=T, rsquare=T)
+```
+
+Voici, pour exemple, la sortie brute de `summary()` du modèle en 2 facteurs. On y retrouve également les R2.
+
+```{r, echo = TRUE, results='asis'}
+# Exemple pour le modèle à 2 facteurs
+
+# Récupérer les résultats de l'output
+cfa_output <- capture.output(res_fact2immo)
+
+# Placer les résultats dans une sortie déroulante pour améliorer la lisibilité
+cat(
+  '<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #ffbf00;">',
+  '<pre style="margin: 0; font-family: monospace; font-size: 14px;">',
+  paste(cfa_output, collapse = "\n"),
+  '</pre>',
+  '</div>'
+)
+
+```
+
+- header : contient des éléments contextuels sur la fonction (version du package...) ainsi que les mesures d'ajustement si `fitMeasures=TRUE`
+- optim : liste d'information concernant l'optimisation du modèle
+- data : contient des éléments sur les données
+- test : les résultats des différents tests
+- fit : les résultats des différents test d'ajustement du modèle
+- pe : les différents paramètres des relations au sein du modèle sous la forme d'un data frame des facteurs latent et de la variance
+- *mi : si modindices=TRUE*, il s'agit des suggestions proposées par la fonction pour améliorer le modèle si l'ajustement n'est pas optimal. 
+
+<div class="alert alert-danger" role="warning">
+ATTENTION cette option *modindices=TRUE* est à utiliser avec précautions. L'idée ici est bien de tester un modèle théorique pré-établi et donc chaque modifications proposées qui seraient ajoutées au modèle final doit pouvoir se justifier théoriquement. La corrélation de l'ensemble des erreurs de mesure ensemble, comme c'est souvent proposé par cette option, est difficile à justifier dans un modèle théorique pré-établi. </div>
+
+Nous observons, dans la sortie brute pour le modèle à 2 facteurs, dans la partie du tableau inititulée *Latent Variables* et dans la colonne *Estimate* que les saturations les plus élevées sont pour le facteur 1 (F1) *le prix médian de l'immobilier au m²*, alors que pour le facteur 2 (F2) il s'agit du *pourcentage de petits logements* (qui corrèle négativement sur ce facteur 2) et *le pourcentage de maison* (qui lui corrèle positivement sur ce facteur 2). Une seule saturation est faible (inférieure à 0.30), les autres apportent une part de variance significative au modèle.
+
+### Interpréter les résultats
+
+Afin d'aider lecture des résultats obtenus, nous pouvons représenter graphiquement chacun des modèles théoriques testés et leurs structurations sur l'ensemble de données testé. Ceci permet de voir rapidement l'intensité et le sens des relations entre les différentes variables observées et le ou les facteur(s) latent(s).
+
+Voici donc les représentations graphiques des CFA, qui obéissent à un certain nombre de codes visuels qu'il est important de respecter. Ces codes visuels sont mobilisés dans toutes les représentations de modèles en équations structurelles :  
+
+- Les rectangles renvoient aux variables observées
+- Les ellipses aux variables latentes, 
+- Les doubles flèches associées aux rectangles et aux ellipses à l'erreur de chaque variable. 
+
+Les couleurs vertes et rouges renvoient au signe de la corrélation et l'épaisseur à la force de la corrélation entre les variables et les facteurs.
+
+Petite précision sur l'erreur : Il s'agit de la part de variance qui n'est pas expliquée par le modèle.
+
+Représentations graphiques des CFA
+
+
+```{r, echo=FALSE}
+new_labels1 <- list(
+  "prix_med" = "Prix médian \n au m²",
+  "perc_log_vac" = "% de logements \n vacants",
+  "med_niveau_vis" = "Niveau de \n vie médian",
+  "perc_maison" = "% de maison",
+  "perc_tiny_log" = "% petits \n logements",
+  "dens_pop" = "Densité \n population",
+  "part_agri_nb_emploi" = "Part \n agriculteurs",
+  "part_cadre_profintellec_nbemploi" = "Part de cadres",
+  "F1" = "F1")
+
+semPlot::semPaths(fact_1immo, "std",
+             sizeMan = 10, sizeInt = 10, sizeLat = 10,
+             edge.label.cex=0.8, label.cexs = 2, label.rotate = 0, label.font = 6.5, label.color = "black",
+             nodeLabels = new_labels1,
+             fade=FALSE)
+```
+
+Uniquement le code pour le modèle à 2 facteurs est représenté afin de ne pas alourdir la lecture.
+
+```{r, echo = TRUE}
+
+
+
+new_labels2 <- list(
+  "prix_med" = "Prix médian \n au m²",
+  "perc_log_vac" = "% de logements \n vacants",
+  "med_niveau_vis" = "Niveau de \n vie médian",
+  "perc_maison" = "% de maison",
+  "perc_tiny_log" = "% petits \n logements",
+  "dens_pop" = "Densité \n population",
+  "part_agri_nb_emploi" = "Part \n agriculteurs",
+  "part_cadre_profintellec_nbemploi" = "Part de cadres",
+  "F1" = "F1",
+  "F2" = "F2")
+
+semPlot::semPaths(fact_2immo, "std",
+             sizeMan = 10, sizeInt = 10, sizeLat = 10,
+             edge.label.cex=0.8, label.cexs = 2, label.rotate = 0, label.font = 6.5, label.color = "black",
+             nodeLabels = new_labels2,
+             fade=FALSE)
+```
+
+Les représentations graphiques des modèles à 1 facteur et à 2 facteurs permettent d'illustrer ce que nous observions précédemment à la lecture des paramètres et des charges factorielles. C'est-à-dire que les plus élevées sont bien toujours celles associées au *pourcentage de petits logements* pour le facteur 2 (F2) et au *prix médian de l'immobilier au m²* pour le facteur 1 (F1). L'analyse factorielle confirmatoire vient confirmer que le modèle en deux facteurs latents structure les données de façon pertinente. La lecture des graphique avec la force des liens et leurs sens confirme qu'il s'agit bien de la même structure, les mêmes variables sont influencées aussi fortement et dans le même sens par les facteurs latents qu'observé lors de l'EFA.
+
+### Modifier le modèle
+
+Nous l'avons déjà observé précédemment, la fonction `summary()` appliquée à l'objet contenant le modèle de CFA comprend une instruction proposant de modifier le modèle afin de l'améliorer, il s'agit de l'instruction *modindices=TRUE*. Cette option peut s'avérer utile mais à utiliser avec précaution pour ne pas s'éloigner du modèle théorique alors envisagé en premier lieu et que le modèle testé conserve tout son sens théorique.
+
+Le package Lavaan, fait également quelques propositions pour améliorer le modèle. Théoriquement, en tenant compte de toutes ces propositions, le modèle s'ajusterait parfaitement, mais on serait dans un cas évident de sur-ajustement aux données. En revanche, cela peut être intéressant d'en prendre connaissance afin de vérifier qu'aucune relation n'ait été oubliée et qui permettrait d'améliorer significativement le modèle. Cette relation doit bien évidemment faire sens théoriquement. La syntaxe utilisée est celle du package lavaan, on peut en trouver une traduction [ici](https://lavaan.ugent.be/tutorial/syntax1.html)
+
+Pour améliorer la lisibilité de l'article, l'instruction de modification des indices ne sera présentée que sur le modèle à 2 facteurs.
+```{r, echo = TRUE}
+
+modindices(fact_2immo) %>% arrange(-mi) %>% head(20)
+
+```
+
+
+# Conclusion {-}
+
+Nous avons ainsi présenté pas à pas un exemple d'utilisation de l'EFA et en suivant de la CFA. L'idée était de présenter une méthode ancienne mais peu utilisée en dehors de la Psychologie. Il ne s'agit pas de remplacer l'ACP mais de proposer une alternative, et surtout de proposer aux usagers de faire un choix conscient sur la méthode plutôt que de répondre à une habitude disciplinaire.
+
+Ainsi, si vous souhaitez explorer vos données et identifier des facteurs latents corrélés (ou non) afin de faire émerger une structure synthétique, voir si la structure observée est cohérente avec un modèle théorique, ou encore si cette structure observée est stable dans le temps, alors l'utilisation du couple entre EFA/CFA est tout-à-fait pertinente. On peut en effet tester si un modèle éprouvé sur des données récoltées en 2011, serait bien le même en 2023 ou s'il aurait subi des modifications, liées au contexte du sujet étudié.
+
+# Lexique {-}
+
+*Présentation des différents acronymes cités dans l'article.* : 
+
+- AFC : Analyse Factorielle des Correspondances
+- AFDM : Analyse Factorielle de Données Mixtes
+- AFM : Analyse Factorielle Multiple
+- AFMH : Analyse Factorielle Multiple Hiérarchique
+- ACM : Analyse des Correspondances Multiples
+- ACP : Analyse en Composantes Principales
+- CFA : Confirmatory Factorial Analysis
+- EFA : Exploratory Factorial Analysis
+- FA : Factorial Analysis
+
+# Bibliographie {-}
+
+<div id="refs">
+
+- Aguinis, H., Gottfredson, R. K., & Joo, H. (2013). Best-Practice Recommendations for Defining, Identifying, and Handling Outliers. Organizational Research Methods, 16(2), 270-301. [https://doi.org/10.1177/1094428112470848](https://doi.org/10.1177/1094428112470848)
+
+- Bakker, M., & Wicherts, J. M. (2014). Outlier removal, sum scores, and the inflation of the type I error rate in independent samples t tests: The power of alternatives and recommendations. Psychological Methods, 19(3), 409–427. [https://doi.org/10.1037/met0000014](https://doi.org/10.1037/met0000014)
+
+- Bartlett, M.S. (1937) Properties of Sufficiency and Statistical Test. Proceedings of the Royal Society A, 160, 268-282. [https://doi.org/10.1098/rspa.1937.0109](https://doi.org/10.1098/rspa.1937.0109)
+
+- Benzecri J.-P. (1973), L’analyse des données, Paris, Dunod, vol. 2 : Correspondances
+
+- Farrar, D. E., & Glauber, R. R. (1967). Multicollinearity in Regression Analysis: The Problem Revisited. The Review of Economics and Statistics, 49(1), 92–107. [https://doi.org/10.2307/1937887](https://doi.org/10.2307/1937887).
+
+- Flora, D. B., & Flake, J. K. (2017), The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation. Canadian Journal of Behavioural Science / Revue canadienne des sciences du comportement, 49(2), 78–88. [https://doi.org/10.1037/cbs0000069](https://doi.org/10.1037/cbs0000069)
+
+- Hooper, D., Coughlan, J., & Mullen, M. R. (2008), Structural Equation Modelling: Guidelines for Determining Model Fit. The Electronic Journal of Business Research Methods, 6, 53-60.
+- Kaiser, H.F. (1974) An index of factorial simplicity. Psychometrika 39, 31–36. [https://doi.org/10.1007/BF02291575](https://doi.org/10.1007/BF02291575)
+
+- Kyriazos, T. and Poga, M. (2023) Dealing with Multicollinearity in Factor Analysis: The Problem, Detections, and Solutions. Open Journal of Statistics, 13, 404-424. doi: [10.4236/ojs.2023.133020](https://doi.org/10.4236/ojs.2023.133020)
+
+- Kyriazos, T. and Poga-Kyriazou, M. (2023) Applied Psychometrics: Estimator Considerations in Commonly Encountered Conditions in CFA, SEM, and EFA Practice. Psychology, 14, 799-828. doi: [https://doi.org/10.4236/psych.2023.145043](https://doi.org/10.4236/psych.2023.145043)
+
+- Leys, C., Klein, O., Dominicy, Y., and Ley., C., 2018, “Detecting Multivariate Outliers: Use a Robust Variant of the Mahalanobis Distance.” Journal of Experimental Social Psychology 74: 150–56. [https://doi.org/10.1016/j.jesp.2017.09.011](https://doi.org/10.1016/j.jesp.2017.09.011)
+
+- Leys, C., et al. (2019). How to Classify, Detect, and Manage Univariate and Multivariate Outliers, With Emphasis on Pre-Registration. International Review of Social Psychology, 32(1): 5, 1–10. DOI: [https://doi.org/10.5334/irsp.289](Leys, C., et al. (2019). How to Classify, Detect, and Manage Univariate and Multivariate Outliers, With Emphasis on Pre-Registration. International Review of Social Psychology, 32(1): 5, 1–10. DOI: https://doi.org/10.5334/irsp.289)
+
+- Makowski, (2018). The psycho Package: an Efficient and Publishing-Oriented Workflow for Psychological Science. Journal of Open Source Software, 3(22), 470. [https://doi.org/10.21105/joss.00470](https://doi.org/10.21105/joss.00470)
+
+- Pages, J-P., et al., (1979), Analyse factorielle : Un peu d'histoire et de géométrie, Revue de statistiques appliquée, tome 27, n°1, p.5-28.
+
+- Pearson F.R.S., K. (1901) LIII. On lines and planes of closest fit to systems of points in space, The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science, 2:11, 559-572, DOI: [10.1080/14786440109462720](https://doi.org/10.1080/14786440109462720)
+
+- Schreiber, J.B., (2021), Issues and recommendations for exploratory factor analysis and principal component analysis, Research in Social and Administrative Pharmacy, Volume 17, Issue 5, 2021, Pages 1004-1011, ISSN 1551-7411, [https://doi.org/10.1016/j.sapharm.2020.07.027](https://doi.org/10.1016/j.sapharm.2020.07.027).
+
+- Spearman, C. (1904). The Proof and Measurement of Association between Two Things. The American Journal of Psychology, 15(1), 72–101. [https://doi.org/10.2307/1412159](https://doi.org/10.2307/1412159)
+
+- Tabachnick, B., & Fidell, L., (2014), Using Multivariate Statistics (6th ed.). Harlow: Pearson Education
+
+- Tobacyk, J., & Milford, G. (1983). Belief in paranormal phenomena: Assessment instrument development and implications for personality functioning. Journal of personality and social psychology, 44(5), 1029.
+
+- Tobacyk, J. J., Nagot, E., & Miller, M. (1988). Paranormal Beliefs and Locus of Control: A Multidimensional Examination. Journal of Personality Assessment, 52(2), 241–246. [https://doi.org/10.1207/s15327752jpa5202_5](Tobacyk, J. J., Nagot, E., & Miller, M. (1988). Paranormal Beliefs and Locus of Control: A Multidimensional Examination. Journal of Personality Assessment, 52(2), 241–246. https://doi.org/10.1207/s15327752jpa5202_5)
+
+- Tobacyk, J. J. (2004). A revised paranormal belief scale. International Journal of Transpersonal Studies, 23(1), 94–98.. International Journal of Transpersonal Studies, 23 (1). [http://dx.doi.org/10.24972/ijts.2004.23.1.94](http://dx.doi.org/10.24972/ijts.2004.23.1.94)
+
+- Van Laar, S., & Braeken, J., 2021, Understanding the Comparative Fit Index : It’s All About Base !, Practical Assessment, Reasearch & Evaluation, Vol 26, N°26
+
+- Watkins, M. W. (2018). Exploratory Factor Analysis: A Guide to Best Practice. Journal of Black Psychology, 44(3), 219-246. [https://doi.org/10.1177/0095798418771807](https://doi.org/10.1177/0095798418771807)
+
+- Yong, A. G., & Pearce, S. (2013) A Beginner’s Guide to Factor Analysis: Focusing on Exploratory Factor Analysis, Tutorials in Quantitative Methods for Psychology, 9(2), 79-94. doi: [10.20982/tqmp.09.2.p079](https://doi.org/10.20982/tqmp.09.2.p079)
+
+- Zijlstra, W. P., van der Ark, L. A., & Sijtsma, K. (2011). Outliers in Questionnaire
+Data: Can They Be Detected and Should They Be Removed? Journal of Educational and Behavioral Statistics, 36(2), 186–212. [http://www.jstor.org/stable/29789477](http://www.jstor.org/stable/29789477)
+
+</div>
+
+# Annexes {-}
+
+Vous retrouverez ci-dessous les scripts ayant permis d'identifier et de supprimer les valeurs extrêmes. Nous testons donc la présence d'individus extrêmes sur les deux bases de données *training* et *test*.
+
+Pour la base de données *training*, voici le code. Nous utilisons la distance de MCD robuste, qui est conseillé par la littérature dans un contexte d'analyse multivariée. 
+
+```{r}
+#| echo: true
+#| eval: false
+
+# #MCD avec le package rrcov
+library(rrcov)
+training2 <- training %>% select(-nom_epci)
+# # 1- calcul de la distance MCD
+mcd_t1 <- CovMcd(training2, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_t1, which="all")
+
+# Des valeurs s'éloignent de la droite, identification des outliers
+# fusion de la base initiale et des distances de mahalanobis robustes
+tp<-na.omit(training2)
+t1mah<-cbind(tp, mcd_t1$raw.mah)
+plot(t1mah$`mcd_t1$raw.mah`)
+
+# 3- suppression de ces outliers
+t1pp<-subset(t1mah, t1mah$`mcd_t1$raw.mah`< 2000)
+out1 <- subset(t1mah, t1mah$`mcd_t1$raw.mah`> 2000)
+
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t1p_B<-subset(t1pp, select = -c(`mcd_t1$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp11 <- CovMcd(t1p_B, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp11, which="all")
+
+tp11<-na.omit(t1p_B)
+t111mah<-cbind(tp11, mcd_tp11$raw.mah)
+plot(t111mah$`mcd_tp11$raw.mah`)
+
+# 3- suppression de ces outliers
+t11pp<-subset(t111mah, t111mah$`mcd_tp11$raw.mah`< 200)
+out2<-subset(t111mah, t111mah$`mcd_tp11$raw.mah`> 200)
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t11p_B<-subset(t11pp, select = -c(`mcd_tp11$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp11p <- CovMcd(t11p_B, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp11p, which="all")
+
+t1111mah<-cbind(t11p_B, mcd_tp11p$raw.mah)
+plot(t1111mah$`mcd_tp11p$raw.mah`)
+
+trainingp<-t11p_B
+
+# A la lecture graphique, il n'y a plus d'outliers
+```
+
+Pour la base de données *test*, voici le code. Nous utilisons la distance de MCD robuste également.
+
+```{r}
+#| echo: true
+#| eval: false
+
+# #MCD avec le package rrcov
+library(rrcov)
+test2 <- test %>% select(-nom_epci)
+# # 1- calcul de la distance MCD
+mcd_t2 <- CovMcd(test2, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_t2, which="all")
+
+# Des valeurs s'éloignent de la droite, identification des outliers
+# fusion de la base initiale et des distances de mahalanobis robustes
+tp2<-na.omit(test2)
+t2mah<-cbind(tp2, mcd_t2$raw.mah)
+plot(t2mah$`mcd_t2$raw.mah`)
+
+# 3- suppression de ces outliers
+t2pp<-subset(t2mah, t2mah$`mcd_t2$raw.mah`< 10000)
+out3<-subset(t2mah, t2mah$`mcd_t2$raw.mah`> 10000)
+
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t2p_B<-subset(t2pp, select = -c(`mcd_t2$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp2 <- CovMcd(t2p_B, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp2, which="all")
+
+# Des valeurs s'éloignent de la droite, identification des outliers
+# fusion de la base initiale et des distances de mahalanobis robustes
+tp22<-na.omit(t2p_B)
+t22mah<-cbind(tp22, mcd_tp2$raw.mah)
+plot(t22mah$`mcd_tp2$raw.mah`)
+
+# 3- suppression de ces outliers
+t2pp2<-subset(t22mah, t22mah$`mcd_tp2$raw.mah`< 400)
+out4<-subset(t22mah, t22mah$`mcd_tp2$raw.mah`> 400)
+
+# On recalcule la distance de mahalanobis robuste sur notre base de données sans les premiers outliers, pour voir s'il en reste
+t2p_B2<-subset(t2pp2, select = -c(`mcd_tp2$raw.mah`))
+#1- calcul de la distance MCD
+mcd_tp22 <- CovMcd(t2p_B2, alpha=0.75)
+# L'objet `mcd_result` contient toutes les informations concernant le calcul sur notre base de données
+# 2- visualisation des outliers
+plot(mcd_tp22, which="all")
+
+t222mah<-cbind(t2p_B2, mcd_tp22$raw.mah)
+plot(t222mah$`mcd_tp22$raw.mah`)
+
+testp<-t2p_B2
+
+# A la lecture graphique, il n'y a plus d'outliers
+```
+
+## Info session  {-}
+
+```{r session_info, echo=FALSE}
+kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[1]], row.names = F))
+kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[2]], row.names = F))
+```
+
+## Citation {-}
+
+```{r Citation, echo=FALSE}
+rref <- bibentry(
+   bibtype = "misc",
+   title = "Titre de la fiche",
+   subtitle = "Sous-Titre de la fiche",
+   author = c("Premier Auteur.e", "Second Auteur.e"),
+   doi = "10.48645/xxxxxx",
+   url = "https://rzine.fr/publication_rzine/xxxxxxx/",
+   keywords ="FOS: Other social sciences",
+   language = "fr",
+   publisher = "FR2007 CIST",
+   year = 2021,
+   copyright = "Creative Commons Attribution Share Alike 4.0 International")
+
+``` 
+
+`r capture.output(print(rref))`
+
+### BibTex : {-}
+
+```{r generateBibTex, echo=FALSE}
+
+writeLines(toBibtex(rref), "cite.bib")
+toBibtex(rref)
+
+``` 
+
+<br/>
+
+## Glossaire {- #endnotes}
+
+```{js, echo=FALSE}
+
+$(document).ready(function() {
+  $('.footnotes ol').appendTo('#endnotes');
+  $('.footnotes').remove();
+});
+
+```
