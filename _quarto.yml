@@ -14,7 +14,7 @@ author:
     affiliations:
       - name: "UMR Passages, CNRS"
         url: "https://www.passages.cnrs.fr/"
-    orcid: 0000-0000-0000-0000
+    orcid: 0000-0001-7195-765X
   - name: "Solenne Roux"
     url: "https://cv.hal.science/solenne-roux"
     affiliations:
@@ -37,7 +37,7 @@ nocite: |
 other-links:
   - text: Code source
     icon: github
-    href: "https://github.com/rzine-reviews/rzine-article-template"
+    href: "https://github.com/rzine-reviews/Article_Rzine-AFE"
 
 embed-resources: true
 lang: fr-FR 
