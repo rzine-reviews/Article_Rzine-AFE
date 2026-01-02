@@ -36,7 +36,7 @@ Comme dans toute analyse statistique, on va chercher à expliquer la plus forte 
 
 Ce que nous appelons communément *Analyses Factorielles* rassemble différentes méthodes qui se répartissent en deux grandes familles (cf. Tabachnick & Fidell - 6ème ed 2014). 
 
-Les premiers à théoriser les méthodes d'analyses factorielles sont le mathématicien britannique Karl Pearson (1901) et le psychologue anglais Charles Spearman (1904). Pearson développera sa réflexion sur les *Analyses en Compostantes Principales (ACP)* (Pearson F.R.S., K., 1901). Alors que Spearman se concentrera sur l'*Analyse Factorielle*, afin de rendre compte de la variance commune partagée par les items d'un même outil psychométrique (Spearman, C., 1904).
+Les premiers à théoriser les méthodes d'analyses factorielles sont le mathématicien britannique Karl @Pearson1901PCA et le psychologue anglais Charles @Spearman1904Association. Pearson développera sa réflexion sur les *Analyses en Compostantes Principales (ACP)* [@Pearson1901PCA]. Alors que Spearman se concentrera sur l'*Analyse Factorielle*, afin de rendre compte de la variance commune partagée par les items d'un même outil psychométrique [@Spearman1904Association].
 
 Ces pionniers des analyses factorielles travaillaient déjà sur les corrélations, et ce sont ces mêmes personnes qui ont donné leurs noms aux coefficients de corrélation  de Pearson et de Spearman.
 
@@ -77,7 +77,7 @@ Dans cet article nous centrerons notre présentation sur les méthodes d'analyse
 
 Nous présenterons deux types d'analyses qui peuvent être réalisées indépendemment mais qui sont souvent présentées successivement. Dans un premier temps nous présenterons l'analyse factorielle exploratoire (EFA), qui comme son nom ne l'indique pas n'est pas réalisée dans une approche totalement exploratoire, car sa mise en oeuvre implique des hypothèses précises que l'analyse testera. Puis dans un second temps nous présenterons l'analyse factorielle confirmatoire (CFA), qui permet de tester la persistance d'une structuration des données en éprouvant un modèle pré-défini soit par une analyse exploratoire réalisée dans une étape préalable, soit par ces deux types d'analyses factorielles exploratoires et confirmatoires réalisées par d'autres auteurs. En effet, la particularité de ce type d'analyse est la recherche de la persistance d'une structuration de données alors modélisée. Très utilisées en Psychologie pour le développement et l'utilisation d'outils psychométriques (sous forme de questionnaire), les professionnels de santé vont pouvoir reprendre des outils développés par d'autres sans courir le risque qu'ils fonctionnent différemment. Il est donc essentiel pour les chercheurs de s'assurer de la stabilité de ces outils avant de les diffuser. Par exemple, afin de déterminer si un patient est déprimé ou non, les professionnels de santé vont utiliser un outil psychométrique dédié. Il n'est pas envisageable que cet outil détermine à tord qu'une personne n'ait pas besoin de suivi psychologique parce que l'outil aurait été mal conçu. 
 
-# Les méthodes anglaises d'Analyses Factorielles pour quoi faire ?
+# Les méthodes anglaises d'analyses Factorielles pour quoi faire ?
 
 Ces méthodes visent à explorer (dans le cadre d'une EFA) ou à valider (dans le cadre d'une CFA) la structure sous-jacente d'une base de donnée en identifiant des facteurs latents qui vont expliquer les relations entre les variables de cette base de données.
 
@@ -151,9 +151,13 @@ Afin de réaliser des tests standardisés pour évaluer des processus psychologi
 
 Les psychologues se sont tournés vers ces techniques de réduction des dimensions car, pour la plupart de leurs études, ils souhaitent se centrer sur la variance partagée entre chaque item, plutôt que de chercher à conserver la variance totale d'un ensemble de variables. Le processus méthodologique alors suivi permet de faire émerger une structure factorielle sans nécessairement la totalité des variables présentes. Cette structure factorielle permet d'observer comment les variables du jeu de données rendent compte des facteurs latents qui les sous-tendent. L'objectif finalement est de savoir *"Est-ce que je mesure bien ce que je pense mesurer ?"*. En d'autres termes, est-ce que les questions posées aux répondants sont adaptées pour accéder à une dimension latente non appréhendable directement. 
 
-<div class="alert alert-danger" role="warning">
-Un point important nous semble à présent à souligner, sur l'utilisation des analyses factorielles exploratoires et confirmatoires. A partir du moment où un test psychométrique (en Psychologie) ou un questionnaire est validé, c'est-à-dire qu'il a déjà été éprouvé par le couple EFA/CFA sur un jeu de données assez conséquent, avec une population ayant les mêmes caractéristiques, il n'est pas nécessaire de remettre en cause la structure du test. Nous pouvons directement procéder à une analyse factorielle confirmatoire (CFA), afin de vérifier si le modèle, alors pré-établi par d'autres, s'ajuste à nos données. Ceci est conseillé afin de ne pas multiplier les tests statistiques et entraîner une inflation des résultats faussements positifs (encore appelés erreur de type I). Dit plus simplement cela permet d'avoir un étalonnage et de pouvoir comparer les populations vis-à-vis d'un même outil. Les psychologues ont des outils étalonnés pour mesurer les croyances dans les phénomènes paranormaux par exemple. On pourrait très bien imaginer que les sciences sociales procèdent de la même manière sur d'autres thématiques afin de soumettre le même questionnaire à différents échantillons d'une même population. 
-</div>
+
+
+:::{.callout-important}
+
+A partir du moment où un test psychométrique (en Psychologie) ou un questionnaire est validé, c'est-à-dire qu'il a déjà été éprouvé par le couple EFA/CFA sur un jeu de données assez conséquent, avec une population ayant les mêmes caractéristiques, il n'est pas nécessaire de remettre en cause la structure du test. Nous pouvons directement procéder à une analyse factorielle confirmatoire (CFA), afin de vérifier si le modèle, alors pré-établi par d'autres, s'ajuste à nos données. Ceci est conseillé afin de ne pas multiplier les tests statistiques et entraîner une inflation des résultats faussements positifs (encore appelés erreur de type I). Dit plus simplement cela permet d'avoir un étalonnage et de pouvoir comparer les populations vis-à-vis d'un même outil. Les psychologues ont des outils étalonnés pour mesurer les croyances dans les phénomènes paranormaux par exemple. On pourrait très bien imaginer que les sciences sociales procèdent de la même manière sur d'autres thématiques afin de soumettre le même questionnaire à différents échantillons d'une même population. 
+
+:::
 
 Cette approche statistique, très courante en psychologie, peut tout-à-fait être appliquée aux autres disciplines des SHS, à la fois sur l'exploration des bases de données (EFA), ou sur une comparaison dans le temps (couple EFA/CFA). Nous verrons dans cet article comment adapter ce processus statistique à des données non psychologiques.
 
@@ -216,11 +220,18 @@ Ce fichier est composé des 9 variables suivantes :
 
 Afin de réaliser le couple d'analyse EFA/CFA, comme expliqué précédemment, nous devons partionner les données en 2 ensembles distincts. Cette partition est réalisée de façon aléatoire entre les observations. Nous obtiendrons deux ensembles de données, l'un pour réaliser l'EFA et l'autre pour effectuer la CFA.
 
-<br/>
+Vous pouvez récupérer l'ensemble des données utilisées en cliquant sur l'icône suivant :
 
-<p class="center">[<span style="font-size: 230%;" class="glyphicon glyphicon-download-alt"></span> <br/> Télécharger les données](https://github.com/LeCampionG/Article_Rzine-AFE/raw/main/data/data.zip)</p>
 
-<br/>
+<center>
+
+[![](figures/download.jpg){width="28%"}](https://github.com/LeCampionG/Article_Rzine-AFE/raw/main/data/data.zip)
+
+</center>
+
+\
+
+
 
 
 ```{r, echo = TRUE}
@@ -294,8 +305,11 @@ Comme toutes les méthodes statistiques les analyses factorielles ont un certain
 
 ### Les Outliers : comment les gérer ?
 
-<div class="alert alert-danger" role="warning">
-La question du traitement de ces individus extrêmes est loin d'être simple. Elle doit faire l'objet d'une réflexion et de choix importants qu'il faut pouvoir assumer tant statistiquement que théoriquement.</div>
+:::{.callout-important}
+
+La question du traitement de ces individus extrêmes est loin d'être simple. Elle doit faire l'objet d'une réflexion et de choix importants qu'il faut pouvoir assumer tant statistiquement que théoriquement.
+
+:::
 
 Les outliers sont les individus extrêmes. Il est toujours nécessaire de pouvoir les identifier afin de savoir comment les gérer. L'enjeu autour de ces individus c'est qu'ils vont nécessairement influencer (voire fausser) les résultats des analyses. Les résultats obtenus pourront être différents s'ils sont conservés ou retirés de l'analyse (Zijlstra et al. 2011). Si les résultats difèrent il sera nécessaire de les présenter avec et sans les individus extrêmes, ainsi que d'expliciter la conclusion retenue pour plus de transparence.
 
@@ -498,7 +512,7 @@ vifstep(trainingpp, method = "spearman")
 ```{r}
 #| output: false
 #| echo: false
-#| 
+
 testpp<-subset(testp, select = -c(part_log_suroccup))
 vifstep(testpp, method = "spearman")
 ```
@@ -509,9 +523,12 @@ La démarche réalisée sur la base de donnée présentée *trainingp* a égalem
 
 Les analyses de la matrice de corrélation et du test de multicolinéarité indiquent une présence de corrélations entre les variables (celles-ci sont donc bien liées) mais ces corrélations n'impliquent désormais plus de redondances d'information. D'après ces critères nous pouvons rechercher une structure sous-jacente à cet ensemble de variables qui partagent une part de variance commune entre-elles et donc réaliser une analyse factorielle. Néanmoins, avant de rechercher cette structure sous-jacente d'autres éléments nécessitent d'être vérifiés.
 
+
 ### Spécificité des corrélations : KMO et Bartlett
 
 Deux tests sont à réaliser avant d'effectuer une analyse factorielle (aussi bien de la famille des FA que des ACP) afin de compléter les observations réalisées précédemment sur la matrice de corrélation et le test de multicolinéarité. Il s'agit du test K-M-O et du test de Bartlett. Ces tests sont nécessaires lorsque le modèle théorique à tester n'est pas figé. Ils sont donc très utiles avant de réaliser des EFA et peu pertinents avant des CFA. Les matrices de corrélations et les tests de multicolinéarité renseignent sur la pertinence du modèle à tester dans le cadre des CFA, mais les tests de KMO et de Bartlett n'apporteraient pas de nouvelles informations sur ce point, contrairement aux EFA où la structure est ajustable. Les CFA ayant pour objectif de valider un modèle, il n'est plus le temps de vérifier sa structure.
+
+
 
 #### Indice Kaiser-Meyer-Olkin (KMO)
 
@@ -519,17 +536,24 @@ Le KMO donne un aperçu global de la qualité des corrélations inter-items (int
 Cet indice est calculé pour l'ensemble des variables, mais aussi pour chaque variable.
 Un KMO élevé indique que les variables sont suffisamment corrélées pour justifier l'utilisation de l'EFA. En revanche, un KMO bas suggère que l'analyse factorielle pourrait ne pas être appropriée avec les données fournies.
 
-<div class="alert alert-success" role="warning">
-L'interprétation du KMO a été décrite par Kaiser en 1974 et se décline ainsi (Kaiser, H., F., 1974) : 
+:::{.callout-tip}
+## Interprétation du KMO
+
+Décrite par Kaiser en 1974 (Kaiser, H., F., 1974), elle se décline ainsi : 
 
 - 0.90 et plus : Merveilleux
 - 0.80 et plus : Méritoire
 - 0.70 et plus : Bien
 - 0.60 et plus : Médiocre
 - 0.50 et plus : Misérable
-- Moins de 0.50 : Inacceptable</div>
+- Moins de 0.50 : Inacceptable
+
+
+:::
 
 On peut tout-à-fait avoir le cas d'un KMO global élevé indiquant une bonne adéquation générale, mais un KMO d'une variable en particulier très mauvais. Dans ce cas de figure il faut examiner la variable pour essayer de comprendre pourquoi son KMO est faible. Cela peut venir de valeurs manquantes, d'une faible variance, ou encore d'une mauvaise corrélation avec les autres variables. Cette variable peut empêcher au modèle d'être mis en lumière correctement et provoquer du bruit. Il faudrait donc envisager de la retirer du modèle. 
+
+
 
 #### Test de Bartlett
 
@@ -595,14 +619,18 @@ L'analyse factorielle confirmatoire (CFA) que nous allons présenter par la suit
 
 Pour réaliser ces analyses il va falloir déterminer la méthode de factorisation. C'est-à-dire définir sur quelle mesure nous nous basons pour extraire les facteurs de notre ensemble de variables. Les méthodes les plus courament utilisées sont celles qui se basent soit sur le maximum de vraisemblance (maximum likelihood), soit sur les méthodes des moindres carrés (pondérés ou non) (weighted or unweighted least square) (Tabachnick, B. G., & Fidell, L. S., 2014). Dans notre exemple, après observation des distributions des données, nous avons choisi de réaliser les analyses avec la méthode de factorisation du maximum de vraisemblance robuste (mlr). Cette méthode permet d'optimiser le calcul des distances et la version robuste est adaptée à des données qui ne se distribuent pas selon une loi normale (Kyriazos & Poga, 2023). En effet, les méthodes de maximum de vraisemblance reposent sur des *paramètres* tels que la moyenne. Si celle-ci est peu représentative de la distribution des données étudiées, alors les méthodes de maximum de vraisemblance sont à proscrire, car elles produiront des résultats inadaptés et impertinents. C'est pour cela que d'autres méthodes de factorisation existent, avec des méthodes de calcul, soit qui ne sont pas basées sur des paramètres, soit pour lesquelles une correction est appliquée afin de tenir compte de la spécificité des données alors observées précédemment lors de statistiques descriptives. 
 
-<div class="alert alert-warning" role="alert">
-Aparte sur les rotations :
+
+
+:::{.callout-note}
+## Aparte sur les rotations
 
 Afin de pouvoir interpréter plus facilement les résultats des analyses factorielles, il est nécessaire de faire appel à une méthode de rotation (au-delà de 2 facteurs). Le principe de la rotation n'est pas de modifier les relations obtenues entre les variables observées et les facteurs, mais d'améliorer la lisibilité des résultats.
 
 Il existe deux familles de rotation. Les rotations orthogonales et les rotations obliques. Les rotations orthogonales doivent être privilégiées lorsque l'on émet l'hypothèse que les facteurs obtenus ne sont pas corrélés entre eux. Pour cette famille de rotation l'interprétation va se centrer sur la relation de chaque variable observée avec chaque facteur. Au contraire, les rotations obliques devront être employées s'il est supposé que les facteurs obtenus sont corrélés entre eux.
 Dans ce dernier cas, en plus de la matrice de corrélation calculée pour les rotations orthogonales, une matrice supplémentaire incluant les corrélations entre les facteurs va être produite. Il est à noter qu'en SHS la plupart des factorisations impliquent une corrélation entre les facteurs. Il est assez rare d'obtenir des facteurs qui ne soient pas du tout corrélés dans ces disciplines. C'est pourquoi dans notre exemple nous avons sélectionné une méthode de rotation oblique : *promax*.
-</div>
+
+
+:::
 
 ## Réalisation des EFA
 
@@ -706,10 +734,9 @@ Cette représentation graphique permet bien d'observer la proximité entre les v
 
 Ces EFA réalisées sur la moitié de l'échantillon de données indiquent la possibilité d'envisager un modèle en un facteur latent (rural/urbain) ou un modèle en deux facteurs latents (rural/urbain ; coût de la vie). 
 
-<div class="alert alert-danger" role="alert">
-Les structures obtenues, suite aux analyses factorielles exploratoires menées, s'ajustent-elles aux données d'un autre échantillon (tel que la base *testp*) ? Quel est le meilleur modèle celui à 1 ou 2 facteurs ? Afin de répondre à cette question et d'éprouver le modèle théorique envisagé, il est nécessaire de réaliser des analyses factorielles confirmatoires.</div>
+Les structures obtenues, suite aux analyses factorielles exploratoires menées, s'ajustent-elles aux données d'un autre échantillon (tel que la base *testp*) ? Quel est le meilleur modèle celui à 1 ou 2 facteurs ? Afin de répondre à cette question et d'éprouver le modèle théorique envisagé, il est nécessaire de réaliser des analyses factorielles confirmatoires.
 
-# L'Analyse factorielle confirmatoire
+# L'analyse factorielle confirmatoire
 
 L'analyse factorielle confirmatoire est une technique statistique utilisée pour tester un modèle factoriel.
 
@@ -729,9 +756,9 @@ Nous étudions comment un modèle pré-établi dans le cadre d'une théorie, ou 
 
 - 5- **Modifier le modèle** : Si le modèle ne s'ajuste pas bien (que les indices d'ajustement ne sont pas satisfaisants), des modifications peuvent être apportées, comme la suppression ou l'ajout de liens entre les facteurs et les variables observées, pour améliorer l'ajustement. Attention toutefois à rester dans un cadre théorique cohérent et ne pas tester des liens qui n'ont pas de sens.
 
-<div class="alert alert-warning" role="alert">
+
 Tout l'enjeu en cas de non ajustement du modèle va être de comprendre et d'analyser pourquoi le modèle ne s'ajuste pas. Cela peut venir d'un modèle théorique qui n'est pas adapté aux données observées ou à des variations entre la première analyse, qui permet d'établir un premier modèle, et sa confirmation via l'analyse factorielle confirmatoire.
-</div>
+
 
 ## L'analyse factorielle confirmatoire en pratique : Exemple sur le prix de l'immobilier - Quel modèle choisir ?
 
@@ -811,9 +838,9 @@ Dans les deux configurations testées, l'analyse factorielle confirmatoire prés
 
 Concrètement, le deuxième modèle testé, avec 2 facteurs latents permettrait de mieux rendre compte de la complexité des données. Celui-ci s'ajustant le mieux aux données.
 
-<div class="alert alert-warning" role="alert">
+:::{.callout-note}
 La fonction `interpret()` donne des résultats pour 10 indices d'ajustement du modèle testé aux données de l'échantillon présenté. Toutefois, ces différents indices ont été proposé au fur et à mesure du développement des modèles en équations structurelles et, s'ils ne testent pas exactement la même chose, ils permettent de rendre compte de l'ajustement d'un modèle aux données présentées. Il n'est pas nécessaire que l'ensemble des indices présentés soient satisfaisant pour envisager un bon ajustement. Dans la littérature, certains indices sont sélectionnés et tous ne sont pas présentés. De plus, une utilisation trop contrainte des seuils augmente la probabilité de faux négatifs, c'est-à-dire de considérer qu'un modèle ne s'ajusterait pas aux données alors que si (Hooper et al., 2008). Prenons l'exemple d'un indice très cité et présenté dans la littérature tel que le CFI **Comparative Fit Indice**. Que fait-il exactement ? Il compare le modèle d’intérêt avec un modèle restreint qui sert de base. Itération de modèles entre le pire (modèle nul – à 0) et le parfait (voir modèle saturé - 1) et le CFI indique où se situe le modèle d’intérêt (le notre) sur ce continuum. Le seuil communément accepté de .95 indique une réduction de l’erreur, par rapport au modèle nul, de 95%. Le modèle nul étant un modèle où toutes les relations entre les variables sont rapportées à 0. Donc en gros notre modèle s’ajuste à nos données avec un risque de 5% que ce soit du au hasard. Quel que soit le contexte on est satisfait d’avoir une réduction de l’erreur de 95%. Donc plus le seuil est inférieur à .95, plus le risque que l’ajustement soit du au hasard augmente. (Van Laar, S., & Braeken, J., 2021).
-</div>
+:::
 
 ### Obtenir les estimations des paramètres
 
@@ -839,7 +866,7 @@ cfa_output <- capture.output(res_fact2immo)
 
 # Placer les résultats dans une sortie déroulante pour améliorer la lisibilité
 cat(
-  '<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #ffbf00;">',
+  '<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #a5cad9;">',
   '<pre style="margin: 0; font-family: monospace; font-size: 14px;">',
   paste(cfa_output, collapse = "\n"),
   '</pre>',
@@ -856,8 +883,12 @@ cat(
 - pe : les différents paramètres des relations au sein du modèle sous la forme d'un data frame des facteurs latent et de la variance
 - *mi : si modindices=TRUE*, il s'agit des suggestions proposées par la fonction pour améliorer le modèle si l'ajustement n'est pas optimal. 
 
-<div class="alert alert-danger" role="warning">
-ATTENTION cette option *modindices=TRUE* est à utiliser avec précautions. L'idée ici est bien de tester un modèle théorique pré-établi et donc chaque modifications proposées qui seraient ajoutées au modèle final doit pouvoir se justifier théoriquement. La corrélation de l'ensemble des erreurs de mesure ensemble, comme c'est souvent proposé par cette option, est difficile à justifier dans un modèle théorique pré-établi. </div>
+:::{callout-important}
+
+## Précaution d'utilisation
+L'option `modindices=TRUE` est à utiliser avec précautions. L'idée ici est bien de tester un modèle théorique pré-établi et donc chaque modifications proposées qui seraient ajoutées au modèle final doit pouvoir se justifier théoriquement. La corrélation de l'ensemble des erreurs de mesure ensemble, comme c'est souvent proposé par cette option, est difficile à justifier dans un modèle théorique pré-établi.
+
+:::
 
 Nous observons, dans la sortie brute pour le modèle à 2 facteurs, dans la partie du tableau inititulée *Latent Variables* et dans la colonne *Estimate* que les saturations les plus élevées sont pour le facteur 1 (F1) *le prix médian de l'immobilier au m²*, alors que pour le facteur 2 (F2) il s'agit du *pourcentage de petits logements* (qui corrèle négativement sur ce facteur 2) et *le pourcentage de maison* (qui lui corrèle positivement sur ce facteur 2). Une seule saturation est faible (inférieure à 0.30), les autres apportent une part de variance significative au modèle.
 
