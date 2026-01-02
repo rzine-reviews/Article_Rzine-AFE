@@ -4,7 +4,7 @@ project:
     - index.qmd
 
 
-title: "Identier des facteurs latents en SHS avec R"
+title: "Identifier des facteurs latents en SHS"
 subtitle: "Exemples d'application sur des données en Géographie en utilisant le couple analyse factorielle exploratoire (EFA) / analyse factorielle confirmatoire (CFA)"
 date: today
 # date-modified: last-modified
@@ -30,6 +30,9 @@ abstract: |
 draft: false
 published: false 
 doi: "10.xxxx/xxx-xxx"
+bibliography: references.bib
+nocite: |
+  @*
 
 other-links:
   - text: Code source

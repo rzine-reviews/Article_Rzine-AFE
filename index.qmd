@@ -1,10 +1,8 @@
+```{r setup}
+#| echo: false
+#| eval: true
 
-<style>
-body {
-text-align: justify}
-</style>
-
-```{r setup, include=FALSE}
+library(knitr)
 
 ## Global options
 knitr::opts_chunk$set(echo=TRUE,
@@ -12,11 +10,7 @@ knitr::opts_chunk$set(echo=TRUE,
                       prompt=FALSE,
                       comment=NA,
                       message=FALSE,
-                      warning=FALSE,
-                      class.source="bg-info",
-                      class.output="bg-warning")
-
-
+                      warning=FALSE)
 ```
 
 
@@ -175,29 +169,29 @@ A quoi servent ces différents packages ?
 
 Les packges spécifiques aux méthodes d'Analyse Factorielle présentées : 
 
-- Les packages *[EFA.dimensions](https://cran.r-project.org/web/packages/EFA.dimensions/index.html)*, *[nfactors](https://cran.r-project.org/web/packages/nFactors/index.html)*, *[psych](https://cran.r-project.org/web/packages/psych/index.html)* et *[parallel](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf)* sont des packages utilisés pour vérifier si les données sont factorisables grâce à différents indices statistiques (KMO, etc.). Ils permettent également de déterminer le nombre de facteurs optimal à retenir selon l'ensemble de données soumis à l'analyse.
+- Les packages [`EFA.dimensions`](https://cran.r-project.org/web/packages/EFA.dimensions/index.html), [`nfactors`](https://cran.r-project.org/web/packages/nFactors/index.html), [`psych`](https://cran.r-project.org/web/packages/psych/index.html) et [`parallel`](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) sont des packages utilisés pour vérifier si les données sont factorisables grâce à différents indices statistiques (KMO, etc.). Ils permettent également de déterminer le nombre de facteurs optimal à retenir selon l'ensemble de données soumis à l'analyse.
 
-- Le package *[lavaan](https://lavaan.ugent.be/)* permet de réaliser des modèles statistiques impliquant des variables latentes, telles qu'elles existent dans les Analyses factorielles exploratoires et confirmatoires.
+- Le package [`lavaan`](https://lavaan.ugent.be/) permet de réaliser des modèles statistiques impliquant des variables latentes, telles qu'elles existent dans les Analyses factorielles exploratoires et confirmatoires.
 
-- Le package *[effectsize](https://cran.r-project.org/web/packages/effectsize/index.html)* pour interpréter les coefficients de l'analyse factorielle confirmatoire
+- Le package [`effectsize`](https://cran.r-project.org/web/packages/effectsize/index.html) pour interpréter les coefficients de l'analyse factorielle confirmatoire
 
-- Les packages *[semPlot](https://cran.r-project.org/web/packages/semPlot/index.html)* et *[semTools](https://cran.r-project.org/web/packages/semTools/index.html)* pour réaliser des equations structurelles méthode à laquelle appartient l'analyse factorielle confirmatoire
+- Les packages [`semPlot`](https://cran.r-project.org/web/packages/semPlot/index.html) et [`semTools`](https://cran.r-project.org/web/packages/semTools/index.html) pour réaliser des equations structurelles méthode à laquelle appartient l'analyse factorielle confirmatoire
 
 Les packages non-spécifiques aux méthodes présentées : 
 
-- *[pacman](https://cran.r-project.org/web/packages/pacman/index.html)* : est un package de management de packages.
+- [`pacman`](https://cran.r-project.org/web/packages/pacman/index.html) : est un package de management de packages.
 
-- *[here](https://cran.r-project.org/web/packages/here/index.html)* : permet de gérer les chemin d'accès au sein de notre projet
+- [`here`](https://cran.r-project.org/web/packages/here/index.html) : permet de gérer les chemin d'accès au sein de notre projet
 
-- *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* est un package de manipulation de données.
+- [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html) est un package de manipulation de données.
 
-- Les packages *[parameters](https://cran.r-project.org/web/packages/parameters/index.html)*, et *[table1](https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html)* sont utilisés dans cette fiche pour réaliser des statistiques descriptives et des mises en forme de sortie exploitables directement.
+- Les packages [`parameters`](https://cran.r-project.org/web/packages/parameters/index.html), et [`table1`](https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html) sont utilisés dans cette fiche pour réaliser des statistiques descriptives et des mises en forme de sortie exploitables directement.
 
-- les packages *[correlation](https://cran.r-project.org/web/packages/correlation/index.html)* et *[corrplot](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html)* permettent de réaliser des corrélations et des graphiques tels que des corrélogrammes.
+- les packages [`correlation`](https://cran.r-project.org/web/packages/correlation/index.html) et [`corrplot`](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html) permettent de réaliser des corrélations et des graphiques tels que des corrélogrammes.
 
-- Le package *[usdm](https://cran.r-project.org/web/packages/usdm/usdm.pdf)* comprend différentes fonction permettant d'explorer l'impact de différentes sources d'incertitudes dans des mesures d'association. Nous utiliserons surtout les fonctions permettant de mesurer la multicolinéarité entre des variables.
+- Le package [`usdm`](https://cran.r-project.org/web/packages/usdm/usdm.pdf) comprend différentes fonction permettant d'explorer l'impact de différentes sources d'incertitudes dans des mesures d'association. Nous utiliserons surtout les fonctions permettant de mesurer la multicolinéarité entre des variables.
 
-- *[ggraph](https://cran.r-project.org/web/packages/ggraph/index.html)*,  *[ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html)*,  *[RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html)* et *[see](https://cran.r-project.org/web/packages/see/index.html)* sont des packages dédiés à la production de représentations graphiques.
+- [`ggraph`](https://cran.r-project.org/web/packages/ggraph/index.html),  [`ggplot2`](https://cran.r-project.org/web/packages/ggplot2/index.html),  [`RColorBrewer`](https://cran.r-project.org/web/packages/RColorBrewer/index.html) et [`see`](https://cran.r-project.org/web/packages/see/index.html) sont des packages dédiés à la production de représentations graphiques.
 
 # Les données
 
@@ -560,6 +554,7 @@ performance::check_factorstructure(trainingpp)
 ```
 
 Dans notre cas nous avons donc un KMO global méritoire (0.81) et des KMO par variable satisfaisants (de 0.71 à 0.91). Le test de sphéricité nous indique que la matrice de corrélation n'est pas une matrice d'identité. Nous pouvons donc nous lancer dans l'EFA.
+
 
 ## Combien de facteurs retenir ?
 
@@ -949,77 +944,22 @@ Nous avons ainsi présenté pas à pas un exemple d'utilisation de l'EFA et en s
 
 Ainsi, si vous souhaitez explorer vos données et identifier des facteurs latents corrélés (ou non) afin de faire émerger une structure synthétique, voir si la structure observée est cohérente avec un modèle théorique, ou encore si cette structure observée est stable dans le temps, alors l'utilisation du couple entre EFA/CFA est tout-à-fait pertinente. On peut en effet tester si un modèle éprouvé sur des données récoltées en 2011, serait bien le même en 2023 ou s'il aurait subi des modifications, liées au contexte du sujet étudié.
 
-# Lexique {-}
 
-*Présentation des différents acronymes cités dans l'article.* : 
+\
 
-- AFC : Analyse Factorielle des Correspondances
-- AFDM : Analyse Factorielle de Données Mixtes
-- AFM : Analyse Factorielle Multiple
-- AFMH : Analyse Factorielle Multiple Hiérarchique
-- ACM : Analyse des Correspondances Multiples
-- ACP : Analyse en Composantes Principales
-- CFA : Confirmatory Factorial Analysis
-- EFA : Exploratory Factorial Analysis
-- FA : Factorial Analysis
+# Bibliographie {.unnumbered}
 
-# Bibliographie {-}
+:::{#refs}
 
-<div id="refs">
+:::
 
-- Aguinis, H., Gottfredson, R. K., & Joo, H. (2013). Best-Practice Recommendations for Defining, Identifying, and Handling Outliers. Organizational Research Methods, 16(2), 270-301. [https://doi.org/10.1177/1094428112470848](https://doi.org/10.1177/1094428112470848)
 
-- Bakker, M., & Wicherts, J. M. (2014). Outlier removal, sum scores, and the inflation of the type I error rate in independent samples t tests: The power of alternatives and recommendations. Psychological Methods, 19(3), 409–427. [https://doi.org/10.1037/met0000014](https://doi.org/10.1037/met0000014)
+# Annexes {.unnumbered}
 
-- Bartlett, M.S. (1937) Properties of Sufficiency and Statistical Test. Proceedings of the Royal Society A, 160, 268-282. [https://doi.org/10.1098/rspa.1937.0109](https://doi.org/10.1098/rspa.1937.0109)
 
-- Benzecri J.-P. (1973), L’analyse des données, Paris, Dunod, vol. 2 : Correspondances
 
-- Farrar, D. E., & Glauber, R. R. (1967). Multicollinearity in Regression Analysis: The Problem Revisited. The Review of Economics and Statistics, 49(1), 92–107. [https://doi.org/10.2307/1937887](https://doi.org/10.2307/1937887).
 
-- Flora, D. B., & Flake, J. K. (2017), The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation. Canadian Journal of Behavioural Science / Revue canadienne des sciences du comportement, 49(2), 78–88. [https://doi.org/10.1037/cbs0000069](https://doi.org/10.1037/cbs0000069)
-
-- Hooper, D., Coughlan, J., & Mullen, M. R. (2008), Structural Equation Modelling: Guidelines for Determining Model Fit. The Electronic Journal of Business Research Methods, 6, 53-60.
-- Kaiser, H.F. (1974) An index of factorial simplicity. Psychometrika 39, 31–36. [https://doi.org/10.1007/BF02291575](https://doi.org/10.1007/BF02291575)
-
-- Kyriazos, T. and Poga, M. (2023) Dealing with Multicollinearity in Factor Analysis: The Problem, Detections, and Solutions. Open Journal of Statistics, 13, 404-424. doi: [10.4236/ojs.2023.133020](https://doi.org/10.4236/ojs.2023.133020)
-
-- Kyriazos, T. and Poga-Kyriazou, M. (2023) Applied Psychometrics: Estimator Considerations in Commonly Encountered Conditions in CFA, SEM, and EFA Practice. Psychology, 14, 799-828. doi: [https://doi.org/10.4236/psych.2023.145043](https://doi.org/10.4236/psych.2023.145043)
-
-- Leys, C., Klein, O., Dominicy, Y., and Ley., C., 2018, “Detecting Multivariate Outliers: Use a Robust Variant of the Mahalanobis Distance.” Journal of Experimental Social Psychology 74: 150–56. [https://doi.org/10.1016/j.jesp.2017.09.011](https://doi.org/10.1016/j.jesp.2017.09.011)
-
-- Leys, C., et al. (2019). How to Classify, Detect, and Manage Univariate and Multivariate Outliers, With Emphasis on Pre-Registration. International Review of Social Psychology, 32(1): 5, 1–10. DOI: [https://doi.org/10.5334/irsp.289](Leys, C., et al. (2019). How to Classify, Detect, and Manage Univariate and Multivariate Outliers, With Emphasis on Pre-Registration. International Review of Social Psychology, 32(1): 5, 1–10. DOI: https://doi.org/10.5334/irsp.289)
-
-- Makowski, (2018). The psycho Package: an Efficient and Publishing-Oriented Workflow for Psychological Science. Journal of Open Source Software, 3(22), 470. [https://doi.org/10.21105/joss.00470](https://doi.org/10.21105/joss.00470)
-
-- Pages, J-P., et al., (1979), Analyse factorielle : Un peu d'histoire et de géométrie, Revue de statistiques appliquée, tome 27, n°1, p.5-28.
-
-- Pearson F.R.S., K. (1901) LIII. On lines and planes of closest fit to systems of points in space, The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science, 2:11, 559-572, DOI: [10.1080/14786440109462720](https://doi.org/10.1080/14786440109462720)
-
-- Schreiber, J.B., (2021), Issues and recommendations for exploratory factor analysis and principal component analysis, Research in Social and Administrative Pharmacy, Volume 17, Issue 5, 2021, Pages 1004-1011, ISSN 1551-7411, [https://doi.org/10.1016/j.sapharm.2020.07.027](https://doi.org/10.1016/j.sapharm.2020.07.027).
-
-- Spearman, C. (1904). The Proof and Measurement of Association between Two Things. The American Journal of Psychology, 15(1), 72–101. [https://doi.org/10.2307/1412159](https://doi.org/10.2307/1412159)
-
-- Tabachnick, B., & Fidell, L., (2014), Using Multivariate Statistics (6th ed.). Harlow: Pearson Education
-
-- Tobacyk, J., & Milford, G. (1983). Belief in paranormal phenomena: Assessment instrument development and implications for personality functioning. Journal of personality and social psychology, 44(5), 1029.
-
-- Tobacyk, J. J., Nagot, E., & Miller, M. (1988). Paranormal Beliefs and Locus of Control: A Multidimensional Examination. Journal of Personality Assessment, 52(2), 241–246. [https://doi.org/10.1207/s15327752jpa5202_5](Tobacyk, J. J., Nagot, E., & Miller, M. (1988). Paranormal Beliefs and Locus of Control: A Multidimensional Examination. Journal of Personality Assessment, 52(2), 241–246. https://doi.org/10.1207/s15327752jpa5202_5)
-
-- Tobacyk, J. J. (2004). A revised paranormal belief scale. International Journal of Transpersonal Studies, 23(1), 94–98.. International Journal of Transpersonal Studies, 23 (1). [http://dx.doi.org/10.24972/ijts.2004.23.1.94](http://dx.doi.org/10.24972/ijts.2004.23.1.94)
-
-- Van Laar, S., & Braeken, J., 2021, Understanding the Comparative Fit Index : It’s All About Base !, Practical Assessment, Reasearch & Evaluation, Vol 26, N°26
-
-- Watkins, M. W. (2018). Exploratory Factor Analysis: A Guide to Best Practice. Journal of Black Psychology, 44(3), 219-246. [https://doi.org/10.1177/0095798418771807](https://doi.org/10.1177/0095798418771807)
-
-- Yong, A. G., & Pearce, S. (2013) A Beginner’s Guide to Factor Analysis: Focusing on Exploratory Factor Analysis, Tutorials in Quantitative Methods for Psychology, 9(2), 79-94. doi: [10.20982/tqmp.09.2.p079](https://doi.org/10.20982/tqmp.09.2.p079)
-
-- Zijlstra, W. P., van der Ark, L. A., & Sijtsma, K. (2011). Outliers in Questionnaire
-Data: Can They Be Detected and Should They Be Removed? Journal of Educational and Behavioral Statistics, 36(2), 186–212. [http://www.jstor.org/stable/29789477](http://www.jstor.org/stable/29789477)
-
-</div>
-
-# Annexes {-}
+## Préparation des données  {.unnumbered}
 
 Vous retrouverez ci-dessous les scripts ayant permis d'identifier et de supprimer les valeurs extrêmes. Nous testons donc la présence d'individus extrêmes sur les deux bases de données *training* et *test*.
 
@@ -1138,51 +1078,37 @@ testp<-t2p_B2
 # A la lecture graphique, il n'y a plus d'outliers
 ```
 
-## Info session  {-}
+\
+
+## Lexique  {.unnumbered}
+
+*Présentation des différents acronymes cités dans l'article.* : 
+
+- AFC : Analyse Factorielle des Correspondances
+- AFDM : Analyse Factorielle de Données Mixtes
+- AFM : Analyse Factorielle Multiple
+- AFMH : Analyse Factorielle Multiple Hiérarchique
+- ACM : Analyse des Correspondances Multiples
+- ACP : Analyse en Composantes Principales
+- CFA : Confirmatory Factorial Analysis
+- EFA : Exploratory Factorial Analysis
+- FA : Factorial Analysis
+
+\
+
+#### Informations de session {.unnumbered}
 
 ```{r session_info, echo=FALSE}
-kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[1]], row.names = F))
-kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[2]], row.names = F))
+sessionInfo()
+# kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[1]], row.names = F))
+# kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[2]], row.names = F))
 ```
 
-## Citation {-}
 
-```{r Citation, echo=FALSE}
-rref <- bibentry(
-   bibtype = "misc",
-   title = "Titre de la fiche",
-   subtitle = "Sous-Titre de la fiche",
-   author = c("Premier Auteur.e", "Second Auteur.e"),
-   doi = "10.48645/xxxxxx",
-   url = "https://rzine.fr/publication_rzine/xxxxxxx/",
-   keywords ="FOS: Other social sciences",
-   language = "fr",
-   publisher = "FR2007 CIST",
-   year = 2021,
-   copyright = "Creative Commons Attribution Share Alike 4.0 International")
 
-``` 
 
-`r capture.output(print(rref))`
 
-### BibTex : {-}
 
-```{r generateBibTex, echo=FALSE}
 
-writeLines(toBibtex(rref), "cite.bib")
-toBibtex(rref)
 
-``` 
 
-<br/>
-
-## Glossaire {- #endnotes}
-
-```{js, echo=FALSE}
-
-$(document).ready(function() {
-  $('.footnotes ol').appendTo('#endnotes');
-  $('.footnotes').remove();
-});
-
-```
