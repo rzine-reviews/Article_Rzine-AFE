@@ -155,7 +155,7 @@ Cette approche statistique, très courante en psychologie, peut tout-à-fait êt
 
 ```{r}
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(correlation, corrplot, dplyr, EFA.dimensions, effectsize, ggraph, ggplot2, here, lavaan, nFactors, parallel, parameters, psych, RColorBrewer, see, SemPlot, SemTools, table1, usdm)
+pacman::p_load(correlation, corrplot, dplyr, EFA.dimensions, effectsize, ggraph, ggplot2, here, lavaan, nFactors, parallel, parameters, psych, rrcov, RColorBrewer, see, semPlot, SemTools, table1, usdm)
 
 ```
 
