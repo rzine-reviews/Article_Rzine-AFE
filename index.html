@@ -2493,7 +2493,7 @@ text-align: justify}
 <section id="les-packages" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Les packages</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(correlation, corrplot, dplyr, EFA.dimensions, effectsize, ggraph, ggplot2, here, lavaan, nFactors, parallel, parameters, psych, rrcov, RColorBrewer, see, semPlot, SemTools, table1, usdm)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A quoi servent ces différents packages ?</p>
@@ -2539,7 +2539,7 @@ text-align: justify}
 </p>
 <p><br></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement des données de base</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement des données de base</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>csv_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;immo_afe.csv&quot;</span>)</span>
@@ -2548,7 +2548,7 @@ text-align: justify}
 </div>
 <p><strong>Partitionnement des données :</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Indiquer une graine pour conserver la même répartition lors des partitionnements à chaque exécution du script</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Indiquer une graine pour conserver la même répartition lors des partitionnements à chaque exécution du script</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## En premier lien le partitionnement des data</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>partitions <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_partition</span>(dfz, <span class="at">proportion =</span> <span class="fl">0.5</span>) <span class="co"># ici division du corpus eavec 50% des individus dasn l&#39;échantillon d&#39;entrainement</span></span>
@@ -2565,11 +2565,11 @@ text-align: justify}
 <p>Il est extrêmement recommandé de centrer-réduire ses données pour réaliser une analyse statistique multivariée telle qu’une analyse factorielle, ou plus généralement lorsque l’on travaille avec des variables n’étant pas sur les mêmes échelles, sur les mêmes ordres de grandeurs. Cela implique de faire subir aux données une transformation statistique visant à ce qu’elles aient une moyenne de 0 et un écart-type de 1. On parle aussi en statistique de standardisation. Cette transformation permet de conserver la variabilité des données (la distance entre chaque valeur reste inchangée), tout en les rendant comparables (elles sont placées sur une même échelle). Dans le cadre de modélisations statistiques, il est nécessaire de réaliser cette opération sur les variables explicatives du modèle. Sur R, cette opération peut se réaliser facilement avec la fonction <code>scale()</code> - que nous utilisons dans l’exemple présenté - ou à “la main”. L’opération est simple : il s’agit de soustraire chaque valeur par la moyenne puis de divise chaque valeur par l’écart-type. Dans notre exemple cette opération a déjà été effectuée précédemment. Les données chargées sont donc déjà centrées et réduites.</p>
 <p>La première étape étant toujours la description des données, voici le code pour réaliser un tableau récapitulatif des variables, ici sur le prix de l’immobilier. Dans cette partie, nous ne présentons les statistiques descriptives que sur l’une des deux bases de données (<em>training</em>) pour plus de lisibilité. Néanmoins, nous avons bien vérifié les statistiques descriptives sur les deux ensembles de données.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> prix_med <span class="sc">+</span> perc_log_vac <span class="sc">+</span> perc_maison <span class="sc">+</span> perc_tiny_log <span class="sc">+</span> dens_pop <span class="sc">+</span> med_niveau_vis <span class="sc">+</span> part_log_suroccup <span class="sc">+</span> part_agri_nb_emploi <span class="sc">+</span> part_cadre_profintellec_nbemploi , <span class="at">data=</span>training) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> prix_med <span class="sc">+</span> perc_log_vac <span class="sc">+</span> perc_maison <span class="sc">+</span> perc_tiny_log <span class="sc">+</span> dens_pop <span class="sc">+</span> med_niveau_vis <span class="sc">+</span> part_log_suroccup <span class="sc">+</span> part_agri_nb_emploi <span class="sc">+</span> part_cadre_profintellec_nbemploi , <span class="at">data=</span>training) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>La réalisation des représentations graphiques permet d’appréhender les distributions des variables et leurs éventuelles spécificités. Voici une façon de réaliser un diagramme des distributions des variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: &#39;hide&#39;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: &#39;hide&#39;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 9</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2594,7 +2594,7 @@ text-align: justify}
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)  <span class="co"># restaure marge</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)  <span class="co"># restaure marge</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="les-pré-requis-de-lanalyse-factorielle" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="les-pré-requis-de-lanalyse-factorielle"><span class="header-section-number">5.1</span> Les pré-requis de l’analyse factorielle</h2>
@@ -2628,12 +2628,12 @@ La question du traitement de ces individus extrêmes est loin d’être simple. 
 <p>Comme nous avons pu l’observer précédemment avec les histogrammes des distributions des variables, celles-ci ne suivent pas une loi normale. Le coefficient de corrélation de Pearson n’étant pas stable sur des données non-normales, nous lui préfererons celui de Spearman pour calculer la matrice de corrélation.</p>
 <p>Pour plus de lisibilité nous ne présentons la matrice de corrélation que sur la base <em>trainingp</em>, mais celle-ci a également été réalisée sur la base <em>testp</em>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrice de corrélation</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrice de corrélation</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">correlation</span>(trainingp, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cor <span class="sc">%&gt;%</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(<span class="at">redundant =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code># Correlation Matrix (spearman-method)
+<pre><code># Correlation Matrix (spearman-method)
 
 Parameter           | part_cadre_profintellec_nbemploi | part_agri_nb_emploi
 ----------------------------------------------------------------------------
@@ -2678,9 +2678,9 @@ p-value adjustment method: Holm (1979)</code></pre>
 <p>Vérifions tout de même si nous ne sommes pas en présence d’une multicolinéarité. C’est-à-dire que plusieurs variables partagent une part de variance importante, ce qui peut amener à sur-représenter un phénomène et biaiser les résultats lors d’une analyse multivariée. Afin de vérifier la multicolinéarité entre les variables nous utiliserons le VIF <em>Variance Inflation Factor</em>. Cet indice est habituellement utilisé pour des modèles de régression, toutefois Kyriazos &amp; Poga ont démontré son utilité dans le cadre des analyses factorielles (Kyriazos &amp; Poga, 2023).</p>
 <p>Comme précédemment, le test du VIF a été réalisé sur les deux bases de données, mais pour ne pas alourdir la lecture, seul l’exemple portant sur la base de données <em>trainngp</em> est présenté.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vifstep</span>(trainingp, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vifstep</span>(trainingp, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>No variable from the 9 input variables has collinearity problem. 
+<pre><code>No variable from the 9 input variables has collinearity problem. 
 
 The linear correlation coefficients ranges between: 
 min correlation ( part_log_suroccup ~ med_niveau_vis ):  0.04317791 
@@ -2701,10 +2701,10 @@ max correlation ( perc_log_vac ~ prix_med ):  -0.7862619
 </div>
 <p>Bien que la fonction ne nous signale aucun problème de multicolinéarité, nous observons toutefois 2 VIF supérieurs à 5. Celui sur la variable représentant la part des <em>logements sur-occupés</em> et celui sur le <em>pourcentage de petits logements</em>. Le seuil à retenir pour considérer la présence de multicolinéarité ou non à l’aide du VIF ne fait pas l’unanimité parmi les statisticiens. Dans notre exemple, nous nous basons sur la démonstration de Farrar &amp; Glauber qui préconise un seuil de 5 (Farrar &amp; Glauber, 1967). Nous choisissons donc de sortir la variable renseignant la part de logements sur-occupés.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>trainingpp<span class="ot">&lt;-</span><span class="fu">subset</span>(trainingp, <span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(part_log_suroccup))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>trainingpp<span class="ot">&lt;-</span><span class="fu">subset</span>(trainingp, <span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(part_log_suroccup))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vifstep</span>(trainingpp, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>No variable from the 8 input variables has collinearity problem. 
+<pre><code>No variable from the 8 input variables has collinearity problem. 
 
 The linear correlation coefficients ranges between: 
 min correlation ( perc_tiny_log ~ perc_log_vac ):  -0.1387746 
@@ -2750,11 +2750,11 @@ max correlation ( perc_log_vac ~ prix_med ):  -0.7862619
 <p>Le test de Bartlett permet de vérifier que la matrice de corrélation ne soit pas une matrice d’identité. C’est-à-dire une matrice de corrélation où toutes les variables sont parfaitement indépendantes, c’est-à-dire où toutes les corrélations sont égales à 0. Pour celà nous utilisons le test de sphéricité de Bartlett (Bartlett, M.S., 1937). Pour valider ce pré-requis il est nécessaire que le test soit significatif (p &lt; 0,05) pour accepter l’idée que la matrice de corrélation soit significativement différente d’une matrice d’identité.</p>
 <p>Pour réaliser un KMO et le test de Bartlett on peut utiliser la librairie <code>psych</code> avec les fonctions <code>KMO()</code> et <code>cortest.bartlett()</code>. Une alternative intéressante est la fonction <code>check_factostructure()</code> du package <code>performance</code>, cette fonction réalise les deux tests et nous indique si les données sont appropriées pour réaliser une EFA.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Avec psych</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Avec psych</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">## KMO</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">KMO</span>(trainingpp)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>Kaiser-Meyer-Olkin factor adequacy
+<pre><code>Kaiser-Meyer-Olkin factor adequacy
 Call: KMO(r = trainingpp)
 Overall MSA =  0.81
 MSA for each item = 
@@ -2767,10 +2767,10 @@ MSA for each item =
              part_agri_nb_emploi part_cadre_profintellec_nbemploi 
                             0.91                             0.86 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Test de sphéricité</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Test de sphéricité</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(trainingpp, <span class="at">n=</span><span class="dv">587</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>$chisq
+<pre><code>$chisq
 [1] 2616.065
 
 $p.value
@@ -2779,10 +2779,10 @@ $p.value
 $df
 [1] 28</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Avec performance</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Avec performance</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_factorstructure</span>(trainingpp)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code># Is the data suitable for Factor Analysis?
+<pre><code># Is the data suitable for Factor Analysis?
 
 
   - Sphericity: Bartlett&#39;s test of sphericity suggests that there is sufficient significant correlation in the data for factor analysis (Chisq(28) = 2616.06, p &lt; .001).
@@ -2798,22 +2798,22 @@ $df
 <p>Avant de procéder à une analyse factorielle il est nécessaire de définir le nombre de facteurs latents (pour une EFA). Cette décision repose sur des hypothèses théoriques et sur l’étude des valeures propres. Sur ce point il existe un grand nombre d’indices et de méthodes (comme par exemple <em>le coude</em> de Katell, la règle de Kaiser-Guttman…). Cependant, il n’existe pas de consensus sur quelle méthode choisir et laquelle serait la plus appropriée selon les cas.</p>
 <p>Makowski en 2018, propose de se reposer sur un consensus parmi les méthodes plutôt que sur une méthode en particulier (Makowski, 2018). Il implémente sa solution dans le package <code>psycho</code> puis dans la fonction<code>n_factors()</code> dans le package <code>parameters</code>. C’est ce que nous utiliserons ici pour définir le nombre adéquat de facteurs à retenir pour l’analyse factorielle des prix de l’immobilier en France.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identification du nombre de facteurs</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identification du nombre de facteurs</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_factors</span>(trainingpp)</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code># Method Agreement Procedure:
+<pre><code># Method Agreement Procedure:
 
 The choice of 2 dimensions is supported by 6 (31.58%) methods out of 19 (Optimal coordinates, Parallel analysis, Kaiser criterion, Scree (SE), VSS complexity 2, Velicer&#39;s MAP).</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plus de détail peuvent être obtenu en pasant au format data frame et en utilisant summary()</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plus de détail peuvent être obtenu en pasant au format data frame et en utilisant summary()</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>nb_factor <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(n)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nb_factor)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>  n_Factors              Method              Family
+<pre><code>  n_Factors              Method              Family
 1         1                   t Multiple_regression
 2         1                   p Multiple_regression
 3         1 Acceleration factor               Scree
@@ -2821,9 +2821,9 @@ The choice of 2 dimensions is supported by 6 (31.58%) methods out of 19 (Optimal
 5         1    VSS complexity 1                 VSS
 6         2 Optimal coordinates               Scree</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(n)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(n)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>  n_Factors n_Methods Variance_Cumulative
+<pre><code>  n_Factors n_Methods Variance_Cumulative
 1         1         5           0.5102221
 2         2         6           0.6423769
 3         3         1           0.6908066
@@ -2831,7 +2831,7 @@ The choice of 2 dimensions is supported by 6 (31.58%) methods out of 19 (Optimal
 5         5         1           0.7429186
 6         7         3           0.7474767</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On peut également représenter le nombre de facteurs.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On peut également représenter le nombre de facteurs.</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n, <span class="at">type=</span><span class="st">&quot;line&quot;</span>) <span class="sc">+</span> <span class="fu">theme_modern</span>()</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -2841,7 +2841,7 @@ The choice of 2 dimensions is supported by 6 (31.58%) methods out of 19 (Optimal
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># et visualiser le graphique des valeures propres</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># et visualiser le graphique des valeures propres</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SCREE_PLOT</span>(trainingpp, <span class="at">corkind=</span><span class="st">&quot;spearman&quot;</span>, <span class="at">verbose=</span>T)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -2851,7 +2851,7 @@ The choice of 2 dimensions is supported by 6 (31.58%) methods out of 19 (Optimal
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>
+<pre><code>
 
 Scree Plot:
 
@@ -2894,7 +2894,7 @@ Note
 <h2 data-number="5.3" class="anchored" data-anchor-id="réalisation-des-efa"><span class="header-section-number">5.3</span> Réalisation des EFA</h2>
 <p><strong>1er modèle à un 1 facteur :</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilisation de mlr méthode considérée comme plus robuste même pour des données non-normales</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilisation de mlr méthode considérée comme plus robuste même pour des données non-normales</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pour avoir mlr il faut utiliser la syntaxe ci-dessous :</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Nous n&#39;utilisons pas de méthode de rotation car nous testons la solution à 1 seul facteur</span></span>
@@ -2902,7 +2902,7 @@ Note
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(efa1immo)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>
+<pre><code>
                                      f1 
 prix_med                          0.705*
 perc_log_vac                     -0.532*
@@ -2917,26 +2917,26 @@ part_cadre_profintellec_nbemploi  0.747*</code></pre>
 <p>Avec un seul facteur toutes les variables observées corrèlent donc avec un facteur latent. Dans notre cas on a toute une partie qui corrèle positivement et l’autre négativement. Ainsi, le <em>pourcentage de petits logements</em>, la <em>part des cadres dans l’emploi</em>, le <em>prix median du m²</em>, la <em>densité de population</em> et le <em>niveau de vie médian</em> corrèlent positivement et à l’inverse, le <em>pourcentage de maison</em>, la <em>part d’agriculteurs dans l’emploi</em> et le <em>pourcentage de logements vacants</em> corrèlent négativement. Cela laisse à penser à une dichotomie qui pourrait être ville / campagne. Ainsi le facteur latent exprimé par les huit variables observées qui caractérisent les EPCI, serait une dimension sur le niveau d’urbanité ou de ruralité. Toutefois nous ne pouvons l’affirmer à la lecture de ces seuls résultats, des analyses complémentaires permettraient d’éclairer ce point.</p>
 <p>L’avantage de l’EFA c’est qu’une fois le facteur latent identifié, nous pouvons, pour chaque individu obtenir un score sur ce facteur latent. Dans notre exemple, vu la dimension spatiale des données il faudrait ensuite les cartographier pour visualiser spatialement l’information. L’intérêt des scores factoriels étant d’être ré-utilisés soit dans des analyses complémentaires, soit directement pour comprendre la structure des données. Dans notre cas, on pourrait s’en servir pour définir un score d’urbanité et de ruralité puis le représenter.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des scores factoriels par observation</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des scores factoriels par observation</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>factor_scores_immo<span class="ot">&lt;-</span><span class="fu">predict</span>(efa1immo)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regardons  les 5 premières lignes</span></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(factor_scores_immo, <span class="dv">5</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>               f1
+<pre><code>               f1
 [1,]  1.829256890
 [2,]  0.003757627
 [3,]  0.274161237
 [4,] -0.342891760
 [5,]  0.223668900</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des charges factorielles par variable</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des charges factorielles par variable</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>factor_loadings_immo <span class="ot">&lt;-</span> efa1immo<span class="sc">$</span>loadings</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les charges factorielles</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(factor_loadings_immo)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>                                     f1
+<pre><code>                                     f1
 prix_med                          0.705
 perc_log_vac                     -0.532
 perc_maison                      -0.716
@@ -2949,13 +2949,13 @@ part_cadre_profintellec_nbemploi  0.747</code></pre>
 </div>
 <p><strong>Testons le modèle à deux facteurs !</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilisation de mlr méthode considérée comme plus robuste même pour données non-normales</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilisation de mlr méthode considérée comme plus robuste même pour données non-normales</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilisation d&#39;une méthode de rotation promax car nous testons un modèle à2 facteurs</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>efa2immo <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">efa</span>(trainingpp, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">estimator =</span> <span class="st">&quot;MLR&quot;</span>, <span class="at">rotation =</span> <span class="st">&quot;promax&quot;</span>)</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(efa2immo)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>
+<pre><code>
                                      f1     f2
 prix_med                          0.944       
 perc_log_vac                     -0.948      .
@@ -2970,12 +2970,12 @@ part_cadre_profintellec_nbemploi         0.650</code></pre>
 <p>Cette structure à deux facteurs permet de faire émerger en plus du facteur latent, qui serait urbanité/ruralité (<em>f2</em>), un autre facteur représentant le côut de la vie (<em>f1</em>). Au niveau de ce facteur on observe une corrélation positive avec le prix <em>médian de l’immobilier au m²</em> et le <em>niveau de vie médian</em>, et négative avec le <em>pourcentage de logements vacants</em>. Ainsi, les EPCI ayant un score élevé sur ce facteur latent seraient les EPCI où le niveau de vie médian et le prix de l’immobilier seraient le plus élévé.</p>
 <p>Extraction des charges factorielles par variable :</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>factor_loadings_immo2 <span class="ot">&lt;-</span> efa2immo<span class="sc">$</span>loadings</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>factor_loadings_immo2 <span class="ot">&lt;-</span> efa2immo<span class="sc">$</span>loadings</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les charges factorielles</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(factor_loadings_immo2)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>                                     f1     f2
+<pre><code>                                     f1     f2
 prix_med                          0.944 -0.013
 perc_log_vac                     -0.948  0.252
 perc_maison                      -0.167 -0.631
@@ -2988,13 +2988,13 @@ part_cadre_profintellec_nbemploi  0.096  0.650</code></pre>
 </div>
 <p>Une fois de plus nous pouvons extraire les scores de ces deux facteurs latents de ce second modèle.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des scores factoriels par observation</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des scores factoriels par observation</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>factor_scores_immo2<span class="ot">&lt;-</span><span class="fu">predict</span>(efa2immo)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regardons  les 5 premières lignes</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(factor_scores_immo2, <span class="dv">5</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>             f1         f2
+<pre><code>             f1         f2
 [1,]  1.3347563  2.3713092
 [2,]  0.2115704 -0.1939248
 [3,] -0.7920895  0.6989897
@@ -3004,7 +3004,7 @@ part_cadre_profintellec_nbemploi  0.096  0.650</code></pre>
 </div>
 <p>Il est tout à fait possible dans le cadre de l’EFA d’emprunter une représentation classique de l’ACP (le scatter plot) pour représenter les variables et leurs charges factorielles. Cette représentation peut s’avérer également utile pour mieux comprendre les facteurs latents. Voici un exemple de représentation avec la structuration en 2 facteurs latents.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraire les charges factorielles</span></span>
@@ -3072,7 +3072,7 @@ part_cadre_profintellec_nbemploi  0.096  0.650</code></pre>
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="réalisation-des-cfa"><span class="header-section-number">6.2.2</span> Réalisation des CFA</h3>
 <p>Les CFA sont réalisées sur la base de données <em>testpp</em>, afin de tester la structure factorielle sur un autre échantillon que celui qui a été utilisé lors des EFA, comme préconisé dans la littérature scientifique.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(testpp) <span class="co"># nécessaire à cause du package lavaan</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -3097,10 +3097,10 @@ part_cadre_profintellec_nbemploi  0.096  0.650</code></pre>
 </ul>
 <p>Vérifions à présent la première étape, qui correspond à cette partie, à savoir l’ajustement du modèle aux données. Tout notre enjeu ici va être de comparer les deux modèles et de choisir celui qui s’ajuste le mieux aux données. Pour ce faire nous pouvons comparer les deux modèles sur différents indices d’ajustement. La fonction <code>interpret()</code> permet d’évaluer dix indices d’ajustement les plus couramment employés dans la littérature scientifique.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pour comparer les modèles à l&#39;aide des indices tel que l&#39;AIC, le RMSEA, R2...</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pour comparer les modèles à l&#39;aide des indices tel que l&#39;AIC, le RMSEA, R2...</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">compare_performance</span>(fact_1immo, fact_2immo, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code># Comparison of Model Performance Indices
+<pre><code># Comparison of Model Performance Indices
 
 Name       |  Model |    Chi2 | Chi2_df | p (Chi2) | Baseline(28)
 -----------------------------------------------------------------
@@ -3122,10 +3122,10 @@ Name       |   RNI | Loglikelihood |  AIC (weights) |  BIC (weights) | BIC_adjus
 fact_1immo | 0.694 |     -4904.989 | 9842.0 (&lt;.001) | 9912.1 (&lt;.001) |     9861.346
 fact_2immo | 0.890 |     -4638.430 | 9310.9 (&gt;.999) | 9385.4 (&gt;.999) |     9331.439</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Une autre manière de visualiser très utile.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Une autre manière de visualiser très utile.</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">interpret</span>(fact_1immo)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>    Name     Value Threshold Interpretation
+<pre><code>    Name     Value Threshold Interpretation
 1    GFI 0.7350803      0.95           poor
 2   AGFI 0.5149939      0.90           poor
 3    NFI 0.6900854      0.90           poor
@@ -3137,9 +3137,9 @@ fact_2immo | 0.890 |     -4638.430 | 9310.9 (&gt;.999) | 9385.4 (&gt;.999) |    
 9   PNFI 0.4929182      0.50           poor
 10   IFI 0.6951383      0.90           poor</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">interpret</span>(fact_2immo)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">interpret</span>(fact_2immo)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>    Name      Value Threshold Interpretation
+<pre><code>    Name      Value Threshold Interpretation
 1    GFI 0.89178269      0.95           poor
 2   AGFI 0.78297251      0.90           poor
 3    NFI 0.88384431      0.90           poor
@@ -3174,12 +3174,12 @@ Note
 <p>La qualité des ajustements, évaluée précédemment, invite à ne s’intéresser qu’au modèle à deux facteurs latents, toutefois, dans un but pédagogique nous présenterons la composition des structures des deux modèles testés.</p>
 <p>La composition des modèles testés s’obtient en faisant appel à la fonction <code>summary()</code> qu’on applique aux objets contenant les données des CFA alors réalisées précédemment, à savoir <em>fact_1immo</em> et <em>fact_2immo</em>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>res_fact1immo <span class="ot">&lt;-</span> <span class="fu">summary</span>(fact_1immo, <span class="at">standardized=</span>T, <span class="at">modindices =</span> T, <span class="at">fit.measures=</span>T, <span class="at">rsquare=</span>T)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>res_fact1immo <span class="ot">&lt;-</span> <span class="fu">summary</span>(fact_1immo, <span class="at">standardized=</span>T, <span class="at">modindices =</span> T, <span class="at">fit.measures=</span>T, <span class="at">rsquare=</span>T)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>res_fact2immo <span class="ot">&lt;-</span> <span class="fu">summary</span>(fact_2immo, <span class="at">standardized=</span>T, <span class="at">modindices =</span> T, <span class="at">fit.measures=</span>T, <span class="at">rsquare=</span>T)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Voici, pour exemple, la sortie brute de <code>summary()</code> du modèle en 2 facteurs. On y retrouve également les R2.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple pour le modèle à 2 facteurs</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple pour le modèle à 2 facteurs</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Récupérer les résultats de l&#39;output</span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>cfa_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(res_fact2immo)</span>
@@ -3429,7 +3429,7 @@ Modification Indices:
 </div>
 <p>Uniquement le code pour le modèle à 2 facteurs est représenté afin de ne pas alourdir la lecture.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>new_labels2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>new_labels2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;prix_med&quot;</span> <span class="ot">=</span> <span class="st">&quot;Prix médian </span><span class="sc">\n</span><span class="st"> au m²&quot;</span>,</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;perc_log_vac&quot;</span> <span class="ot">=</span> <span class="st">&quot;% de logements </span><span class="sc">\n</span><span class="st"> vacants&quot;</span>,</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;med_niveau_vis&quot;</span> <span class="ot">=</span> <span class="st">&quot;Niveau de </span><span class="sc">\n</span><span class="st"> vie médian&quot;</span>,</span>
@@ -3462,9 +3462,9 @@ Modification Indices:
 <p>Le package Lavaan, fait également quelques propositions pour améliorer le modèle. Théoriquement, en tenant compte de toutes ces propositions, le modèle s’ajusterait parfaitement, mais on serait dans un cas évident de sur-ajustement aux données. En revanche, cela peut être intéressant d’en prendre connaissance afin de vérifier qu’aucune relation n’ait été oubliée et qui permettrait d’améliorer significativement le modèle. Cette relation doit bien évidemment faire sens théoriquement. La syntaxe utilisée est celle du package lavaan, on peut en trouver une traduction <a href="https://lavaan.ugent.be/tutorial/syntax1.html">ici</a></p>
 <p>Pour améliorer la lisibilité de l’article, l’instruction de modification des indices ne sera présentée que sur le modèle à 2 facteurs.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modindices</span>(fact_2immo) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>mi) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modindices</span>(fact_2immo) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>mi) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>                   lhs op                              rhs     mi    epc
+<pre><code>                   lhs op                              rhs     mi    epc
 1                   F1 =~                    perc_tiny_log 63.560 -0.220
 2          perc_maison ~~ part_cadre_profintellec_nbemploi 57.672  0.135
 3       med_niveau_vis ~~ part_cadre_profintellec_nbemploi 54.545  0.138
@@ -3642,7 +3642,7 @@ Zijlstra, W. P., Ark, L. A. van der et Sijtsma, K. (2011). Outliers in Questionn
 <p>Vous retrouverez ci-dessous les scripts ayant permis d’identifier et de supprimer les valeurs extrêmes. Nous testons donc la présence d’individus extrêmes sur les deux bases de données <em>training</em> et <em>test</em>.</p>
 <p>Pour la base de données <em>training</em>, voici le code. Nous utilisons la distance de MCD robuste, qui est conseillé par la littérature dans un contexte d’analyse multivariée.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #MCD avec le package rrcov</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #MCD avec le package rrcov</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rrcov)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>training2 <span class="ot">&lt;-</span> training <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>nom_epci)</span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # 1- calcul de la distance MCD</span></span>
@@ -3693,7 +3693,7 @@ Zijlstra, W. P., Ark, L. A. van der et Sijtsma, K. (2011). Outliers in Questionn
 </div>
 <p>Pour la base de données <em>test</em>, voici le code. Nous utilisons la distance de MCD robuste également.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r bg-info code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #MCD avec le package rrcov</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #MCD avec le package rrcov</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rrcov)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>test2 <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>nom_epci)</span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # 1- calcul de la distance MCD</span></span>
@@ -3763,7 +3763,7 @@ Zijlstra, W. P., Ark, L. A. van der et Sijtsma, K. (2011). Outliers in Questionn
 <h4 class="unnumbered anchored" data-anchor-id="informations-de-session">Informations de session</h4>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>R version 4.6.0 (2026-04-24 ucrt)
+<pre><code>R version 4.6.0 (2026-04-24 ucrt)
 Platform: x86_64-w64-mingw32/x64
 Running under: Windows 11 x64 (build 22631)
 
@@ -3846,7 +3846,7 @@ loaded via a namespace (and not attached):
 <h3 class="unnumbered anchored" data-anchor-id="bibtex">BibTex :</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre class="bg-warning"><code>@Misc{,
+<pre><code>@Misc{,
   title = {Titre de la fiche},
   subtitle = {Sous-Titre de la fiche},
   author = {Premier Auteur.e and Second Auteur.e},

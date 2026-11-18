@@ -12,9 +12,7 @@ knitr::opts_chunk$set(echo=TRUE,
                       prompt=FALSE,
                       comment=NA,
                       message=FALSE,
-                      warning=FALSE,
-                      class.source="bg-info",
-                      class.output="bg-warning")
+                      warning=FALSE)
 
 
 ```
