@@ -18,6 +18,19 @@
   color:#8192a3;
 }
 
+.quarto-banner-title-block p{
+text-align: justify;
+
+}
+
+.abstract p {
+text-align: justify;
+}
+
+.quarto-title-meta-author {
+  display: block;
+}
+
 a{color:#4178BC;}
 h1{color:#4178BC;}
 h2{color:#4178BC;}

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Grégoire Le Campion">
 <meta name="author" content="Solenne Roux">
-<meta name="keywords" content="Analyses Factorielles, Analyses en Composantes Principales, Facteurs latents">
+<meta name="keywords" content="Analyses factorielles, Analyses en composantes principales, Facteurs latents">
 
 <title>Identifier des facteurs latents en SHS</title>
 <style>
@@ -2235,7 +2235,7 @@ background: #0c3762;
 </style>
 
 
-<style type="text/css">.rzine-review{font-size:90%;margin-top:30px;}.quarto-title-banner .title{margin-top:5px;}.quarto-title-banner .subtitle{font-size:120%;}.quarto-title-banner a{color:#8192a3;}a{color:#4178BC;}h1{color:#4178BC;}h2{color:#4178BC;}h3{color:#4178BC;}h4{color:#4178BC;}h5{color:#4178BC;}h6{color:#4178BC;}</style>
+<style type="text/css">.rzine-review{font-size:90%;margin-top:30px;}.quarto-title-banner .title{margin-top:5px;}.quarto-title-banner .subtitle{font-size:120%;}.quarto-title-banner a{color:#8192a3;}.quarto-banner-title-block p{text-align: justify;}.abstract p {text-align: justify;}.quarto-title-meta-author {display: block;}a{color:#4178BC;}h1{color:#4178BC;}h2{color:#4178BC;}h3{color:#4178BC;}h4{color:#4178BC;}h5{color:#4178BC;}h6{color:#4178BC;}</style>
 </head>
 
 <body class="quarto-light">
@@ -2287,7 +2287,7 @@ background: #0c3762;
       <div>
       <div class="quarto-title-meta-heading">Date de publication</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">18 novembre 2026</p>
+        <p class="date">20 novembre 2026</p>
       </div>
     </div>
     
@@ -2305,9 +2305,9 @@ background: #0c3762;
                   
       <div>
       <div class="quarto-title-meta-heading">Keywords</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">Analyses Factorielles, Analyses en Composantes Principales, Facteurs latents</p>
-      </div>
+
+        <p class="date">Analyses factorielles, Analyses en composantes principales, Facteurs latents</p>
+
     </div>
     
   <!--  
@@ -2329,7 +2329,7 @@ background: #0c3762;
   <div>
     <div class="abstract">
     <div class="abstract-title">Résumé</div>
-      <p>Cette fiche présente deux méthodes d’analyse factorielle et leurs applications sous R. Ces méthodes cousines de l’analyse en composante principale, s’en distinguent notamment car elles permettent de mettre en évidence des facteurs latents plutôt que des composantes principales. Cette approche par les facteurs latents est surtout utilisée en Psychologie. Moins répandue dans les autres disciplines des sciences humaines et sociales, elle pourrait néanmoins s’avérer particulièrement utile pour répondre à des hypothèses ou besoins particuliers dans toutes les disciplines des SHS. <strong>Pré-requis</strong> : Connaissances de base en traitement et analyse de données. Être familier des risques induits par les outliers, la multicolinéarité, etc. dans la modélisation statistique.</p>
+      <p>Cet article présente deux méthodes d’analyse factorielle et leurs applications sous R. Ces méthodes cousines de l’analyse en composante principale, s’en distinguent notamment car elles permettent de mettre en évidence des facteurs latents plutôt que des composantes principales. Cette approche par les facteurs latents est surtout utilisée en Psychologie. Moins répandue dans les autres disciplines des sciences humaines et sociales, elle pourrait néanmoins s’avérer particulièrement utile pour répondre à des hypothèses ou besoins particuliers dans toutes les disciplines des SHS. <strong>Pré-requis</strong> : Connaissances de base en traitement et analyse de données. Être familier des risques induits par les outliers, la multicolinéarité, etc. dans la modélisation statistique.</p>
     </div>
   </div>
 
@@ -2385,11 +2385,7 @@ background: #0c3762;
   <li><a href="#annexes" id="toc-annexes" class="nav-link" data-scroll-target="#annexes">Annexes</a>
   <ul class="collapse">
   <li><a href="#lexique-1" id="toc-lexique-1" class="nav-link" data-scroll-target="#lexique-1">Lexique</a></li>
-  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a>
-  <ul class="collapse">
-  <li><a href="#bibtex" id="toc-bibtex" class="nav-link" data-scroll-target="#bibtex">BibTex :</a></li>
-  </ul></li>
-  <li><a href="#endnotes" id="toc-endnotes" class="nav-link" data-scroll-target="#endnotes">Glossaire</a></li>
+  <li><a href="#informations-de-session" id="toc-informations-de-session" class="nav-link" data-scroll-target="#informations-de-session">Informations de session</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF (rzine)</a></li></ul></div><div class="quarto-other-links"><h2>Autres liens</h2><ul><li><a href="https://github.com/rzine-reviews/Article_Rzine-AFE"><i class="bi bi-github"></i>Code source</a></li></ul></div></nav>
@@ -2399,10 +2395,6 @@ background: #0c3762;
 
 
 
-<style>
-body {
-text-align: justify}
-</style>
 <section id="introduction" class="level1 unnumbered">
 <h1 class="unnumbered">Introduction</h1>
 </section>
@@ -2422,7 +2414,7 @@ text-align: justify}
 <p>Ces pionniers des analyses factorielles travaillaient déjà sur les corrélations, et ce sont ces mêmes personnes qui ont donné leurs noms aux coefficients de corrélation de Pearson et de Spearman.</p>
 <ul>
 <li><p>Les <em>Analyses Factorielles - FA</em> dans le sens anglo-saxon du terme et qui se traduit par <em>Factorial Analysis</em>. Ces méthodes développées au début du XXème siècle par Charles Spearman (Psychologue anglais) permettent de structurer des variables observées (aussi appelées variables manifestes) par l’hypothèse de l’influence de variables latentes orientant cette structuration. C’est pourquoi seule la variance partagée entre les différentes variables observées est retenue dans ce type d’analyse. C’est sur cette famille de méthodes que va porter ce présent article.</p></li>
-<li><p>Les <em>Analyses Factorielles - AF</em> “à la française”, intègrent l’ACP développée par Pearson et renvoient au champ d’analyses élaboré sur la base de ces travaux. On y retrouve les méthodes notamment développées au milieu du XXème siècle par Jean-Paul Benzécri (Mathématicien français), (Benzecri J.-P., 1973) ), à savoir l’Analyse Factorielle des Correspondances (AFC) et l’Analyse des Correspondances Multiples (ACM) pour ne citer que les plus connues. Ces méthodes vont connaître leur essor en France dans les années 70 (Pages, J-P., et al., 1979). Il s’agit de méthodes exploratoires, permettant d’observer la structuration des données observées sans hypothèses que celles-ci soient influencées par des variables latentes (non mesurables directement). Les dimensions obtenues ne pré-existent pas à l’analyse. Dans ce cadre exploratoire, ces analyses portent sur l’ensemble de la variance présente dans un ensemble de données sélectionné pour l’analyse. Les ACP font partie de la famille des analyses géométriques. Ces méthodes intègrent une place prépondérante à la répartition géométrique des valeurs observées et recherchent la meilleure représentation des observations dans un espace de sous-dimension. La structure d’un tableau de données est représentée via les coordonnées obtenues par les valeurs des colonnes et des lignes. Différentes méthodes ont été développées au fil du temps. Par exemple, certaines méthodes portent uniquement sur l’analyse de variables quantitatives telles que l’ACP, alors que d’autres méthodes ont été développées spécifiquement pour l’analyse de variables qualitatives, par Jean-Paul Benzécri, telles que l’Analyse Factorielle des Correspondances (AFC) ou l’Analyse des Correspondances Multiples (ACM), (Pages, J-P., et al., 1979).</p></li>
+<li><p>Les <em>Analyses Factorielles - AF</em> “à la française”, intègrent l’ACP développée par Pearson et renvoient au champ d’analyses élaboré sur la base de ces travaux. On y retrouve les méthodes notamment développées au milieu du XXème siècle par Jean-Paul Benzécri (Mathématicien français), (Benzecri J.-P., 1973) ), à savoir l’Analyse Factorielle des Correspondances (AFC<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) et l’Analyse des Correspondances Multiples (ACM) pour ne citer que les plus connues. Ces méthodes vont connaître leur essor en France dans les années 70 (Pages, J-P., et al., 1979). Il s’agit de méthodes exploratoires, permettant d’observer la structuration des données observées sans hypothèses que celles-ci soient influencées par des variables latentes (non mesurables directement). Les dimensions obtenues ne pré-existent pas à l’analyse. Dans ce cadre exploratoire, ces analyses portent sur l’ensemble de la variance présente dans un ensemble de données sélectionné pour l’analyse. Les ACP font partie de la famille des analyses géométriques. Ces méthodes intègrent une place prépondérante à la répartition géométrique des valeurs observées et recherchent la meilleure représentation des observations dans un espace de sous-dimension. La structure d’un tableau de données est représentée via les coordonnées obtenues par les valeurs des colonnes et des lignes. Différentes méthodes ont été développées au fil du temps. Par exemple, certaines méthodes portent uniquement sur l’analyse de variables quantitatives telles que l’ACP, alors que d’autres méthodes ont été développées spécifiquement pour l’analyse de variables qualitatives, par Jean-Paul Benzécri, telles que l’Analyse Factorielle des Correspondances (AFC) ou l’Analyse des Correspondances Multiples (ACM), (Pages, J-P., et al., 1979).</p></li>
 </ul>
 <p>Le schéma ci-dessous permet d’avoir une vue synthétique des méthodes d’analyse factorielle couramment employées en SHS. La représentation n’est pas exhaustive mais permet au lecteur de s’y retrouver parmi les différentes méthodes d’analyses existantes.</p>
 <p>Les différents acronymes sont détaillés au fur et à mesure de la lecture du texte, ainsi que dans la partie <em>lexique</em> en fin d’article. Afin d’éviter toute confusion, les acronymes des méthodes d’analyses factorielles anglo-saxonnes sont repris dans leurs versions anglaises.</p>
@@ -3186,13 +3178,13 @@ Note
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Placer les résultats dans une sortie déroulante pour améliorer la lisibilité</span></span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;div style=&quot;max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #ffbf00;&quot;&gt;&#39;</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;div style=&quot;max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;&quot;&gt;&#39;</span>,</span>
 <span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;pre style=&quot;margin: 0; font-family: monospace; font-size: 14px;&quot;&gt;&#39;</span>,</span>
 <span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(cfa_output, <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>),</span>
 <span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;/pre&gt;&#39;</span>,</span>
 <span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&lt;/div&gt;&#39;</span></span>
 <span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #ffbf00;">
+<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
 <pre style="margin: 0; font-family: monospace; font-size: 14px;"> lavaan 0.7-3 ended normally after 24 iterations
 
   Estimator                                         ML
@@ -3533,33 +3525,6 @@ Modification Indices:
 <section id="bibliographie" class="level1 unnumbered">
 <h1 class="unnumbered">Bibliographie</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<ul>
-<li><p>Aguinis, H., Gottfredson, R. K., &amp; Joo, H. (2013). Best-Practice Recommendations for Defining, Identifying, and Handling Outliers. Organizational Research Methods, 16(2), 270-301. <a href="https://doi.org/10.1177/1094428112470848">https://doi.org/10.1177/1094428112470848</a></p></li>
-<li><p>Bakker, M., &amp; Wicherts, J. M. (2014). Outlier removal, sum scores, and the inflation of the type I error rate in independent samples t tests: The power of alternatives and recommendations. Psychological Methods, 19(3), 409–427. <a href="https://doi.org/10.1037/met0000014">https://doi.org/10.1037/met0000014</a></p></li>
-<li><p>Bartlett, M.S. (1937) Properties of Sufficiency and Statistical Test. Proceedings of the Royal Society A, 160, 268-282. <a href="https://doi.org/10.1098/rspa.1937.0109">https://doi.org/10.1098/rspa.1937.0109</a></p></li>
-<li><p>Benzecri J.-P. (1973), L’analyse des données, Paris, Dunod, vol. 2 : Correspondances</p></li>
-<li><p>Farrar, D. E., &amp; Glauber, R. R. (1967). Multicollinearity in Regression Analysis: The Problem Revisited. The Review of Economics and Statistics, 49(1), 92–107. <a href="https://doi.org/10.2307/1937887">https://doi.org/10.2307/1937887</a>.</p></li>
-<li><p>Flora, D. B., &amp; Flake, J. K. (2017), The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation. Canadian Journal of Behavioural Science / Revue canadienne des sciences du comportement, 49(2), 78–88. <a href="https://doi.org/10.1037/cbs0000069">https://doi.org/10.1037/cbs0000069</a></p></li>
-<li><p>Hooper, D., Coughlan, J., &amp; Mullen, M. R. (2008), Structural Equation Modelling: Guidelines for Determining Model Fit. The Electronic Journal of Business Research Methods, 6, 53-60.</p></li>
-<li><p>Kaiser, H.F. (1974) An index of factorial simplicity. Psychometrika 39, 31–36. <a href="https://doi.org/10.1007/BF02291575">https://doi.org/10.1007/BF02291575</a></p></li>
-<li><p>Kyriazos, T. and Poga, M. (2023) Dealing with Multicollinearity in Factor Analysis: The Problem, Detections, and Solutions. Open Journal of Statistics, 13, 404-424. doi: <a href="https://doi.org/10.4236/ojs.2023.133020">10.4236/ojs.2023.133020</a></p></li>
-<li><p>Kyriazos, T. and Poga-Kyriazou, M. (2023) Applied Psychometrics: Estimator Considerations in Commonly Encountered Conditions in CFA, SEM, and EFA Practice. Psychology, 14, 799-828. doi: <a href="https://doi.org/10.4236/psych.2023.145043">https://doi.org/10.4236/psych.2023.145043</a></p></li>
-<li><p>Leys, C., Klein, O., Dominicy, Y., and Ley., C., 2018, “Detecting Multivariate Outliers: Use a Robust Variant of the Mahalanobis Distance.” Journal of Experimental Social Psychology 74: 150–56. <a href="https://doi.org/10.1016/j.jesp.2017.09.011">https://doi.org/10.1016/j.jesp.2017.09.011</a></p></li>
-<li><p>Leys, C., et al. (2019). How to Classify, Detect, and Manage Univariate and Multivariate Outliers, With Emphasis on Pre-Registration. International Review of Social Psychology, 32(1): 5, 1–10. DOI: <a href="https://doi.org/10.5334/irsp.289">https://doi.org/10.5334/irsp.289</a></p></li>
-<li><p>Makowski, (2018). The psycho Package: an Efficient and Publishing-Oriented Workflow for Psychological Science. Journal of Open Source Software, 3(22), 470. <a href="https://doi.org/10.21105/joss.00470">https://doi.org/10.21105/joss.00470</a></p></li>
-<li><p>Pages, J-P., et al., (1979), Analyse factorielle : Un peu d’histoire et de géométrie, Revue de statistiques appliquée, tome 27, n°1, p.5-28.</p></li>
-<li><p>Pearson F.R.S., K. (1901) LIII. On lines and planes of closest fit to systems of points in space, The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science, 2:11, 559-572, DOI: <a href="https://doi.org/10.1080/14786440109462720">10.1080/14786440109462720</a></p></li>
-<li><p>Schreiber, J.B., (2021), Issues and recommendations for exploratory factor analysis and principal component analysis, Research in Social and Administrative Pharmacy, Volume 17, Issue 5, 2021, Pages 1004-1011, ISSN 1551-7411, <a href="https://doi.org/10.1016/j.sapharm.2020.07.027">https://doi.org/10.1016/j.sapharm.2020.07.027</a>.</p></li>
-<li><p>Spearman, C. (1904). The Proof and Measurement of Association between Two Things. The American Journal of Psychology, 15(1), 72–101. <a href="https://doi.org/10.2307/1412159">https://doi.org/10.2307/1412159</a></p></li>
-<li><p>Tabachnick, B., &amp; Fidell, L., (2014), Using Multivariate Statistics (6th ed.). Harlow: Pearson Education</p></li>
-<li><p>Tobacyk, J., &amp; Milford, G. (1983). Belief in paranormal phenomena: Assessment instrument development and implications for personality functioning. Journal of personality and social psychology, 44(5), 1029.</p></li>
-<li><p>Tobacyk, J. J., Nagot, E., &amp; Miller, M. (1988). Paranormal Beliefs and Locus of Control: A Multidimensional Examination. Journal of Personality Assessment, 52(2), 241–246. <a href="https://doi.org/10.1207/s15327752jpa5202_5">https://doi.org/10.1207/s15327752jpa5202_5</a></p></li>
-<li><p>Tobacyk, J. J. (2004). A revised paranormal belief scale. International Journal of Transpersonal Studies, 23(1), 94–98.. International Journal of Transpersonal Studies, 23 (1). <a href="http://dx.doi.org/10.24972/ijts.2004.23.1.94">http://dx.doi.org/10.24972/ijts.2004.23.1.94</a></p></li>
-<li><p>Van Laar, S., &amp; Braeken, J., 2021, Understanding the Comparative Fit Index : It’s All About Base !, Practical Assessment, Reasearch &amp; Evaluation, Vol 26, N°26</p></li>
-<li><p>Watkins, M. W. (2018). Exploratory Factor Analysis: A Guide to Best Practice. Journal of Black Psychology, 44(3), 219-246. <a href="https://doi.org/10.1177/0095798418771807">https://doi.org/10.1177/0095798418771807</a></p></li>
-<li><p>Yong, A. G., &amp; Pearce, S. (2013) A Beginner’s Guide to Factor Analysis: Focusing on Exploratory Factor Analysis, Tutorials in Quantitative Methods for Psychology, 9(2), 79-94. doi: <a href="https://doi.org/10.20982/tqmp.09.2.p079">10.20982/tqmp.09.2.p079</a></p></li>
-<li><p>Zijlstra, W. P., van der Ark, L. A., &amp; Sijtsma, K. (2011). Outliers in Questionnaire Data: Can They Be Detected and Should They Be Removed? Journal of Educational and Behavioral Statistics, 36(2), 186–212. <a href="http://www.jstor.org/stable/29789477">http://www.jstor.org/stable/29789477</a></p></li>
-</ul>
 <div id="ref-Aguinis2013Outliers" class="csl-entry" role="listitem">
 Aguinis, H., Gottfredson, R. K. et Joo, H. (2013). Best-Practice Recommendations for Defining, Identifying, and Handling Outliers. <em>Organizational Research Methods</em>, <em>16</em>(2), 270‑301. <a href="https://doi.org/10.1177/1094428112470848">https://doi.org/10.1177/1094428112470848</a>
 </div>
@@ -3759,134 +3724,74 @@ Zijlstra, W. P., Ark, L. A. van der et Sijtsma, K. (2011). Outliers in Questionn
 <li>EFA : Exploratory Factorial Analysis</li>
 <li>FA : Factorial Analysis</li>
 </ul>
-<section id="informations-de-session" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="informations-de-session">Informations de session</h4>
+</section>
+<section id="informations-de-session" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="informations-de-session">Informations de session</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>R version 4.6.0 (2026-04-24 ucrt)
-Platform: x86_64-w64-mingw32/x64
-Running under: Windows 11 x64 (build 22631)
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.6.0 (2026-04-24 ucrt)
+ os       Windows 11 x64 (build 22631)
+ system   x86_64, mingw32
+ ui       RTerm
+ language (EN)
+ collate  French_France.utf8
+ ctype    French_France.utf8
+ tz       Europe/Paris
+ date     2026-11-20
+ pandoc   3.10 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
+ quarto   1.9.38 @ C:\\Users\\HP\\AppData\\Local\\Programs\\Quarto\\bin\\quarto.exe
 
-Matrix products: default
-  LAPACK version 3.12.1
+─ Packages ───────────────────────────────────────────────────────────────────
+ package        * version date (UTC) lib source
+ correlation    * 0.8.8   2025-07-08 [1] CRAN (R 4.6.2)
+ corrplot       * 0.95    2024-10-14 [1] CRAN (R 4.6.1)
+ dplyr          * 1.2.1   2026-04-03 [1] CRAN (R 4.6.0)
+ EFA.dimensions * 0.1.9.3 2026-11-08 [1] CRAN (R 4.6.2)
+ effectsize     * 1.0.3   2026-07-07 [1] CRAN (R 4.6.1)
+ ggplot2        * 4.0.3   2026-04-22 [1] CRAN (R 4.6.0)
+ ggraph         * 2.2.2   2025-08-24 [1] CRAN (R 4.6.2)
+ here           * 1.0.2   2025-09-15 [1] CRAN (R 4.6.2)
+ lavaan         * 0.7-3   2026-10-08 [1] CRAN (R 4.6.2)
+ nFactors       * 2.4.1.2 2025-06-19 [1] CRAN (R 4.6.2)
+ pacman         * 0.5.1   2019-03-11 [1] CRAN (R 4.6.2)
+ parameters     * 0.30.0  2026-10-15 [1] CRAN (R 4.6.2)
+ psych          * 2.6.9   2026-09-30 [1] CRAN (R 4.6.2)
+ RColorBrewer   * 1.1-3   2022-04-03 [1] CRAN (R 4.6.0)
+ robustbase     * 0.99-7  2026-02-05 [1] CRAN (R 4.6.1)
+ rrcov          * 1.7-7   2025-04-21 [1] CRAN (R 4.6.2)
+ see            * 0.15.0  2026-10-16 [1] CRAN (R 4.6.2)
+ semPlot        * 1.2.0   2026-07-17 [1] CRAN (R 4.6.2)
+ table1         * 1.5.1   2025-09-19 [1] CRAN (R 4.6.2)
+ terra          * 1.9-25  2026-05-06 [1] CRAN (R 4.6.0)
+ usdm           * 2.1-7   2023-09-29 [1] CRAN (R 4.6.2)
 
-locale:
-[1] LC_COLLATE=French_France.utf8  LC_CTYPE=French_France.utf8   
-[3] LC_MONETARY=French_France.utf8 LC_NUMERIC=C                  
-[5] LC_TIME=French_France.utf8    
+ [1] C:/Users/HP/AppData/Local/R/win-library/4.6
+ [2] C:/Program Files/R/R-4.6.0/library
+ * ── Packages attached to the search path.
 
-time zone: Europe/Paris
-tzcode source: internal
-
-attached base packages:
-[1] parallel  stats     graphics  grDevices utils     datasets  methods  
-[8] base     
-
-other attached packages:
- [1] usdm_2.1-7             terra_1.9-25           table1_1.5.1          
- [4] semPlot_1.2.0          see_0.15.0             RColorBrewer_1.1-3    
- [7] rrcov_1.7-7            robustbase_0.99-7      psych_2.6.9           
-[10] parameters_0.30.0      nFactors_2.4.1.2       lavaan_0.7-3          
-[13] here_1.0.2             ggraph_2.2.2           ggplot2_4.0.3         
-[16] effectsize_1.0.3       EFA.dimensions_0.1.9.3 dplyr_1.2.1           
-[19] corrplot_0.95          correlation_0.8.8      pacman_0.5.1          
-
-loaded via a namespace (and not attached):
-  [1] rstudioapi_0.18.0    audio_0.1-12         jsonlite_2.0.0      
-  [4] datawizard_1.5.0     magrittr_2.0.5       farver_2.1.2        
-  [7] rmarkdown_2.31       vctrs_0.7.3          splines2_0.5.4      
- [10] memoise_2.0.1        base64enc_0.1-6      htmltools_0.5.9     
- [13] raster_3.6-32        Formula_1.2-5        dcurver_0.9.3       
- [16] parallelly_1.50.0    htmlwidgets_1.6.4    plyr_1.8.9          
- [19] testthat_3.3.2       cachem_1.1.0         admisc_0.41         
- [22] igraph_2.3.3         lifecycle_1.0.5      pkgconfig_2.0.3     
- [25] Matrix_1.7-5         R6_2.6.1             fastmap_1.2.0       
- [28] future_1.82.0        numDeriv_2016.8-1.1  fdrtool_1.2.18      
- [31] digest_0.6.39        colorspace_2.1-3     rprojroot_2.1.1     
- [34] Hmisc_5.3-1          vegan_2.7-6          labeling_0.4.3      
- [37] progressr_1.1.0      abind_1.4-8          polyclip_1.10-7     
- [40] mgcv_1.9-4           compiler_4.6.0       proxy_0.4-29        
- [43] withr_3.0.2          glasso_1.11          backports_1.5.1     
- [46] htmlTable_2.5.0      S7_0.2.2             viridis_0.6.5       
- [49] performance_0.19.0   ggforce_0.5.0        R.utils_2.13.0      
- [52] MASS_7.3-65          sessioninfo_1.2.4    GPArotation_2026.8-2
- [55] corpcor_1.6.10       gtools_3.9.5         permute_0.10-0      
- [58] tools_4.6.0          pbivnorm_0.6.0       foreign_0.8-91      
- [61] otel_0.2.0           future.apply_1.21.0  nnet_7.3-20         
- [64] clipr_0.8.1          R.oo_1.27.1          glue_1.8.1          
- [67] quadprog_1.5-8       nlme_3.1-169         grid_4.6.0          
- [70] checkmate_2.3.4      reshape2_1.4.5       cluster_2.1.8.2     
- [73] generics_0.1.4       gtable_0.3.6         R.methodsS3_1.8.2   
- [76] class_7.3-23         tidyr_1.3.2          data.table_1.18.4   
- [79] sp_2.2-1             tidygraph_1.3.1      Deriv_4.2.0         
- [82] stringr_1.6.0        ggrepel_0.9.8        pillar_1.11.1       
- [85] splines_4.6.0        tweenr_2.0.3         lattice_0.22-9      
- [88] tidyselect_1.2.1     pbapply_1.7-5        knitr_1.51          
- [91] gridExtra_2.3.1      charport_0.2.0       stats4_4.6.0        
- [94] xfun_0.60            graphlayouts_1.2.5   qgraph_1.10.1       
- [97] brio_1.1.5           DEoptimR_1.2-0       stringi_1.8.7       
-[100] yaml_2.3.12          evaluate_1.0.5       codetools_0.2-20    
-[103] beepr_2.0.1          tibble_3.3.1         cli_3.6.6           
-[106] semTools_0.5-10      rpart_4.1.27         RcppParallel_6.2.1  
-[109] Rcpp_1.1.1-1.1       EFAtools_1.1.0       globals_0.20.0      
-[112] polycor_0.8-2        png_0.1-9            mirt_1.48           
-[115] bayestestR_0.20.0    jpeg_0.1-11          listenv_1.1.0       
-[118] viridisLite_0.4.3    mvtnorm_1.4-2        SimDesign_2.28      
-[121] scales_1.4.0         e1071_1.7-17         insight_1.7.0       
-[124] pcaPP_2.0-7          purrr_1.2.2          rlang_1.2.0         
-[127] qs2_0.4.0            mnormt_2.1.2        </code></pre>
+──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="citation" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="citation">Citation</h2>
-<p>Auteur.e P, Auteur.e S (2021). “Titre de la fiche.” doi:10.48645/xxxxxx, <a href="https://doi.org/10.48645/xxxxxx" class="uri">https://doi.org/10.48645/xxxxxx</a>., <a href="https://rzine.fr/publication_rzine/xxxxxxx/" class="uri">https://rzine.fr/publication_rzine/xxxxxxx/</a>.</p>
-<section id="bibtex" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="bibtex">BibTex :</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>@Misc{,
-  title = {Titre de la fiche},
-  subtitle = {Sous-Titre de la fiche},
-  author = {Premier Auteur.e and Second Auteur.e},
-  doi = {10.48645/xxxxxx},
-  url = {https://rzine.fr/publication_rzine/xxxxxxx/},
-  keywords = {FOS: Other social sciences},
-  language = {fr},
-  publisher = {FR2007 CIST},
-  year = {2021},
-  copyright = {Creative Commons Attribution Share Alike 4.0 International},
-}</code></pre>
-</div>
-</div>
-<p><br></p>
-</section>
-</section>
-<section id="endnotes" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="endnotes">Glossaire</h2>
-<div class="cell">
-<script>
 
-$(document).ready(function() {
-  $('.footnotes ol').appendTo('#endnotes');
-  $('.footnotes').remove();
-});
 
-</script>
-</div>
-</section>
-</section>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notes de bas de page</h2>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Réutilisation</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr_fr">CC BY-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{le_campion2026,
+<ol>
+<li id="fn1"><p>AFC : Analyse Factorielle des Correspondances<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Réutilisation</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr_fr">CC BY-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{le_campion2026,
   author = {Le Campion, Grégoire and Roux, Solenne},
   title = {Identifier des facteurs latents en SHS},
   journal = {Rzine},
-  date = {2026-11-18},
+  date = {2026-11-20},
   doi = {10.xxxx/xxx-xxx},
   issn = {2743-8791},
   langid = {fr-FR},
-  abstract = {Cette fiche présente deux méthodes d’analyse factorielle
+  abstract = {Cet article présente deux méthodes d’analyse factorielle
     et leurs applications sous R. Ces méthodes cousines de l’analyse en
     composante principale, s’en distinguent notamment car elles
     permettent de mettre en évidence des facteurs latents plutôt que des

@@ -1,8 +1,8 @@
 
-<style>
-body {
-text-align: justify}
-</style>
+
+
+
+
 
 ```{r setup, include=FALSE}
 
@@ -46,13 +46,15 @@ Ces pionniers des analyses factorielles travaillaient déjà sur les corrélatio
 
 - Les *Analyses Factorielles - FA* dans le sens anglo-saxon du terme et qui se traduit par *Factorial Analysis*. Ces méthodes développées au début du XXème siècle par Charles Spearman (Psychologue anglais) permettent de structurer des variables observées (aussi appelées variables manifestes) par l'hypothèse de l'influence de variables latentes orientant cette structuration. C'est pourquoi seule la variance partagée entre les différentes variables observées est retenue dans ce type d'analyse. C'est sur cette famille de méthodes que va porter ce présent article.
 
-- Les *Analyses Factorielles - AF* "à la française", intègrent l'ACP développée par Pearson et renvoient au champ d'analyses élaboré sur la base de ces travaux. On y retrouve les méthodes notamment développées au milieu du XXème siècle par Jean-Paul Benzécri (Mathématicien français), (Benzecri J.-P., 1973) ), à savoir l’Analyse Factorielle des Correspondances (AFC) et l’Analyse des Correspondances Multiples (ACM) pour ne citer que les plus connues. Ces méthodes vont connaître leur essor en France dans les années 70 (Pages, J-P., et al., 1979). Il s'agit de méthodes exploratoires, permettant d'observer la structuration des données observées sans hypothèses que celles-ci soient influencées par des variables latentes (non mesurables directement). Les dimensions obtenues ne pré-existent pas à l'analyse. Dans ce cadre exploratoire, ces analyses portent sur l'ensemble de la variance présente dans un ensemble de données sélectionné pour l'analyse. 
+- Les *Analyses Factorielles - AF* "à la française", intègrent l'ACP développée par Pearson et renvoient au champ d'analyses élaboré sur la base de ces travaux. On y retrouve les méthodes notamment développées au milieu du XXème siècle par Jean-Paul Benzécri (Mathématicien français), (Benzecri J.-P., 1973) ), à savoir l’Analyse Factorielle des Correspondances (AFC[^1]) et l’Analyse des Correspondances Multiples (ACM) pour ne citer que les plus connues. Ces méthodes vont connaître leur essor en France dans les années 70 (Pages, J-P., et al., 1979). Il s'agit de méthodes exploratoires, permettant d'observer la structuration des données observées sans hypothèses que celles-ci soient influencées par des variables latentes (non mesurables directement). Les dimensions obtenues ne pré-existent pas à l'analyse. Dans ce cadre exploratoire, ces analyses portent sur l'ensemble de la variance présente dans un ensemble de données sélectionné pour l'analyse. 
 Les ACP font partie de la famille des analyses géométriques. Ces méthodes intègrent une place prépondérante à la répartition géométrique des valeurs observées et recherchent la meilleure représentation des observations dans un espace de sous-dimension. La structure d'un tableau de données est représentée via les coordonnées obtenues par les valeurs des colonnes et des lignes. 
 Différentes méthodes ont été développées au fil du temps. Par exemple, certaines méthodes portent uniquement sur l'analyse de variables quantitatives telles que l'ACP, alors que d'autres méthodes ont été développées spécifiquement pour l'analyse de variables qualitatives, par Jean-Paul Benzécri, telles que l'Analyse Factorielle des Correspondances (AFC) ou l'Analyse des Correspondances Multiples (ACM), (Pages, J-P., et al., 1979). 
 
 Le schéma ci-dessous permet d'avoir une vue synthétique des méthodes d'analyse factorielle couramment employées en SHS. La représentation n'est pas exhaustive mais permet au lecteur de s'y retrouver parmi les différentes méthodes d'analyses existantes.
 
 Les différents acronymes sont détaillés au fur et à mesure de la lecture du texte, ainsi que dans la partie *lexique* en fin d'article. Afin d'éviter toute confusion, les acronymes des méthodes d'analyses factorielles anglo-saxonnes sont repris dans leurs versions anglaises.
+
+[^1]: AFC : Analyse Factorielle des Correspondances
 
 ![](figures/panorama_af_def.png){fig-align="center"}
 
@@ -68,6 +70,7 @@ Si l'ACP et les méthodes popularisées par Benzécri ont su rester à la posté
 Dans cet article nous centrerons notre présentation sur les méthodes d'analyses factorielles développées dans le contexte anglo-saxon. Contrairement aux analyses factorielles de l'école française qui sont employées dans un objectif exploratoire, ces méthodes de l'école anglaise ont une approche modélisante, comme exposé précédemment. 
 
 Nous présenterons deux types d'analyses qui peuvent être réalisées indépendamment mais qui sont souvent présentées successivement. Dans un premier temps nous présenterons l'analyse factorielle exploratoire (EFA), qui comme son nom ne l'indique pas n'est pas réalisée dans une approche totalement exploratoire, car sa mise en oeuvre implique des hypothèses précises que l'analyse testera. Puis dans un second temps nous présenterons l'analyse factorielle confirmatoire (CFA), qui permet de tester la persistance d'une structuration des données en éprouvant un modèle pré-défini soit par une analyse exploratoire réalisée dans une étape préalable, soit par ces deux types d'analyses factorielles exploratoires et confirmatoires réalisées par d'autres auteurs. En effet, la particularité de ce type d'analyse est la recherche de la persistance d'une structuration de données alors modélisée. Très utilisées en Psychologie pour le développement et l'utilisation d'outils psychométriques (sous forme de questionnaire), les professionnels de santé vont pouvoir reprendre des outils développés par d'autres sans courir le risque qu'ils fonctionnent différemment. Il est donc essentiel pour les chercheurs de s'assurer de la stabilité de ces outils avant de les diffuser. Par exemple, afin de déterminer si un patient est déprimé ou non, les professionnels de santé vont utiliser un outil psychométrique dédié. Il n'est pas envisageable que cet outil détermine à tort qu'une personne n'ait pas besoin de suivi psychologique parce que l'outil aurait été mal conçu. 
+
 
 # Les méthodes anglaises d'Analyses Factorielles pour quoi faire ?
 
@@ -836,7 +839,7 @@ cfa_output <- capture.output(res_fact2immo)
 
 # Placer les résultats dans une sortie déroulante pour améliorer la lisibilité
 cat(
-  '<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #ffbf00;">',
+  '<div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">',
   '<pre style="margin: 0; font-family: monospace; font-size: 14px;">',
   paste(cfa_output, collapse = "\n"),
   '</pre>',
@@ -961,56 +964,6 @@ Ainsi, si vous souhaitez explorer vos données et identifier des facteurs latent
 # Bibliographie {.unnumbered}
 
 :::{#refs}
-
-- Aguinis, H., Gottfredson, R. K., & Joo, H. (2013). Best-Practice Recommendations for Defining, Identifying, and Handling Outliers. Organizational Research Methods, 16(2), 270-301. [https://doi.org/10.1177/1094428112470848](https://doi.org/10.1177/1094428112470848)
-
-- Bakker, M., & Wicherts, J. M. (2014). Outlier removal, sum scores, and the inflation of the type I error rate in independent samples t tests: The power of alternatives and recommendations. Psychological Methods, 19(3), 409–427. [https://doi.org/10.1037/met0000014](https://doi.org/10.1037/met0000014)
-
-- Bartlett, M.S. (1937) Properties of Sufficiency and Statistical Test. Proceedings of the Royal Society A, 160, 268-282. [https://doi.org/10.1098/rspa.1937.0109](https://doi.org/10.1098/rspa.1937.0109)
-
-- Benzecri J.-P. (1973), L’analyse des données, Paris, Dunod, vol. 2 : Correspondances
-
-- Farrar, D. E., & Glauber, R. R. (1967). Multicollinearity in Regression Analysis: The Problem Revisited. The Review of Economics and Statistics, 49(1), 92–107. [https://doi.org/10.2307/1937887](https://doi.org/10.2307/1937887).
-
-- Flora, D. B., & Flake, J. K. (2017), The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation. Canadian Journal of Behavioural Science / Revue canadienne des sciences du comportement, 49(2), 78–88. [https://doi.org/10.1037/cbs0000069](https://doi.org/10.1037/cbs0000069)
-
-- Hooper, D., Coughlan, J., & Mullen, M. R. (2008), Structural Equation Modelling: Guidelines for Determining Model Fit. The Electronic Journal of Business Research Methods, 6, 53-60.
-- Kaiser, H.F. (1974) An index of factorial simplicity. Psychometrika 39, 31–36. [https://doi.org/10.1007/BF02291575](https://doi.org/10.1007/BF02291575)
-
-- Kyriazos, T. and Poga, M. (2023) Dealing with Multicollinearity in Factor Analysis: The Problem, Detections, and Solutions. Open Journal of Statistics, 13, 404-424. doi: [10.4236/ojs.2023.133020](https://doi.org/10.4236/ojs.2023.133020)
-
-- Kyriazos, T. and Poga-Kyriazou, M. (2023) Applied Psychometrics: Estimator Considerations in Commonly Encountered Conditions in CFA, SEM, and EFA Practice. Psychology, 14, 799-828. doi: [https://doi.org/10.4236/psych.2023.145043](https://doi.org/10.4236/psych.2023.145043)
-
-- Leys, C., Klein, O., Dominicy, Y., and Ley., C., 2018, “Detecting Multivariate Outliers: Use a Robust Variant of the Mahalanobis Distance.” Journal of Experimental Social Psychology 74: 150–56. [https://doi.org/10.1016/j.jesp.2017.09.011](https://doi.org/10.1016/j.jesp.2017.09.011)
-
-- Leys, C., et al. (2019). How to Classify, Detect, and Manage Univariate and Multivariate Outliers, With Emphasis on Pre-Registration. International Review of Social Psychology, 32(1): 5, 1–10. DOI: [https://doi.org/10.5334/irsp.289](https://doi.org/10.5334/irsp.289)
-
-- Makowski, (2018). The psycho Package: an Efficient and Publishing-Oriented Workflow for Psychological Science. Journal of Open Source Software, 3(22), 470. [https://doi.org/10.21105/joss.00470](https://doi.org/10.21105/joss.00470)
-
-- Pages, J-P., et al., (1979), Analyse factorielle : Un peu d'histoire et de géométrie, Revue de statistiques appliquée, tome 27, n°1, p.5-28.
-
-- Pearson F.R.S., K. (1901) LIII. On lines and planes of closest fit to systems of points in space, The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science, 2:11, 559-572, DOI: [10.1080/14786440109462720](https://doi.org/10.1080/14786440109462720)
-
-- Schreiber, J.B., (2021), Issues and recommendations for exploratory factor analysis and principal component analysis, Research in Social and Administrative Pharmacy, Volume 17, Issue 5, 2021, Pages 1004-1011, ISSN 1551-7411, [https://doi.org/10.1016/j.sapharm.2020.07.027](https://doi.org/10.1016/j.sapharm.2020.07.027).
-
-- Spearman, C. (1904). The Proof and Measurement of Association between Two Things. The American Journal of Psychology, 15(1), 72–101. [https://doi.org/10.2307/1412159](https://doi.org/10.2307/1412159)
-
-- Tabachnick, B., & Fidell, L., (2014), Using Multivariate Statistics (6th ed.). Harlow: Pearson Education
-
-- Tobacyk, J., & Milford, G. (1983). Belief in paranormal phenomena: Assessment instrument development and implications for personality functioning. Journal of personality and social psychology, 44(5), 1029.
-
-- Tobacyk, J. J., Nagot, E., & Miller, M. (1988). Paranormal Beliefs and Locus of Control: A Multidimensional Examination. Journal of Personality Assessment, 52(2), 241–246. [https://doi.org/10.1207/s15327752jpa5202_5](https://doi.org/10.1207/s15327752jpa5202_5)
-
-- Tobacyk, J. J. (2004). A revised paranormal belief scale. International Journal of Transpersonal Studies, 23(1), 94–98.. International Journal of Transpersonal Studies, 23 (1). [http://dx.doi.org/10.24972/ijts.2004.23.1.94](http://dx.doi.org/10.24972/ijts.2004.23.1.94)
-
-- Van Laar, S., & Braeken, J., 2021, Understanding the Comparative Fit Index : It’s All About Base !, Practical Assessment, Reasearch & Evaluation, Vol 26, N°26
-
-- Watkins, M. W. (2018). Exploratory Factor Analysis: A Guide to Best Practice. Journal of Black Psychology, 44(3), 219-246. [https://doi.org/10.1177/0095798418771807](https://doi.org/10.1177/0095798418771807)
-
-- Yong, A. G., & Pearce, S. (2013) A Beginner’s Guide to Factor Analysis: Focusing on Exploratory Factor Analysis, Tutorials in Quantitative Methods for Psychology, 9(2), 79-94. doi: [10.20982/tqmp.09.2.p079](https://doi.org/10.20982/tqmp.09.2.p079)
-
-- Zijlstra, W. P., van der Ark, L. A., & Sijtsma, K. (2011). Outliers in Questionnaire
-Data: Can They Be Detected and Should They Be Removed? Journal of Educational and Behavioral Statistics, 36(2), 186–212. [http://www.jstor.org/stable/29789477](http://www.jstor.org/stable/29789477)
 
 :::
 
@@ -1147,52 +1100,11 @@ testp<-t2p_B2
 - EFA : Exploratory Factorial Analysis
 - FA : Factorial Analysis
 
-#### Informations de session {.unnumbered}
+
+## Informations de session {.unnumbered}
 
 ```{r session_info, echo=FALSE}
-sessionInfo()
-# kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[1]], row.names = F))
-# kableExtra::kable_styling(knitr::kable(rzine::sessionRzine()[[2]], row.names = F))
+sessioninfo::session_info(pkgs = c(NULL, "attached", NULL)[1])
 ```
 
-## Citation {-}
 
-```{r Citation, echo=FALSE}
-rref <- bibentry(
-   bibtype = "misc",
-   title = "Titre de la fiche",
-   subtitle = "Sous-Titre de la fiche",
-   author = c("Premier Auteur.e", "Second Auteur.e"),
-   doi = "10.48645/xxxxxx",
-   url = "https://rzine.fr/publication_rzine/xxxxxxx/",
-   keywords ="FOS: Other social sciences",
-   language = "fr",
-   publisher = "FR2007 CIST",
-   year = 2021,
-   copyright = "Creative Commons Attribution Share Alike 4.0 International")
-
-``` 
-
-`r capture.output(print(rref))`
-
-### BibTex : {-}
-
-```{r generateBibTex, echo=FALSE}
-
-writeLines(toBibtex(rref), "cite.bib")
-toBibtex(rref)
-
-``` 
-
-<br/>
-
-## Glossaire {- #endnotes}
-
-```{js, echo=FALSE}
-
-$(document).ready(function() {
-  $('.footnotes ol').appendTo('#endnotes');
-  $('.footnotes').remove();
-});
-
-```
